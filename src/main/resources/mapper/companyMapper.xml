@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ensolution.manager.repository.CompanyMapper">
+    <sql id="selectFromCompany">
+        SELECT company_id, company_name, address, ceo_name, biz_number, reg_date, is_measuring
+        FROM company
+    </sql>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM company
+    </select>
+
+    <select id="select" parameterType="int" resultType="CompanyDto">
+        <include refid="selectFromCompany"/>
+        WHERE company_id = #{company_id}
+    </select>
+
+    <select id="selectAll" resultType="CompanyDto">
+        <include refid="selectFromCompany"/>
+        ORDER BY company_name
+    </select>
+
+    <insert id="insert" parameterType="CompanyDto">
+        INSERT INTO company
+            (company_name, address, ceo_name, biz_number, reg_date)
+        VALUES
+            (#{company_name}, #{address}, #{ceo_name}, #{biz_number}, #{reg_date})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM company WHERE company_id = #{company_id}
+    </delete>
+
+    <delete id="deleteItems" parameterType="list">
+        DELETE FROM company
+        WHERE company_id IN
+        <foreach item="company_id" collection="list" open="(" separator="," close=")">
+            #{company_id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="CompanyDto">
+        UPDATE company
+        SET   company_name = #{company_name}
+          , address = #{address}
+          , ceo_name = #{ceo_name}
+          , biz_number = #{biz_number}
+        WHERE company_id = #{company_id}
+    </update>
+</mapper>

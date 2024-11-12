@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ensolution.manager.repository.WorkplaceMapper">
+    <sql id="selectFromWorkplace">
+        SELECT workplace_id, company_id, workplace_name, address, reg_date
+        FROM workplace
+    </sql>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM workplace
+    </select>
+
+    <select id="select" parameterType="int" resultType="WorkplaceDto">
+        <include refid="selectFromWorkplace"/>
+        WHERE workplace_id = #{workplace_id}
+    </select>
+
+    <select id="selectAll" resultType="WorkplaceDto">
+        <include refid="selectFromWorkplace"/>
+        ORDER BY workplace_name
+    </select>
+
+    <insert id="insert" parameterType="WorkplaceDto">
+        INSERT INTO workplace
+            (company_id, workplace_name, address, reg_date)
+        VALUES
+            (#{company_id}, #{workplace_name}, #{address}, #{reg_date})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM workplace WHERE workplace_id = #{workplace_id}
+    </delete>
+
+    <delete id="deleteItems" parameterType="list">
+        DELETE FROM workplace
+        WHERE workplace_id IN
+        <foreach item="workplace_id" collection="list" open="(" separator="," close=")">
+            #{workplace_id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="WorkplaceDto">
+        UPDATE workplace
+        SET   workplace_name = #{workplace_name}
+          , address = #{address}
+        WHERE workplace_id = #{workplace_id}
+    </update>
+</mapper>
