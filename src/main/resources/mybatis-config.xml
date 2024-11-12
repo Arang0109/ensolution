@@ -6,5 +6,6 @@
     <typeAliases>
         <typeAlias alias="CompanyDto" type="com.ensolution.manager.domain.CompanyDto"/>
         <typeAlias alias="WorkplaceDto" type="com.ensolution.manager.domain.WorkplaceDto"/>
+        <typeAlias alias="StackDto" type="com.ensolution.manager.domain.StackDto"/>
     </typeAliases>
 </configuration>

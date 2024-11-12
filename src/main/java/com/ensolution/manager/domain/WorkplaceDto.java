@@ -1,18 +1,10 @@
 package com.ensolution.manager.domain;
 
-import com.ensolution.manager.repository.CompanyDao;
-import com.ensolution.manager.repository.CompanyDaoImpl;
-import com.ensolution.manager.service.CompanyService;
-import com.ensolution.manager.service.CompanyServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
 public class WorkplaceDto {
-  CompanyServiceImpl companyService = new CompanyServiceImpl();
-
   private Integer workplace_id;
   private Integer company_id;
   private String workplace_name;

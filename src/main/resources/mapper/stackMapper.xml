@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ensolution.manager.repository.StackMapper">
+    <sql id="selectFromStack">
+        SELECT stack_id, workplace_id, stack_name, reg_date, note
+        FROM stack
+    </sql>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM stack
+    </select>
+
+    <select id="select" parameterType="int" resultType="StackDto">
+        <include refid="selectFromStack"/>
+        WHERE stack_id = #{stack_id}
+    </select>
+
+    <select id="selectAll" resultType="StackDto">
+        <include refid="selectFromStack"/>
+        ORDER BY stack_name
+    </select>
+
+    <insert id="insert" parameterType="StackDto">
+        INSERT INTO stack
+            (workplace_id, stack_name, reg_date, note)
+        VALUES
+            (#{workplace_id}, #{stack_name}, #{reg_date}, #{note})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM stack WHERE stack_id = #{stack_id}
+    </delete>
+
+    <delete id="deleteItems" parameterType="list">
+        DELETE FROM stack
+        WHERE stack_id IN
+        <foreach item="stack_id" collection="list" open="(" separator="," close=")">
+            #{stack_id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="StackDto">
+        UPDATE stack
+        SET   stack_name = #{stack_name}
+          , note = #{note}
+        WHERE stack_id = #{stack_id}
+    </update>
+</mapper>

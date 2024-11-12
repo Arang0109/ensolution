@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ensolution.manager.repository.CompanyMapper">
     <sql id="selectFromCompany">
-        SELECT company_id, company_name, address, ceo_name, biz_number, reg_date, is_measuring
+        SELECT company_id, company_name, address, ceo_name, biz_number, reg_date
         FROM company
     </sql>
 
