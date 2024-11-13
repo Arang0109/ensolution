@@ -15,29 +15,12 @@ body {
     font-style: normal;
     font-size: 16px;
     line-height: 1.5;
-    background-color: #C0EBA6;
+    padding-top: 70px;
+    background-color: #edeef8;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
-}
-
-aside, main, footer {
-    background-color: rgba(248, 249, 250);
-}
-
-aside, main {
-    height: 700px;
-    border-radius: 5px;
-}
-
-main {
-    margin: 5px;
-}
-
-aside {
-    width: 15%;
-    margin: 5px 0 5px 5px;
 }
 
 footer {

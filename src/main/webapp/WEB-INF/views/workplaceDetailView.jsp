@@ -15,7 +15,7 @@
     <div class="mb-3 row">
       <label for="inputCeo" class="col-sm-2 col-form-label">측정 대상 사업장</label>
       <div class="col-sm-10">
-        <input type="text" name="ceo_name" class="form-control" id="inputCeo" value="${workplace.workplace_name}">
+        <input type="text" name="workplace_name" class="form-control" id="inputCeo" value="${workplace.workplace_name}">
       </div>
     </div>
     <div class="mb-3 row">
@@ -32,19 +32,19 @@
     $('#updateBtn').on('click',function(){
       if (!confirm("수정하시겠습니까?")) return;
 
-      const companyInfo = {};
+      const workplaceInfo = {};
 
       $('input').each(function(){
         let name = String($(this).attr('name'));
-        companyInfo[name] = $(this).val();
+        workplaceInfo[name] = $(this).val();
       });
 
       $.ajax({
         type: 'PATCH',
-        url: "<c:url value='/manager/company/${company.company_id}'/>",
+        url: "<c:url value='/manager/workplace/${workplace.workplace_id}'/>",
         headers : { "Content-Type": "application/json"},
         dataType : 'text',
-        data : JSON.stringify(companyInfo),
+        data : JSON.stringify(workplaceInfo),
         success: function() {
           alert("업데이트에 성공했습니다.");
           location.reload();

@@ -45,52 +45,57 @@
         </div>
     </div>
 </div>
-<aside>
-    <%@include file="semantic/aside.jsp"%>
-</aside>
 <main class="d-flex flex-column flex-grow-1">
-    <div class="custom-div p-2">
-        <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            업체 추가
-        </button>
-        <button id="removeBtn" class="btn btn-primary mx-1">업체 삭제</button>
-        <form action="" id="removeForm"></form>
-    </div>
-    <div class="custom-div p-2">
-        <table id="table"
-               data-toggle="table"
-               data-locale="ko-KR"
-               data-search="true"
-               data-height="550"
-               data-pagination="true"
-               data-checkbox-header="true"
-               data-click-to-select="true"
-               data-show-columns="true"
-               data-buttons-class="primary"
-               data-buttons-align="left">
-            <thead>
-            <tr>
-                <th data-field="state" data-checkbox="true"></th>
-                <th data-field="company_name">측정 대행 의뢰 업체 (수정 시 클릭)</th>
-                <th data-field="ceo_name">CEO</th>
-                <th data-field="address">주소</th>
-                <th data-field="biz_number">사업자 번호</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="company" items="${companies}">
-                <tr data-company-id="${company.company_id}">
-                    <td></td>
-                    <td><a class="updateLink"
-                           href="<c:url value='/manager/company/${company.company_id}'/>">
-                            ${company.company_name != null ? company.company_name : 'N/A'}</a></td>
-                    <td>${company.ceo_name != null ? company.ceo_name : 'N/A'}</td>
-                    <td>${company.address != null ? company.address : 'N/A'}</td>
-                    <td>${company.biz_number != null ? company.biz_number : 'N/A'}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+    <div class="tostify"></div>
+    <div class="container" style="padding: 1.875rem 0 0">
+        <div class="border p-4" style="background-color: white;">
+            <div class="d-flex justify-content-between">
+                <h4><span class="badge text-bg-primary">측정대행 의뢰업체 관리</span></h4>
+                <div>
+                    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        업체 추가
+                    </button>
+                    <button id="removeBtn" class="btn btn-primary mx-1">업체 삭제</button>
+                    <form action="" id="removeForm"></form>
+                </div>
+            </div>
+            <div>
+                <table id="table"
+                       data-toggle="table"
+                       data-locale="ko-KR"
+                       data-search="true"
+                       data-height="550"
+                       data-pagination="true"
+                       data-checkbox-header="true"
+                       data-click-to-select="true"
+                       data-show-columns="true"
+                       data-buttons-class="primary"
+                       data-buttons-align="left">
+                    <thead>
+                    <tr>
+                        <th data-field="state" data-checkbox="true"></th>
+                        <th data-field="company_name">측정 대행 의뢰 업체 <span class="badge text-bg-primary">수정시 업체명 클릭</span></th>
+                        <th data-field="ceo_name">CEO</th>
+                        <th data-field="address">주소</th>
+                        <th data-field="biz_number">사업자 번호</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="company" items="${companies}">
+                        <tr data-company-id="${company.company_id}">
+                            <td></td>
+                            <td><a class="updateLink"
+                                   href="<c:url value='/manager/company/${company.company_id}'/>">
+                                    ${company.company_name != null ? company.company_name : 'N/A'}</a></td>
+                            <td>${company.ceo_name != null ? company.ceo_name : 'N/A'}</td>
+                            <td>${company.address != null ? company.address : 'N/A'}</td>
+                            <td>${company.biz_number != null ? company.biz_number : 'N/A'}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </main>
 <footer class="w-100">

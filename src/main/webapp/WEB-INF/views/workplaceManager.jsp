@@ -15,7 +15,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">업체 추가</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">사업장 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="<c:url value="/manager/workplace"/>" method="post" id="workplace_form">
@@ -45,48 +45,53 @@
     </div>
   </div>
 </div>
-<aside>
-  <%@include file="semantic/aside.jsp"%>
-</aside>
 <main class="d-flex flex-column flex-grow-1">
-  <div class="custom-div p-2">
-    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-      사업장 추가
-    </button>
-    <button id="removeBtn" class="btn btn-primary mx-1">사업장 삭제</button>
-    <form action="" id="removeForm"></form>
-  </div>
-  <div class="custom-div p-2">
-    <table id="table"
-           data-toggle="table"
-           data-locale="ko-KR"
-           data-search="true"
-           data-height="550"
-           data-pagination="true"
-           data-checkbox-header="true"
-           data-click-to-select="true"
-           data-show-columns="true"
-           data-buttons-class="primary"
-           data-buttons-align="left">
-      <thead>
-      <tr>
-        <th data-field="state" data-checkbox="true"></th>
-        <th data-field="workplace_name">측정 대상 사업장 (수정 시 클릭)</th>
-        <th data-field="address">주소</th>
-      </tr>
-      </thead>
-      <tbody>
-      <c:forEach var="workplace" items="${workplaces}">
-        <tr data-workplace-id="${workplace.workplace_id}">
-          <td></td>
-          <td><a class="updateLink"
-                 href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">
-              ${workplace.workplace_name != null ? workplace.workplace_name : 'N/A'}</a></td>
-          <td>${workplace.address != null ? workplace.address : 'N/A'}</td>
-        </tr>
-      </c:forEach>
-      </tbody>
-    </table>
+  <div class="tostify"></div>
+  <div class="container" style="padding: 1.875rem 0 0">
+    <div class="border p-4" style="background-color: white;">
+      <div class="d-flex justify-content-between">
+        <h4><span class="badge text-bg-primary">측정대상 사업장 관리</span></h4>
+        <div>
+          <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            사업장 추가
+          </button>
+          <button id="removeBtn" class="btn btn-primary mx-1">사업장 삭제</button>
+          <form action="" id="removeForm"></form>
+        </div>
+      </div>
+      <div>
+        <table id="table"
+               data-toggle="table"
+               data-locale="ko-KR"
+               data-search="true"
+               data-height="550"
+               data-pagination="true"
+               data-checkbox-header="true"
+               data-click-to-select="true"
+               data-show-columns="true"
+               data-buttons-class="primary"
+               data-buttons-align="left">
+          <thead>
+          <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="workplace_name">측정 대상 사업장 <span class="badge text-bg-primary">수정시 사업장명 클릭</span></th>
+            <th data-field="address">주소</th>
+          </tr>
+          </thead>
+          <tbody>
+          <c:forEach var="workplace" items="${workplaces}">
+            <tr data-workplace-id="${workplace.workplace_id}">
+              <td></td>
+              <td><a class="updateLink"
+                     href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">
+                  ${workplace.workplace_name != null ? workplace.workplace_name : 'N/A'}</a></td>
+              <td>${workplace.address != null ? workplace.address : 'N/A'}</td>
+            </tr>
+          </c:forEach>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </main>
 <footer class="w-100">

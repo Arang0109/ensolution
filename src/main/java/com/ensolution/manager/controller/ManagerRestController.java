@@ -41,4 +41,10 @@ public class ManagerRestController {
     companyDto.setCompany_id(company_id);
     companyService.updateCompany(companyDto);
   }
+
+  @PatchMapping("/workplace/{workplace_id}")
+  public void updateCompany(@RequestBody WorkplaceDto workplaceDto, @PathVariable Integer workplace_id) {
+    workplaceDto.setWorkplace_id(workplace_id);
+    workplaceService.updateWorkplace(workplaceDto);
+  }
 }
