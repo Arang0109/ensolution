@@ -44,6 +44,9 @@
               <span class="input-group-text" id="address">주소</span>
               <input name="address" type="text" class="form-control" value="${company.address}"
                      aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
+              <span class="input-group-text" id="addon-wrapping">
+                    <a id="naverMapLink" href="" class="link-dark link-offset-2 link-underline link-underline-opacity-0">네이버 지도</a>
+              </span>
             </div>
           </div>
         </div>
@@ -85,6 +88,11 @@
 
 <script>
   $(document).ready(function(){
+    $("#naverMapLink").on("click", function () {
+      const url = "https://map.naver.com/p/search/" + $("input[name=address]").val();
+      window.open(url, '_blank');
+    });
+
     $("#modifyBtn").on("click", function(){
       let isReadonly = $("input").attr('readonly');
 
