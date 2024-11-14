@@ -62,7 +62,9 @@ public class ManagerController {
     public String detailCompany(@PathVariable Integer company_id, Model m) {
       try {
         CompanyDto company = companyService.getCompany(company_id);
+        List<WorkplaceDto> workplaces = companyService.getWorkplacesOfCompany(company_id);
         m.addAttribute("company", company);
+        m.addAttribute("workplaces", workplaces);
         return "companyDetailView";
       } catch (Exception e) {
         e.printStackTrace();

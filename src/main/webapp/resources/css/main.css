@@ -32,3 +32,13 @@ div.custom-div {
     border-radius: 5px;
     margin: 10px;
 }
+
+.profile-header {
+    margin: 12px 0 15px;
+}
+
+.profile-main {
+    padding-left: 4.375rem;
+    padding-right: 4.375rem;
+    color: #666;
+}

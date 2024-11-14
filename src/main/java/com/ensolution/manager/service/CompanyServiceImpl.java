@@ -1,6 +1,7 @@
 package com.ensolution.manager.service;
 
 import com.ensolution.manager.domain.CompanyDto;
+import com.ensolution.manager.domain.WorkplaceDto;
 import com.ensolution.manager.repository.CompanyDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyDto getCompany(Integer company_id) {
         return companyDao.select(company_id);
+    }
+
+    @Override
+    public List<WorkplaceDto> getWorkplacesOfCompany(Integer company_id) {
+        return companyDao.selectWorkplace(company_id);
     }
 
     @Override

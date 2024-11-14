@@ -11,11 +11,11 @@
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <!-- modal layer -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="companyAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="companyAddLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">업체 추가</h1>
+                <h1 class="modal-title fs-5" id="companyAddLabel">업체 추가</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<c:url value="/manager/company"/>" method="post" id="company_form">
@@ -52,7 +52,7 @@
             <div class="d-flex justify-content-between">
                 <h4><span class="badge text-bg-primary">측정대행 의뢰업체 관리</span></h4>
                 <div>
-                    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#companyAdd">
                         업체 추가
                     </button>
                     <button id="removeBtn" class="btn btn-primary mx-1">업체 삭제</button>
@@ -104,11 +104,6 @@
 
 <script>
     $(document).ready(function(){
-        $('.updateLink').on("click", function() {
-            window.open(this.href, '_blank', 'width=400, height=500');
-            return false;
-        });
-
         $('#removeBtn').on("click", function() {
             if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
 

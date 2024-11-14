@@ -11,11 +11,11 @@
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <!-- modal layer -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="workplaceAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="workplaceAddLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">사업장 추가</h1>
+        <h1 class="modal-title fs-5" id="workplaceAddLabel">사업장 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="<c:url value="/manager/workplace"/>" method="post" id="workplace_form">
@@ -52,7 +52,7 @@
       <div class="d-flex justify-content-between">
         <h4><span class="badge text-bg-primary">측정대상 사업장 관리</span></h4>
         <div>
-          <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#workplaceAdd">
             사업장 추가
           </button>
           <button id="removeBtn" class="btn btn-primary mx-1">사업장 삭제</button>

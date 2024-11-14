@@ -1,6 +1,7 @@
 package com.ensolution.manager.service;
 
 import com.ensolution.manager.domain.CompanyDto;
+import com.ensolution.manager.domain.WorkplaceDto;
 import com.ensolution.manager.repository.CompanyDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,14 @@ public class CompanyServiceImplTest {
     List<CompanyDto> companyList = companyDao.selectAll();
     for (CompanyDto companyDto : companyList) {
       System.out.println(companyDto.getCompany_name());
+    }
+  }
+
+  @Test
+  public void getWorkplaceList() {
+    List<WorkplaceDto> workplaceList = companyDao.selectWorkplace(4);
+    for (WorkplaceDto workplaceDto : workplaceList) {
+      System.out.println(workplaceDto.getWorkplace_name());
     }
   }
 }

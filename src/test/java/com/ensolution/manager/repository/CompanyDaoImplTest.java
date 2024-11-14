@@ -24,6 +24,11 @@ public class CompanyDaoImplTest {
     }
 
     @Test
+    public void selectWorkplace() throws Exception {
+        System.out.println(companyDaoImpl.selectWorkplace(4));
+    }
+
+    @Test
     public void selectAll() throws Exception {
         System.out.println(companyDaoImpl.selectAll());
     }

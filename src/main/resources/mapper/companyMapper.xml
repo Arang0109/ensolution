@@ -12,6 +12,12 @@
         SELECT count(*) FROM company
     </select>
 
+    <select id="selectWorkplace" parameterType="int" resultType="WorkplaceDto">
+        SELECT company_id, workplace_id, workplace_name, address
+        FROM workplace
+        WHERE company_id = #{company_id}
+    </select>
+
     <select id="select" parameterType="int" resultType="CompanyDto">
         <include refid="selectFromCompany"/>
         WHERE company_id = #{company_id}

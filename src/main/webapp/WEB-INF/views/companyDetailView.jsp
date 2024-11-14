@@ -8,41 +8,95 @@
   <%@include file="semantic/header.jsp"%>
 </head>
 <body>
-<main style="height: 500px">
-    <div class="mb-3 row">
-      <span><b>업체 상세 정보</b></span>
-    </div>
-    <div class="mb-3 row">
-      <label for="inputCompany" class="col-sm-2 col-form-label">측정 대행 의뢰 업체</label>
-      <div class="col-sm-10">
-        <input type="text" name="company_name" class="form-control" id="inputCompany" value="${company.company_name}">
+<!-- navigation bar layout -->
+<%@include file="semantic/navbar.jsp"%>
+<main class="d-flex flex-column flex-grow-1">
+  <div class="tostify"></div>
+  <div class="container">
+    <div class="profile-header">
+      <div class="profile-main d-flex justify-content-between">
+        <div class="d-flex">
+          <h4>${company.company_name}</h4>
+          <span style="margin-left: 1.25rem;">${company.address}</span>
+        </div>
+        <div >
+          <button id="modifyBtn" class="btn btn-primary btn-sm" type="button">수정</button>
+          <a class="btn btn-primary btn-sm" href="<c:url value="/manager/company"/>">목록</a>
+        </div>
       </div>
     </div>
-    <div class="mb-3 row">
-      <label for="inputCeo" class="col-sm-2 col-form-label">대표자 이름</label>
-      <div class="col-sm-10">
-        <input type="text" name="ceo_name" class="form-control" id="inputCeo" value="${company.ceo_name}">
+  </div>
+  <div class="container">
+    <div class="border p-4" style="background-color: white;">
+      <p style="margin-left: 1.25rem;"><b>업체 정보</b></p>
+      <hr>
+      <div class="container text-center">
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="company_name">측정대행 의뢰업체</span>
+              <input name="company_name" type="text" class="form-control" value="${company.company_name}"
+                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="address">주소</span>
+              <input name="address" type="text" class="form-control" value="${company.address}"
+                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
+            </div>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="ceo_name">대표자명</span>
+              <input name="ceo_name" type="text" class="form-control" value="${company.ceo_name}"
+                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="biz_number">사업자등록번호</span>
+              <input name="biz_number" type="text" class="form-control" value="${company.biz_number}"
+                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="mb-3 row">
-      <label for="inputAddress" class="col-sm-2 col-form-label">업체 주소</label>
-      <div class="col-sm-10">
-        <input type="text" name="address" class="form-control" id="inputAddress" value="${company.address}">
+  </div>
+  <div class="container" style="padding-top: 1.875rem;">
+    <div class="border p-4" style="background-color: white;">
+      <p style="margin-left: 1.25rem;"><b>사업장 목록</b></p>
+      <hr>
+      <div class="p-2">
+        <ul class="list-group">
+          <c:forEach var="workplace" items="${workplaces}">
+            <li class="list-group-item list-group-item-action">
+              <a href="">${workplace.workplace_name}</a>
+            </li>
+          </c:forEach>
+        </ul>
       </div>
     </div>
-    <div class="mb-3 row">
-      <label for="inputBizNum" class="col-sm-2 col-form-label">사업자 번호</label>
-      <div class="col-sm-10">
-        <input type="text" name="biz_number" class="form-control" id="inputBizNum" value="${company.biz_number}">
-      </div>
-    </div>
-    <button id="updateBtn" class="btn btn-primary" type="button">수정 하기</button>
+  </div>
 </main>
 
 <script>
   $(document).ready(function(){
-    $('#updateBtn').on('click',function(){
-      if (!confirm("수정하시겠습니까?")) return;
+    $("#modifyBtn").on("click", function(){
+      let isReadonly = $("input").attr('readonly');
+
+      // 1. 읽기 상태이면, 수정 상태로 변경
+      if(isReadonly=='readonly') {
+        $("input").attr('readonly', false);
+        $("#modifyBtn").html("저장");
+        return;
+      }
+
+      // 2. 수정 상태이면, 수정된 내용을 서버로 전송
+      if (!confirm("저장하시겠습니까?")) return;
 
       const companyInfo = {};
 

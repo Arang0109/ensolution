@@ -1,6 +1,7 @@
 package com.ensolution.manager.repository;
 
 import com.ensolution.manager.domain.CompanyDto;
+import com.ensolution.manager.domain.WorkplaceDto;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,18 @@ public class CompanyDaoImpl implements CompanyDao {
             System.err.println("An unexpected error occurred: " + e.getMessage());
         }
         return 0; // 오류 발생 시 기본 값 반환
+    }
+
+    @Override
+    public List<WorkplaceDto> selectWorkplace(Integer company_id) {
+        try {
+            return session.selectList(namespace + "selectWorkplace", company_id);
+        } catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+        }
+        return null;
     }
 
     @Override
