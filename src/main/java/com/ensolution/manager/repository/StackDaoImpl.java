@@ -1,7 +1,6 @@
 package com.ensolution.manager.repository;
 
 import com.ensolution.manager.domain.StackDto;
-import com.ensolution.manager.domain.WorkplaceDto;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

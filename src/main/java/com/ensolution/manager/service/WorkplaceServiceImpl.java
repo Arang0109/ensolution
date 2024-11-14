@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class WorkplaceServiceImpl implements WorkplaceService {
-    @Autowired
     WorkplaceDao workplaceDao;
+
+    @Autowired
+    public WorkplaceServiceImpl(WorkplaceDao workplaceDao) {
+        this.workplaceDao = workplaceDao;
+    }
 
     @Override
     public WorkplaceDto getWorkplace(Integer workplace_id) {

@@ -1,5 +1,6 @@
 package com.ensolution.manager.repository;
 
+import com.ensolution.manager.domain.StackDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,10 @@ import static org.junit.Assert.*;
 public class StackDaoImplTest {
   @Autowired
   StackDaoImpl stackDaoImpl;
-  @Autowired
-  WorkplaceDaoImpl workplaceDaoImpl;
 
   @Test
   public void count() {
-    Integer workplace_id = stackDaoImpl.select(13).getWorkplace_id();
-    System.out.println(workplaceDaoImpl.select(workplace_id));
+    System.out.println(stackDaoImpl.selectAll());
   }
 
   @Test

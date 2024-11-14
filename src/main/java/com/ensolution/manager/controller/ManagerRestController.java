@@ -13,10 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/manager")
 public class ManagerRestController {
-  @Autowired
   CompanyService companyService;
-  @Autowired
   WorkplaceService workplaceService;
+
+  @Autowired
+  public ManagerRestController(CompanyService companyService, WorkplaceService workplaceService) {
+    this.companyService = companyService;
+    this.workplaceService = workplaceService;
+  }
 
   @DeleteMapping("/company")
   public void deleteCompany(@RequestBody List<CompanyDto> company) {

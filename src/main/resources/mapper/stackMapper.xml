@@ -4,8 +4,9 @@
 
 <mapper namespace="com.ensolution.manager.repository.StackMapper">
     <sql id="selectFromStack">
-        SELECT stack_id, workplace_id, stack_name, reg_date, note
-        FROM stack
+        SELECT stack.stack_id, stack.workplace_id, workplace.company_id, company.company_name, workplace.workplace_name, stack.stack_name, stack.prevention, stack.reg_date, stack.note from stack
+            INNER JOIN workplace ON workplace.workplace_id = stack.workplace_id
+            INNER JOIN company ON company.company_id = workplace.company_id
     </sql>
 
     <select id="count" resultType="int">
@@ -15,18 +16,19 @@
     <select id="select" parameterType="int" resultType="StackDto">
         <include refid="selectFromStack"/>
         WHERE stack_id = #{stack_id}
+        ORDER BY company.company_name
     </select>
 
     <select id="selectAll" resultType="StackDto">
         <include refid="selectFromStack"/>
-        ORDER BY stack_name
+        ORDER BY company.company_name
     </select>
 
     <insert id="insert" parameterType="StackDto">
         INSERT INTO stack
-            (workplace_id, stack_name, reg_date, note)
+            (workplace_id, stack_name, prevention, reg_date, note)
         VALUES
-            (#{workplace_id}, #{stack_name}, #{reg_date}, #{note})
+            (#{workplace_id}, #{stack_name}, #{prevention}, #{reg_date}, #{note})
     </insert>
 
     <delete id="delete" parameterType="int">

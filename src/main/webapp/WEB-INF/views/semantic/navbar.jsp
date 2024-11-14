@@ -15,7 +15,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<c:url value="/manager/company"/>">측정대행 의뢰업체</a></li>
             <li><a class="dropdown-item" href="<c:url value="/manager/workplace"/>">측정대상 사업장</a></li>
-            <li><a class="dropdown-item" href="#">측정 시설</a></li>
+            <li><a class="dropdown-item" href="<c:url value="/manager/stack"/>">측정 시설</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

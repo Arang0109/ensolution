@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
-    @Autowired
     CompanyDao companyDao;
+
+    @Autowired
+    public CompanyServiceImpl(CompanyDao companyDao) {
+        this.companyDao = companyDao;
+    }
 
     @Override
     public CompanyDto getCompany(Integer company_id) {

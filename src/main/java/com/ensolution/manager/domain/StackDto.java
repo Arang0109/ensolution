@@ -7,7 +7,11 @@ import java.util.Objects;
 public class StackDto {
   private Integer stack_id;
   private Integer workplace_id;
+  private Integer company_id;
+  private String company_name;
+  private String workplace_name;
   private String stack_name;
+  private String prevention;
   private Date reg_date;
   private String note;
 
@@ -15,11 +19,15 @@ public class StackDto {
     this.reg_date = java.sql.Date.valueOf(LocalDate.now());
   }
 
-  public StackDto(Integer stack_id, Integer workplace_id, String stack_name, Date reg_date) {
-    this.stack_id = stack_id;
+  public StackDto(Integer workplace_id, Integer company_id, String company_name, String workplace_name, String stack_name, String prevention, Date reg_date, String note) {
     this.workplace_id = workplace_id;
+    this.company_id = company_id;
+    this.company_name = company_name;
+    this.workplace_name = workplace_name;
     this.stack_name = stack_name;
+    this.prevention = prevention;
     this.reg_date = reg_date;
+    this.note = note;
   }
 
   @Override
@@ -51,12 +59,44 @@ public class StackDto {
     this.workplace_id = workplace_id;
   }
 
+  public Integer getCompany_id() {
+    return company_id;
+  }
+
+  public void setCompany_id(Integer company_id) {
+    this.company_id = company_id;
+  }
+
+  public String getCompany_name() {
+    return company_name;
+  }
+
+  public void setCompany_name(String company_name) {
+    this.company_name = company_name;
+  }
+
+  public String getWorkplace_name() {
+    return workplace_name;
+  }
+
+  public void setWorkplace_name(String workplace_name) {
+    this.workplace_name = workplace_name;
+  }
+
   public String getStack_name() {
     return stack_name;
   }
 
   public void setStack_name(String stack_name) {
     this.stack_name = stack_name;
+  }
+
+  public String getPrevention() {
+    return prevention;
+  }
+
+  public void setPrevention(String prevention) {
+    this.prevention = prevention;
   }
 
   public Date getReg_date() {
@@ -80,7 +120,11 @@ public class StackDto {
     return "StackDto{" +
         "stack_id=" + stack_id +
         ", workplace_id=" + workplace_id +
+        ", company_id=" + company_id +
+        ", company_name='" + company_name + '\'' +
+        ", workplace_name='" + workplace_name + '\'' +
         ", stack_name='" + stack_name + '\'' +
+        ", prevention='" + prevention + '\'' +
         ", reg_date=" + reg_date +
         ", note='" + note + '\'' +
         '}';

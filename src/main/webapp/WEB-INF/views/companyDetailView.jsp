@@ -77,7 +77,7 @@
         <ul class="list-group">
           <c:forEach var="workplace" items="${workplaces}">
             <li class="list-group-item list-group-item-action">
-              <a href="">${workplace.workplace_name}</a>
+              <a href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">${workplace.workplace_name}</a>
             </li>
           </c:forEach>
         </ul>
@@ -96,14 +96,12 @@
     $("#modifyBtn").on("click", function(){
       let isReadonly = $("input").attr('readonly');
 
-      // 1. 읽기 상태이면, 수정 상태로 변경
       if(isReadonly=='readonly') {
         $("input").attr('readonly', false);
         $("#modifyBtn").html("저장");
         return;
       }
 
-      // 2. 수정 상태이면, 수정된 내용을 서버로 전송
       if (!confirm("저장하시겠습니까?")) return;
 
       const companyInfo = {};

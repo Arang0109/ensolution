@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -11,30 +10,30 @@
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <!-- modal layer -->
-<div class="modal fade" id="workplaceAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="workplaceAddLabel" aria-hidden="true">
+<div class="modal fade" id="stackAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="stackAddLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="workplaceAddLabel">사업장 추가</h1>
+        <h1 class="modal-title fs-5" id="stackAddLabel">시설 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<c:url value="/manager/workplace"/>" method="post" id="workplace_form">
+      <form action="<c:url value="/manager/stack"/>" method="post" id="stack_form">
         <div class="modal-body m-2">
           <div class="mb-3 row d-flex justify-content-center">
             <label for="companyList" class="form-label">측정 대행 의뢰 업체</label>
-            <select class="js-example-basic-single" id="companyList" name="company_id" style="width: 50%" name="state">
-              <c:forEach var="company" items="${companies}">
-                <option value="${company.company_id}">${company.company_name}</option>
+            <select class="js-example-basic-single" id="companyList" name="workplace_id" style="width: 50%" name="state">
+              <c:forEach var="workplace" items="${workplaces}">
+                <option value="${workplace.workplace_id}">${workplace.workplace_name}</option>
               </c:forEach>
             </select>
           </div>
           <div class="mb-3 row">
-            <label for="inputWorkplace" class="form-label">측정 대상 사업장</label>
-            <input type="text" name="workplace_name" class="form-control" id="inputWorkplace">
+            <label for="inputStack" class="form-label">측정 시설</label>
+            <input type="text" name="stack_name" class="form-control" id="inputStack">
           </div>
           <div class="mb-3 row">
-            <label for="inputAddress" class="form-label">사업장 주소</label>
-            <input type="text" name="address" class="form-control" id="inputAddress">
+            <label for="inputPrevention" class="form-label">방지 시설</label>
+            <input type="text" name="prevention" class="form-control" id="inputPrevention">
           </div>
         </div>
         <div class="modal-footer">
@@ -50,12 +49,12 @@
   <div class="container" style="padding: 1.875rem 0 0">
     <div class="border p-4" style="background-color: white;">
       <div class="d-flex justify-content-between">
-        <h4><span class="badge text-bg-primary">측정대상 사업장 관리</span></h4>
+        <h4><span class="badge text-bg-primary">측정 시설 관리</span></h4>
         <div>
-          <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#workplaceAdd">
-            사업장 추가
+          <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#stackAdd">
+            시설 추가
           </button>
-          <button id="removeBtn" class="btn btn-primary mx-1">사업장 삭제</button>
+          <button id="removeBtn" class="btn btn-primary mx-1">시설 삭제</button>
           <form action="" id="removeForm"></form>
         </div>
       </div>
@@ -74,18 +73,22 @@
           <thead>
           <tr>
             <th data-field="state" data-checkbox="true"></th>
-            <th data-field="workplace_name">측정 대상 사업장 <span class="badge text-bg-primary">수정시 사업장명 클릭</span></th>
-            <th data-field="address">주소</th>
+            <th data-field="stack_name">측정 시설 <span class="badge text-bg-primary">수정시 시설명 클릭</span></th>
+            <th data-field="prevention">방지 시설</th>
+            <th data-field="company_name">측정 대행 의뢰 업체</th>
+            <th data-field="workplace_name">측정 대상 사업장</th>
           </tr>
           </thead>
           <tbody>
-          <c:forEach var="workplace" items="${workplaces}">
-            <tr data-workplace-id="${workplace.workplace_id}">
+          <c:forEach var="stack" items="${stacks}">
+            <tr data-stack-id="${stack.stack_id}">
               <td></td>
               <td><a class="updateLink"
-                     href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">
-                  ${workplace.workplace_name != null ? workplace.workplace_name : 'N/A'}</a></td>
-              <td>${workplace.address != null ? workplace.address : 'N/A'}</td>
+                     href="<c:url value='/manager/company/${stack.stack_id}'/>">
+                  ${stack.stack_name != null ? stack.stack_name : '-'}</a></td>
+              <td>${stack.prevention != null ? stack.prevention : '-'}</td>
+              <td>${stack.company_name != null ? stack.company_name : '-'}</td>
+              <td>${stack.workplace_name != null ? stack.workplace_name : '-'}</td>
             </tr>
           </c:forEach>
           </tbody>
@@ -95,32 +98,28 @@
   </div>
 </main>
 <footer class="w-100">
+
 </footer>
 
 <script>
   $(document).ready(function(){
-    $('.js-example-basic-single').select2({
-      dropdownParent: $('#workplaceAdd'),
-      width: 'resolve'
-    });
-
     $('#removeBtn').on("click", function() {
       if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
 
-      const selectedWorkplace = [];
+      const selectedStack = [];
 
       $('#table tbody input[type="checkbox"]:checked').each(function() {
-        const workplace_id = $(this).closest('tr').attr('data-workplace-id');
-        selectedWorkplace.push({"workplace_id": workplace_id});
+        const stack_id = $(this).closest('tr').attr('data-stack-id');
+        selectedStack.push({"stack_id": stack_id});
       });
 
-      if (selectedWorkplace.length === 0) return alert("사업장을 선택해 주세요.");
+      if (selectedStack.length === 0) return alert("시설을 선택해 주세요.");
 
       $.ajax({
-        url: '<c:url value="/manager/workplace"/>',
+        url: '<c:url value="/manager/stack"/>',
         type: 'DELETE',
         contentType: 'application/json',
-        data: JSON.stringify(selectedWorkplace),
+        data: JSON.stringify(selectedStack),
         success: function() {
           alert("삭제 완료");
           location.reload();
@@ -133,7 +132,7 @@
   });
 
   let msg = "${msg}";
-  if (msg=="Success Add Workplace") alert("사업장 추가 완료");
+  if (msg=="Success Add Stack") alert("시설 추가 완료");
 </script>
 </body>
 </html>
