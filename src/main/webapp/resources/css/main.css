@@ -15,7 +15,7 @@ body {
     font-style: normal;
     font-size: 16px;
     line-height: 1.5;
-    padding-top: 70px;
+    padding-top: 110px;
     background-color: #edeef8;
     -webkit-user-select:none;
     -moz-user-select:none;
@@ -41,4 +41,29 @@ div.custom-div {
     padding-left: 4.375rem;
     padding-right: 4.375rem;
     color: #666;
+}
+
+.bookmark {
+    background-color: #C5D3E8;
+    padding: 5px 0;
+}
+
+.center-align {
+    display: inline-flex; /* inline 요소에 flex 적용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 정렬 (필요 시) */
+    text-decoration: none; /* a 태그의 기본 밑줄 제거 */
+    color: gray;
+    font-size: 12px;
+    gap: 6px; /* 이미지와 텍스트 사이 간격 */
+}
+
+.center-align img {
+    width: 14px; /* 이미지 크기 조정 */
+    height: 14px;
+    object-fit: cover; /* 이미지 비율 유지 */
+}
+
+.center-align:hover {
+    text-decoration: underline;
 }

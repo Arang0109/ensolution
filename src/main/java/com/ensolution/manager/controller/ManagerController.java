@@ -4,6 +4,7 @@ import com.ensolution.manager.domain.CompanyDto;
 import com.ensolution.manager.domain.StackDto;
 import com.ensolution.manager.domain.WorkplaceDto;
 import com.ensolution.manager.service.CompanyService;
+import com.ensolution.manager.service.PollutantService;
 import com.ensolution.manager.service.StackService;
 import com.ensolution.manager.service.WorkplaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,15 @@ public class ManagerController {
   CompanyService companyService;
   WorkplaceService workplaceService;
   StackService stackService;
+  PollutantService pollutantService;
 
   @Autowired
-  public ManagerController(CompanyService companyService, WorkplaceService workplaceService, StackService stackService) {
+  public ManagerController(CompanyService companyService, WorkplaceService workplaceService,
+                           StackService stackService, PollutantService pollutantService) {
     this.companyService = companyService;
     this.workplaceService = workplaceService;
     this.stackService = stackService;
+    this.pollutantService = pollutantService;
   }
 
   @GetMapping("/company")

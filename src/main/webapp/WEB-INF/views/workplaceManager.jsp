@@ -22,7 +22,7 @@
         <div class="modal-body m-2">
           <div class="mb-3 row d-flex justify-content-center">
             <label for="companyList" class="form-label">측정 대행 의뢰 업체</label>
-            <select class="js-example-basic-single" id="companyList" name="company_id" style="width: 50%" name="state">
+            <select class="js-example-basic-single" id="companyList" name="company_id" style="width: 50%">
               <c:forEach var="company" items="${companies}">
                 <option value="${company.company_id}">${company.company_name}</option>
               </c:forEach>
