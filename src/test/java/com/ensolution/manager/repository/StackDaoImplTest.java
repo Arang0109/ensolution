@@ -31,6 +31,10 @@ public class StackDaoImplTest {
 
   @Test
   public void insert() {
+    StackDto stackDto = stackDaoImpl.select(2);
+    stackDto.setPrevention("티비");
+    System.out.println(stackDto);
+    stackDaoImpl.update(stackDto);
   }
 
   @Test

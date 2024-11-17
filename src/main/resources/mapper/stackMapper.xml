@@ -21,7 +21,7 @@
 
     <select id="selectAll" resultType="StackDto">
         <include refid="selectFromStack"/>
-        ORDER BY company.company_name
+        ORDER BY company.company_name, stack.stack_name
     </select>
 
     <insert id="insert" parameterType="StackDto">
@@ -46,6 +46,7 @@
     <update id="update" parameterType="StackDto">
         UPDATE stack
         SET   stack_name = #{stack_name}
+          , prevention = #{prevention}
           , note = #{note}
         WHERE stack_id = #{stack_id}
     </update>

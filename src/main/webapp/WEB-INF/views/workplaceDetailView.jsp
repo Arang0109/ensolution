@@ -36,8 +36,8 @@
         <div class="row p-2">
           <div class="col">
             <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="company_name">측정대상 사업장</span>
-              <input name="company_name" type="text" class="form-control" value="${workplace.workplace_name}"
+              <span class="input-group-text" id="workplace_name">측정대상 사업장</span>
+              <input name="workplace_name" type="text" class="form-control" value="${workplace.workplace_name}"
                      aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>

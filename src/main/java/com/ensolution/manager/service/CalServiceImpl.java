@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CalServiceImpl implements CalService {
@@ -18,58 +20,72 @@ public class CalServiceImpl implements CalService {
   }
 
   @Override
-  public Double abilityScoreCal(List<PollutantDto> pollutants) {
-    double particle = 0.0;
-    double liquid = 0.0;
-    double G3 = 0.0;
-    int liquidCnt = 0;
+  public Map abilityScoreCal(List<PollutantDto> pollutants) {
+    int gasCnt = 0;
+    boolean isDust = false;
+    boolean isMetal = false;
+    boolean isAs = false;
+    boolean isHg = false;
+    boolean isG3 = false;
     double score = 0.0;
+    Map map = new HashMap();
 
-    List<String> method = new ArrayList<String>();
+    List<String> method = new ArrayList<>();
     for (PollutantDto p : pollutants) {
-      method.add(p.getMethod());
-    }
-
-    // 흡수액 체크
-    if (method.contains("흡수액")) {
-      for (String m : method) {
-        if (m.equals("흡수액")) { liquidCnt++; }
-      }
-
-      liquid = liquidCnt < 3 ? 0.5 : 1.0;
-    }
-
-    // 먼지, 중금속 체크
-    if (method.contains("먼지")) {
-      particle = 1.0;
-      if (method.contains("중금속")) {
-        particle = 1.9;
-      }
-    } else {
-      if (method.contains("중금속")) {
-        particle = 1.3;
+      if (p.getMethod().equals("흡수액")) { gasCnt++; }
+      if (p.getMethod().equals("흡수액, 중금속")) { gasCnt++; isAs = true; }
+      if (p.getMethod().equals("수은")) { isHg = true; }
+      if (p.getMethod().equals("먼지")) { isDust = true; }
+      if (!isMetal && p.getMethod().equals("중금속")) { isMetal = true; }
+      if (!isG3 && p.getMethod().equals("현장측정") || p.getMethod().equals("카트리지") ||
+          p.getMethod().equals("흡착관(T)") || p.getMethod().equals("흡착관(A)")) {
+        isG3 = true;
       }
     }
 
-    // 수은 체크
-    if (method.contains("수은")) {
-      if (particle == 0) {
-        particle = 1.2;
+    // G3 항목만 존재하는 경우 >> 0.3
+    if (!isDust && !isMetal && !isAs && !isHg && gasCnt == 0 && isG3) {
+      score = 0.3;
+      map.put("score", String.format("%.1f", score));
+      return map;
+    }
+
+    if (gasCnt > 0 && gasCnt < 3) {
+      if (!isDust && !isMetal && !isHg) {
+        score += 0.5;
+      } else { score += 0.3; }
+    } else if (gasCnt >= 3) {
+      if (!isDust && !isMetal && !isAs && !isHg) {
+        score += 1.0;
+      } else { score += 0.5; }
+    }
+
+    if (isDust) {
+      if (isMetal) {
+        score += 1.9;
       } else {
-        particle += 1.0;
+        score += 1.0;
+      }
+    } else if (isMetal) {
+      score += 1.3;
+    }
+
+    if (isAs) {
+      if (!isMetal) {
+        score += 1.0;
       }
     }
 
-    if (particle != 0 && liquid == 0.5) { score = liquid + particle - 0.2; }
-    if (particle != 0 && liquid == 1.0) { score = liquid + particle - 0.5; }
-    if (liquid == 0) { score = particle; }
+    if (isHg) {
+      if (isDust || isMetal) {
+        score += 1.0;
+      } else {
+        score += 1.2;
+      }
+    }
 
-    // G3 체크
-    if (score == 0.0 && method.contains("현장측정") || method.contains("카트리지") ||
-        method.contains("흡착관(T)") || method.contains("흡착관(A)")) { G3 = 0.3; }
+    map.put("score", String.format("%.1f", score));
 
-    score += G3;
-
-    return score;
+    return map;
   }
 }

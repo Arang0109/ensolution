@@ -115,4 +115,21 @@ public class ManagerController {
       return "redirect:/manager/workplace";
     }
   }
+
+  @GetMapping("/stack/{stack_id}")
+  public String detailStack(@PathVariable Integer stack_id, Model m) {
+    try {
+      StackDto stack = stackService.getStack(stack_id);
+      Integer workplace_id = stack.getWorkplace_id();
+      WorkplaceDto workplace = workplaceService.getWorkplace(workplace_id);
+      CompanyDto company = companyService.getCompany(workplace.getCompany_id());
+      m.addAttribute("workplace", workplace);
+      m.addAttribute("company", company);
+      m.addAttribute("stack", stack);
+      return "stackDetailView";
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "redirect:/manager/stack";
+    }
+  }
 }

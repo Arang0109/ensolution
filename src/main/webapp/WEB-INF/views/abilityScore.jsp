@@ -17,10 +17,11 @@
             <div class="d-flex justify-content-between">
                 <h4><span class="badge text-bg-primary">측정 오염물질 (총 ${pollutantCount} 종)</span></h4>
                 <div>
-                    용역이행능력평가 점수 = <span id="score">${score}</span>
+                    <span>측정가용능력 점수 : </span>
+                    <span id="score"></span>
                 </div>
                 <div>
-                    <button id="calculateBtn" class="btn btn-primary btn-sm" type="button">용역이행능력평가 점수 계산</button>
+                    <button id="calculateBtn" class="btn btn-primary btn-sm" type="button">측정가용능력 점수 계산</button>
                 </div>
             </div>
             <div class="d-flex justify-content-between mt-3">

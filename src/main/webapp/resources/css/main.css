@@ -67,3 +67,8 @@ div.custom-div {
 .center-align:hover {
     text-decoration: underline;
 }
+
+#score {
+    font-weight: 600;
+    color: #dc3545;
+}

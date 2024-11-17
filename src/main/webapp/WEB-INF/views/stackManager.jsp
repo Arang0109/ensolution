@@ -55,7 +55,6 @@
             시설 추가
           </button>
           <button id="removeBtn" class="btn btn-primary mx-1">시설 삭제</button>
-          <form action="" id="removeForm"></form>
         </div>
       </div>
       <div>
@@ -84,7 +83,7 @@
             <tr data-stack-id="${stack.stack_id}">
               <td></td>
               <td><a class="updateLink"
-                     href="<c:url value='/manager/company/${stack.stack_id}'/>">
+                     href="<c:url value='/manager/stack/${stack.stack_id}'/>">
                   ${stack.stack_name != null ? stack.stack_name : '-'}</a></td>
               <td>${stack.prevention != null ? stack.prevention : '-'}</td>
               <td>${stack.company_name != null ? stack.company_name : '-'}</td>
