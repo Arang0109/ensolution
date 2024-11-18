@@ -2,6 +2,7 @@ package com.ensolution.manager.service;
 
 import com.ensolution.manager.domain.StackDto;
 import com.ensolution.manager.repository.StackDao;
+import com.ensolution.manager.repository.StackInfoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

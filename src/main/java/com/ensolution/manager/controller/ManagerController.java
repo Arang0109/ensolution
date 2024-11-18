@@ -2,11 +2,9 @@ package com.ensolution.manager.controller;
 
 import com.ensolution.manager.domain.CompanyDto;
 import com.ensolution.manager.domain.StackDto;
+import com.ensolution.manager.domain.StackInfoDto;
 import com.ensolution.manager.domain.WorkplaceDto;
-import com.ensolution.manager.service.CompanyService;
-import com.ensolution.manager.service.PollutantService;
-import com.ensolution.manager.service.StackService;
-import com.ensolution.manager.service.WorkplaceService;
+import com.ensolution.manager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +19,17 @@ public class ManagerController {
   CompanyService companyService;
   WorkplaceService workplaceService;
   StackService stackService;
+  StackInfoService stackInfoService;
   PollutantService pollutantService;
 
   @Autowired
   public ManagerController(CompanyService companyService, WorkplaceService workplaceService,
-                           StackService stackService, PollutantService pollutantService) {
+                           StackService stackService, PollutantService pollutantService,
+                           StackInfoService stackInfoService) {
     this.companyService = companyService;
     this.workplaceService = workplaceService;
     this.stackService = stackService;
+    this.stackInfoService = stackInfoService;
     this.pollutantService = pollutantService;
   }
 
@@ -79,7 +80,6 @@ public class ManagerController {
   public String addStack(StackDto stackDto, RedirectAttributes rattr) {
     try {
       stackService.insertStack(stackDto);
-      System.out.println(stackDto);
       rattr.addFlashAttribute("msg", "Success Add Stack");
     } catch (Exception e) {
       e.printStackTrace();
@@ -120,12 +120,14 @@ public class ManagerController {
   public String detailStack(@PathVariable Integer stack_id, Model m) {
     try {
       StackDto stack = stackService.getStack(stack_id);
+      StackInfoDto stack_info = stackInfoService.getStackInfo(stack_id);
       Integer workplace_id = stack.getWorkplace_id();
       WorkplaceDto workplace = workplaceService.getWorkplace(workplace_id);
       CompanyDto company = companyService.getCompany(workplace.getCompany_id());
       m.addAttribute("workplace", workplace);
       m.addAttribute("company", company);
       m.addAttribute("stack", stack);
+      m.addAttribute("stack_info", stack_info);
       return "stackDetailView";
     } catch (Exception e) {
       e.printStackTrace();

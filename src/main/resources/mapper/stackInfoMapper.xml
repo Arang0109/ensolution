@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ensolution.manager.repository.StackInfoMapper">
+    <sql id="selectFromStackInfo">
+        SELECT stack_info_id, diameter, dynamic_pressure, static_pressure, velocity_speed, quantity, temperature
+        FROM stack_info
+    </sql>
+
+    <select id="select" parameterType="int" resultType="StackInfoDto">
+        <include refid="selectFromStackInfo"/>
+        WHERE stack_info_id = #{stack_info_id}
+    </select>
+
+    <select id="selectAll" resultType="StackInfoDto">
+        <include refid="selectFromStackInfo"/>
+    </select>
+
+    <insert id="insert" parameterType="StackInfoDto">
+        INSERT INTO stack_info
+            (stack_info_id, diameter, dynamic_pressure, static_pressure, velocity_speed, quantity, temperature)
+        VALUES
+            (#{stack_info_id}, #{diameter}, #{dynamic_pressure}, #{static_pressure}, #{velocity_speed}, #{quantity}, #{temperature})
+    </insert>
+
+    <update id="update" parameterType="StackInfoDto">
+        UPDATE stack_info
+        SET   diameter = #{diameter}
+          , dynamic_pressure = #{dynamic_pressure}
+          , static_pressure = #{static_pressure}
+          , velocity_speed = #{velocity_speed}
+          , quantity = #{quantity}
+          , temperature = #{temperature}
+        WHERE stack_info_id = #{stack_info_id}
+    </update>
+</mapper>

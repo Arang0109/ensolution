@@ -115,14 +115,14 @@
           <div class="col">
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="diameter">직경 (m)</span>
-              <input name="diameter" type="text" class="stackInfo form-control" value="30"
+              <input name="diameter" type="text" class="stackInfo form-control" value="${stack_info.diameter}"
                      aria-label="Diameter" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>
           <div class="col">
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="velocity_speed">유속 (m/s)</span>
-              <input name="velocity_speed" type="text" class="stackInfo form-control" value="12"
+              <input name="velocity_speed" type="text" class="stackInfo form-control" value="${stack_info.velocity_speed}"
                      aria-label="Velocity speed" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>
@@ -131,14 +131,14 @@
           <div class="col">
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="dynamic_pressure">동압 (mmH<sub>2</sub>O)</span>
-              <input name="dynamic_pressure" type="text" class="stackInfo form-control" value="5.1"
+              <input name="dynamic_pressure" type="text" class="stackInfo form-control" value="${stack_info.dynamic_pressure}"
                      aria-label="Dynamic pressure" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>
           <div class="col">
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="static_pressure">정압 (mmH<sub>2</sub>O)</span>
-              <input name="static_pressure" type="text" class="stackInfo form-control" value="-12.5"
+              <input name="static_pressure" type="text" class="stackInfo form-control" value="${stack_info.static_pressure}"
                      aria-label="Static pressure" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>
@@ -147,14 +147,14 @@
           <div class="col">
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="quantity">유량 (m<sup>3</sup>/hr)</span>
-              <input name="quantity" type="text" class="stackInfo form-control" value="284.4"
+              <input name="quantity" type="text" class="stackInfo form-control" value="${stack_info.quantity}"
                      aria-label="Quantity" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>
           <div class="col">
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="temperature">온도 (ºC)</span>
-              <input name="temperature" type="text" class="stackInfo form-control" value="42.4"
+              <input name="temperature" type="text" class="stackInfo form-control" value="${stack_info.temperature}"
                      aria-label="Temperature" aria-describedby="addon-wrapping" readonly='readonly'>
             </div>
           </div>
@@ -167,10 +167,10 @@
 <script>
   $(document).ready(function(){
     $('#modifyBtn').on('click',function(){
-      let isReadonly = $("input").attr('readonly');
+      let isReadonly = $("input.stack").attr('readonly');
 
-      if(isReadonly=='readonly') {
-        $("input").attr('readonly', false);
+      if(isReadonly==='readonly') {
+        $("input.stack").attr('readonly', false);
         $("#modifyBtn").html("저장");
         return;
       }
@@ -187,6 +187,40 @@
       $.ajax({
         type: 'PATCH',
         url: "<c:url value='/manager/stack/${stack.stack_id}'/>",
+        headers : { "Content-Type": "application/json"},
+        dataType : 'text',
+        data : JSON.stringify(stackInfo),
+        success: function() {
+          alert("업데이트에 성공했습니다.");
+          location.reload();
+        },
+        error: function() {
+          alert("실패했습니다.");
+        }
+      });
+    });
+
+    $('#modifyInfoBtn').on('click',function(){
+      let isReadonly = $("input.stackInfo").attr('readonly');
+
+      if(isReadonly==='readonly') {
+        $("input.stackInfo").attr('readonly', false);
+        $("#modifyInfoBtn").html("저장");
+        return;
+      }
+
+      if (!confirm("수정하시겠습니까?")) return;
+
+      const stackInfo = {};
+
+      $('input.stackInfo').each(function(){
+        let name = String($(this).attr('name'));
+        stackInfo[name] = $(this).val();
+      });
+
+      $.ajax({
+        type: 'PATCH',
+        url: "<c:url value='/manager/stackInfo/${stack_info.stack_info_id}'/>",
         headers : { "Content-Type": "application/json"},
         dataType : 'text',
         data : JSON.stringify(stackInfo),
