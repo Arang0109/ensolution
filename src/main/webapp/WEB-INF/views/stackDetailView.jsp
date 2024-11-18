@@ -17,9 +17,9 @@
       <div class="profile-main">
         <div class="d-flex justify-content-between">
           <h4><a class="link-opacity-50 link-offset-2 link-underline link-underline-opacity-0"
-              href="<c:url value='/manager/company/${company.company_id}'/>">${company.company_name}</a> /
+              href="<c:url value='/manager/company/${stack.company_id}'/>">${stack.company_name}</a> /
             <a class="link-opacity-50 link-offset-2 link-underline link-underline-opacity-0"
-               href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">${workplace.workplace_name}</a> /
+               href="<c:url value='/manager/workplace/${stack.workplace_id}'/>">${stack.workplace_name}</a> /
             ${stack.stack_name}</h4>
           <div>
             <a class="btn btn-primary btn-sm" href="<c:url value='/manager/stack'/>">목록</a>

@@ -9,6 +9,8 @@ public interface StackService {
 
   List<StackDto> getStackList();
 
+  List<StackDto> getStackListOfWorkplace(Integer workplace_id);
+
   int updateStack(StackDto stackDto);
 
   int insertStack(StackDto stackDto);

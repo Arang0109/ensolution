@@ -107,6 +107,7 @@ public class ManagerController {
       WorkplaceDto workplace = workplaceService.getWorkplace(workplace_id);
       Integer company_id = workplace.getCompany_id();
       CompanyDto company = companyService.getCompany(company_id);
+      m.addAttribute("stacks", stackService.getStackListOfWorkplace(workplace_id));
       m.addAttribute("workplace", workplace);
       m.addAttribute("company", company);
       return "workplaceDetailView";
@@ -121,11 +122,6 @@ public class ManagerController {
     try {
       StackDto stack = stackService.getStack(stack_id);
       StackInfoDto stack_info = stackInfoService.getStackInfo(stack_id);
-      Integer workplace_id = stack.getWorkplace_id();
-      WorkplaceDto workplace = workplaceService.getWorkplace(workplace_id);
-      CompanyDto company = companyService.getCompany(workplace.getCompany_id());
-      m.addAttribute("workplace", workplace);
-      m.addAttribute("company", company);
       m.addAttribute("stack", stack);
       m.addAttribute("stack_info", stack_info);
       return "stackDetailView";

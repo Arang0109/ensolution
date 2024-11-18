@@ -11,6 +11,8 @@ public interface StackDao {
 
   List<StackDto> selectAll();
 
+  List<StackDto> selectStackOfWorkplace(Integer workplace_id);
+
   int insert(StackDto stack);
 
   int delete(Integer stack_id);

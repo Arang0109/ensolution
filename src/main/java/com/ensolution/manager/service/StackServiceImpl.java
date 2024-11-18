@@ -28,6 +28,11 @@ public class StackServiceImpl implements StackService {
   }
 
   @Override
+  public List<StackDto> getStackListOfWorkplace(Integer workplace_id) {
+    return stackDao.selectStackOfWorkplace(workplace_id);
+  }
+
+  @Override
   public int updateStack(StackDto stackDto) {
     return stackDao.update(stackDto);
   }

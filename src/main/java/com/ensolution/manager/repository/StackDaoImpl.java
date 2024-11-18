@@ -51,6 +51,18 @@ public class StackDaoImpl implements StackDao {
     }
 
     @Override
+    public List<StackDto> selectStackOfWorkplace(Integer workplace_id) {
+        try {
+            return session.selectList(namespace + "selectStackOfWorkplace", workplace_id);
+        } catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public int insert(StackDto stack) {
         try {
             return session.insert(namespace + "insert", stack);
