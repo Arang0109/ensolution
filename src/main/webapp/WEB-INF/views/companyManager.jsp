@@ -11,40 +11,7 @@
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <!-- modal layer -->
-<div class="modal fade" id="companyAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="companyAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="companyAddLabel">업체 추가</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="<c:url value="/manager/company"/>" method="post" id="company_form">
-                <div class="modal-body m-2">
-                    <div class="mb-3 row">
-                        <label for="inputCompany" class="form-label">측정 대행 의뢰 업체</label>
-                        <input type="text" name="company_name" class="form-control" id="inputCompany">
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputCeo" class="form-label">대표자 이름</label>
-                        <input type="text" name="ceo_name" class="form-control" id="inputCeo">
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputAddress" class="form-label">업체 주소</label>
-                        <input type="text" name="address" class="form-control" id="inputAddress">
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputBizNum" class="form-label">사업자 번호</label>
-                        <input type="text" name="biz_number" class="form-control" id="inputBizNum">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">추가</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<%@include file="layouts/modal/companyModal.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
     <div class="tostify"></div>
     <div class="container" style="padding: 1.875rem 0 0">
@@ -59,42 +26,7 @@
                     <form action="" id="removeForm"></form>
                 </div>
             </div>
-            <div>
-                <table id="table"
-                       data-toggle="table"
-                       data-locale="ko-KR"
-                       data-search="true"
-                       data-height="550"
-                       data-pagination="true"
-                       data-checkbox-header="true"
-                       data-click-to-select="true"
-                       data-show-columns="true"
-                       data-buttons-class="primary"
-                       data-buttons-align="left">
-                    <thead>
-                    <tr>
-                        <th data-field="state" data-checkbox="true"></th>
-                        <th data-field="company_name">측정 대행 의뢰 업체 <span class="badge text-bg-primary">수정시 업체명 클릭</span></th>
-                        <th data-field="ceo_name">CEO</th>
-                        <th data-field="address">주소</th>
-                        <th data-field="biz_number">사업자 번호</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="company" items="${companies}">
-                        <tr data-company-id="${company.company_id}">
-                            <td></td>
-                            <td><a class="updateLink"
-                                   href="<c:url value='/manager/company/${company.company_id}'/>">
-                                    ${company.company_name != null ? company.company_name : 'N/A'}</a></td>
-                            <td>${company.ceo_name != null ? company.ceo_name : 'N/A'}</td>
-                            <td>${company.address != null ? company.address : 'N/A'}</td>
-                            <td>${company.biz_number != null ? company.biz_number : 'N/A'}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+            <%@include file="layouts/tables/companyTable.jsp"%>
         </div>
     </div>
 </main>

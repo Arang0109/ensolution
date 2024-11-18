@@ -20,6 +20,6 @@ public class DocumentController {
   public String abilityScore(Model m) {
     m.addAttribute("pollutants", pollutantService.getPollutantList());
     m.addAttribute("pollutantCount", pollutantService.getPollutantCount());
-    return "abilityScore";
+    return "document/abilityScore";
   }
 }

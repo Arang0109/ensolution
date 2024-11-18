@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>manager</title>
-    <%@include file="semantic/header.jsp"%>
+    <%@include file="../semantic/header.jsp"%>
 </head>
 <body class="d-flex flex-wrap">
 <!-- navigation bar layout -->
-<%@include file="semantic/navbar.jsp"%>
+<%@include file="../semantic/navbar.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
     <div class="tostify"></div>
     <div class="container" style="padding: 1.875rem 0 0">
