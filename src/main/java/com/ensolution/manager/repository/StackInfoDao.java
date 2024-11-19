@@ -9,7 +9,5 @@ public interface StackInfoDao {
 
   List<StackInfoDto> selectAll();
 
-  int insert(StackInfoDto stackInfo);
-
   int update(StackInfoDto stackInfo);
 }

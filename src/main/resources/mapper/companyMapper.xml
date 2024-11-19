@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ensolution.manager.repository.CompanyMapper">
+<mapper namespace="com.ensolution.manager.repository.companyMapper">
     <sql id="selectFromCompany">
         SELECT company_id, company_name, address, ceo_name, biz_number, reg_date
         FROM company

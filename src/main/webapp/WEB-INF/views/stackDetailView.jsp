@@ -9,6 +9,7 @@
 </head>
 <body>
 <!-- navigation bar layout -->
+<%@include file="layouts/modal/stackMeasurementModal.jsp"%>
 <%@include file="semantic/navbar.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
   <div class="tostify"></div>
@@ -30,43 +31,95 @@
   </div>
   <div class="container">
     <div class="border p-4" style="background-color: white;">
-      <p style="margin-left: 1.25rem;"><b>측정 오염 물질</b></p>
+      <div class="d-flex justify-content-between">
+        <p style="margin-left: 1.25rem;"><b>측정 오염 물질</b></p>
+        <div>
+          <span>측정가용능력 점수 : </span>
+          <span id="score"></span>
+        </div>
+        <div>
+          <button id="calculateBtn" class="btn btn-primary btn-sm" type="button">측정가용능력 점수 계산</button>
+        </div>
+      </div>
       <hr>
+      <div class="d-flex justify-content-end">
+        <div>
+          <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            측정 항목 추가
+          </button>
+        </div>
+      </div>
       <div class="d-flex justify-content-between">
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">월 / 1회</span>
           <div class="my-3">
-            -
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">월 / 2회</span>
-          <div class="my-3">
-            -
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">2월 / 1회</span>
-          <div class="my-3">
-            -
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'monthly'}">
+                <div class="form-check ms-2">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">분기 / 1회</span>
           <div class="my-3">
-            -
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'quarterly'}">
+                <div class="form-check ms-2">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">반기 / 1회</span>
           <div class="my-3">
-            -
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'semiannual'}">
+                <div class="form-check ms-2">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">연 / 1회</span>
           <div class="my-3">
-            -
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'annual'}">
+                <div class="form-check ms-2">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">월 / 2회</span>
+          <div class="my-3">
+
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">2월 / 1회</span>
+          <div class="my-3">
+
           </div>
         </div>
       </div>
@@ -166,6 +219,84 @@
 
 <script>
   $(document).ready(function(){
+    let rowIndex = 1;
+
+    $("#addItemBtn").on('click', function() {
+      const tableBody = $("#itemTableBody");
+      const newRow = `
+        <tr>
+          <td>
+              <select class="js-example-basic-single" name="pollutant_id_` + rowIndex + `" style="width: 100%;">
+                <c:forEach var="pollutant" items="${pollutants}">
+                  <option value="${pollutant.pollutant_id}">${pollutant.pollutant_name}</option>
+                </c:forEach>
+              </select>
+            </td>
+            <td>
+              <select class="js-example-basic-single" name="cycle_type_` + rowIndex + `" style="width: 100%;">
+                <option value="monthly">1회 / 월</option>
+                <option value="quarterly">1회 / 분기</option>
+                <option value="semiannual">1회 / 반기</option>
+                <option value="annual">1회 / 연</option>
+                <option value="twice a month">2회 / 월</option>
+                <option value="once in february">1회 / 2월</option>
+              </select>
+            </td>
+          <td>
+            <button type="button" class="btn btn-outline-danger btn-sm removeItemBtn">
+              <i class="bi bi-dash"></i>
+            </button>
+          </td>
+        </tr>
+        `;
+
+      tableBody.append(newRow);
+      rowIndex++;
+
+      tableBody.find('.js-example-basic-single').select2({
+        dropdownParent: $('#staticBackdrop'),
+      });
+    });
+
+    $('#itemTableBody').on('click', '.removeItemBtn', function () {
+      // 현재 행 삭제
+      $(this).closest('tr').remove();
+
+      // 행 번호 재정렬
+      $('#itemTableBody').find('tr').each(function (index) {
+        $(this).find('th').text(index + 1);
+      });
+    });
+
+    $('.js-example-basic-single').select2({
+      dropdownParent: $('#staticBackdrop'),
+    });
+
+    $('#calculateBtn').on("click", function() {
+      const selectedPollutant = [];
+
+      $('input[type="checkbox"]:checked').each(function() {
+        const pollutant_id = $(this).val();
+        selectedPollutant.push({"pollutant_id": pollutant_id});
+      });
+
+      if (selectedPollutant.length === 0) return alert("항목을 선택해 주세요.");
+
+      $.ajax({
+        url: '<c:url value="/document/abilityScore"/>',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedPollutant),
+        success: function(response) {
+          const score = response.score;
+          $('#score').html(score);
+        },
+        error: function() {
+          alert("error");
+        }
+      });
+    });
+
     $('#modifyBtn').on('click',function(){
       let isReadonly = $("input.stack").attr('readonly');
 

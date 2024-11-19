@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ensolution.manager.repository.StackMeasurementMapper">
+    <sql id="selectFromStackMeasurement">
+        SELECT sm.stack_measurement_id, sm.stack_id, sm.pollutant_id, sm.cycle_type, sm.is_completed, p.pollutant_name, p.pollutant_name_en, p.method
+        FROM stack_measurement `sm`
+            INNER JOIN pollutant `p` on sm.pollutant_id = p.pollutant_id
+    </sql>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM stack_measurement
+    </select>
+
+    <select id="select" parameterType="int" resultType="StackMeasurementDto">
+        <include refid="selectFromStackMeasurement"/>
+        WHERE sm.stack_measurement_id = #{stack_measurement_id}
+    </select>
+
+    <select id="selectStackMeasurementOfStack" resultType="StackMeasurementDto">
+        <include refid="selectFromStackMeasurement"/>
+        WHERE sm.stack_id = #{stack_id}
+    </select>
+
+    <select id="selectAll" resultType="StackMeasurementDto">
+        <include refid="selectFromStackMeasurement"/>
+    </select>
+
+    <insert id="insert" parameterType="StackMeasurementDto">
+        INSERT INTO stack_measurement
+            (stack_id, pollutant_id, cycle_type, is_completed)
+        VALUES
+            (#{stack_id}, #{pollutant_id}, #{cycle_type}, #{is_completed})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM stack_measurement WHERE stack_measurement_id = #{stack_measurement_id}
+    </delete>
+
+    <delete id="deleteItems" parameterType="list">
+        DELETE FROM stack_measurement
+        WHERE stack_measurement_id IN
+        <foreach item="stack_measurement_id" collection="list" open="(" separator="," close=")">
+            #{stack_measurement_id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="StackMeasurementDto">
+        UPDATE stack_measurement
+        SET   cycle_type = #{cycle_type}
+          , is_completed = #{is_completed}
+        WHERE stack_measurement_id = #{stack_measurement_id}
+    </update>
+</mapper>

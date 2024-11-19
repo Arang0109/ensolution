@@ -12,7 +12,7 @@ import java.util.List;
 public class PollutantDaoImpl implements PollutantDao {
   @Autowired
   private SqlSession session;
-  private static String namespace = "com.ensolution.manager.repository.pollutantMapper.";
+  private static String namespace = "com.ensolution.manager.repository.PollutantMapper.";
 
   @Override
   public List<PollutantDto> selectAll() {

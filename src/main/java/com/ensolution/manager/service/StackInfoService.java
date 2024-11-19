@@ -8,6 +8,4 @@ public interface StackInfoService {
   StackInfoDto getStackInfo(Integer stack_info_id);
 
   int updateStackInfo(StackInfoDto stackInfoDto);
-
-  int insertStackInfo(StackInfoDto stackInfoDto);
 }

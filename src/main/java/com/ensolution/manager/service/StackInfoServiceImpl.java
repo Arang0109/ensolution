@@ -25,9 +25,4 @@ public class StackInfoServiceImpl implements StackInfoService {
   public int updateStackInfo(StackInfoDto stackInfoDto) {
     return stackInfoDao.update(stackInfoDto);
   }
-
-  @Override
-  public int insertStackInfo(StackInfoDto stackInfoDto) {
-    return stackInfoDao.insert(stackInfoDto);
-  }
 }

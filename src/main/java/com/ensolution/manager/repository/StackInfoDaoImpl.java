@@ -39,18 +39,6 @@ public class StackInfoDaoImpl implements StackInfoDao {
   }
   
   @Override
-  public int insert(StackInfoDto stackInfo) {
-    try {
-      return session.insert(namespace + "insert", stackInfo);
-    }  catch (PersistenceException e) {
-      System.err.println("Persistence error occurred: " + e.getMessage());
-    } catch (Exception e) {
-      System.out.println("An unexpected error occurred: " + e.getMessage());
-    }
-    return 0;
-  }
-  
-  @Override
   public int update(StackInfoDto stackInfo) {
     try {
       return session.update(namespace + "update", stackInfo);

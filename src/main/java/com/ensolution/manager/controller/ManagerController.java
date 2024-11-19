@@ -1,9 +1,6 @@
 package com.ensolution.manager.controller;
 
-import com.ensolution.manager.domain.CompanyDto;
-import com.ensolution.manager.domain.StackDto;
-import com.ensolution.manager.domain.StackInfoDto;
-import com.ensolution.manager.domain.WorkplaceDto;
+import com.ensolution.manager.domain.*;
 import com.ensolution.manager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Stack;
 
 @Controller
 @RequestMapping("/manager")
@@ -20,16 +18,18 @@ public class ManagerController {
   WorkplaceService workplaceService;
   StackService stackService;
   StackInfoService stackInfoService;
+  StackMeasurementService stackMeasurementService;
   PollutantService pollutantService;
 
   @Autowired
   public ManagerController(CompanyService companyService, WorkplaceService workplaceService,
                            StackService stackService, PollutantService pollutantService,
-                           StackInfoService stackInfoService) {
+                           StackInfoService stackInfoService, StackMeasurementService stackMeasurementService) {
     this.companyService = companyService;
     this.workplaceService = workplaceService;
     this.stackService = stackService;
     this.stackInfoService = stackInfoService;
+    this.stackMeasurementService = stackMeasurementService;
     this.pollutantService = pollutantService;
   }
 
@@ -120,10 +120,10 @@ public class ManagerController {
   @GetMapping("/stack/{stack_id}")
   public String detailStack(@PathVariable Integer stack_id, Model m) {
     try {
-      StackDto stack = stackService.getStack(stack_id);
-      StackInfoDto stack_info = stackInfoService.getStackInfo(stack_id);
-      m.addAttribute("stack", stack);
-      m.addAttribute("stack_info", stack_info);
+      m.addAttribute("stack_measurements", stackMeasurementService.getStackMeasurementListOfStack(stack_id));
+      m.addAttribute("stack", stackService.getStack(stack_id));
+      m.addAttribute("stack_info", stackInfoService.getStackInfo(stack_id));
+      m.addAttribute("pollutants", pollutantService.getPollutantList());
       return "stackDetailView";
     } catch (Exception e) {
       e.printStackTrace();
