@@ -219,29 +219,30 @@
 
 <script>
   $(document).ready(function(){
-    let rowIndex = 1;
+    let rowIndex = 2;
 
     $("#addItemBtn").on('click', function() {
       const tableBody = $("#itemTableBody");
       const newRow = `
-        <tr>
+        <tr class="stackMeasurementRow">
+          <th>` + rowIndex + `</th>
           <td>
-              <select class="js-example-basic-single" name="pollutant_id_` + rowIndex + `" style="width: 100%;">
-                <c:forEach var="pollutant" items="${pollutants}">
-                  <option value="${pollutant.pollutant_id}">${pollutant.pollutant_name}</option>
-                </c:forEach>
-              </select>
-            </td>
-            <td>
-              <select class="js-example-basic-single" name="cycle_type_` + rowIndex + `" style="width: 100%;">
-                <option value="monthly">1회 / 월</option>
-                <option value="quarterly">1회 / 분기</option>
-                <option value="semiannual">1회 / 반기</option>
-                <option value="annual">1회 / 연</option>
-                <option value="twice a month">2회 / 월</option>
-                <option value="once in february">1회 / 2월</option>
-              </select>
-            </td>
+            <select class="js-example-basic-single pollutant" name="pollutant_id" style="width: 100%;">
+              <c:forEach var="pollutant" items="${pollutants}">
+                <option value="${pollutant.pollutant_id}">${pollutant.pollutant_name}</option>
+              </c:forEach>
+            </select>
+          </td>
+          <td>
+            <select class="js-example-basic-single cycle" name="cycle_type" style="width: 100%;">
+              <option value="monthly">1회 / 월</option>
+              <option value="quarterly">1회 / 분기</option>
+              <option value="semiannual">1회 / 반기</option>
+              <option value="annual">1회 / 연</option>
+              <option value="twice a month">2회 / 월</option>
+              <option value="once in february">1회 / 2월</option>
+            </select>
+          </td>
           <td>
             <button type="button" class="btn btn-outline-danger btn-sm removeItemBtn">
               <i class="bi bi-dash"></i>
@@ -361,6 +362,33 @@
         },
         error: function() {
           alert("실패했습니다.");
+        }
+      });
+    });
+
+    $('#addMeasurementBtn').on('click', function() {
+      const pollutantList = [];
+
+      $('tr[class="stackMeasurementRow"]').each(function() {
+        pollutantList.push({
+          "pollutant_id": $(this).find('select.pollutant').val(),
+          "cycle_type": $(this).find('select.cycle').val(),
+          "is_completed": 0,
+        })
+      });
+
+      $.ajax({
+        type:'POST',
+        url: '<c:url value="/manager/stackMeasurement/${stack.stack_id}"/>',
+        headers : { "Content-Type": "application/json"},
+        dataType : 'text',
+        data: JSON.stringify(pollutantList),
+        success: function() {
+          alert("success");
+          location.reload();
+        },
+        error: function () {
+          alert("error");
         }
       });
     });

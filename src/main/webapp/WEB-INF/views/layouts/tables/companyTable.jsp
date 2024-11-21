@@ -30,7 +30,7 @@
             ${company.company_name != null ? company.company_name : 'N/A'}</a></td>
         <td>${company.ceo_name != null ? company.ceo_name : 'N/A'}</td>
         <td>${company.address != null ? company.address : 'N/A'}</td>
-        <td>${company.biz_number != null ? company.biz_number : 'N/A'}</td>
+        <td class="bizNumber">${company.biz_number != null ? company.biz_number : 'N/A'}</td>
       </tr>
     </c:forEach>
     </tbody>

@@ -8,6 +8,8 @@
   <%@include file="semantic/header.jsp"%>
 </head>
 <body>
+<!-- modal layer -->
+<%@include file="layouts/modal/stackModal.jsp"%>
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
@@ -28,7 +30,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div id="workplaceInfo" class="container">
     <div class="border p-4" style="background-color: white;">
       <p style="margin-left: 1.25rem;"><b>사업장 정보</b></p>
       <hr>
@@ -57,7 +59,15 @@
   </div>
   <div class="container" style="padding-top: 1.875rem;">
     <div class="border p-4" style="background-color: white;">
-      <p style="margin-left: 1.25rem;"><b>측정시설 목록</b></p>
+      <div class="d-flex justify-content-between">
+        <p style="margin-left: 1.25rem;"><b>측정시설 목록</b></p>
+        <div>
+          <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            측정시설 추가
+          </button>
+          <button id="removeBtn" class="btn btn-primary btn-sm mb-3">측정시설 삭제</button>
+        </div>
+      </div>
       <hr>
       <%@include file="layouts/tables/stackTable.jsp"%>
     </div>
@@ -66,25 +76,52 @@
 
 <script>
   $(document).ready(function(){
+    $('#removeBtn').on("click", function() {
+      if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
+
+      const selectedStack = [];
+
+      $('#table tbody input[type="checkbox"]:checked').each(function() {
+        const stack_id = $(this).closest('tr').attr('data-stack-id');
+        selectedStack.push({"stack_id": stack_id});
+      });
+
+      if (selectedStack.length === 0) return alert("시설을 선택해 주세요.");
+
+      $.ajax({
+        url: '<c:url value="/manager/workplace/delete/stacks"/>',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedStack),
+        success: function() {
+          alert("삭제 완료");
+          location.reload();
+        },
+        error: function() {
+          alert("삭제에 실패했습니다.");
+        }
+      });
+    });
+
     $("#naverMapLink").on("click", function () {
-      const url = "https://map.naver.com/p/search/" + $("input[name=address]").val();
+      const url = "https://map.naver.com/p/search/" + $("#workplaceInfo input[name=address]").val();
       window.open(url, '_blank');
     });
 
     $('#modifyBtn').on('click',function(){
-      let isReadonly = $("input").attr('readonly');
+      let isReadonly = $("#workplaceInfo input").attr('readonly');
 
-      if(isReadonly=='readonly') {
-        $("input").attr('readonly', false);
+      if(isReadonly==='readonly') {
+        $("#workplaceInfo input").attr('readonly', false);
         $("#modifyBtn").html("저장");
         return;
       }
 
-      if (!confirm("수정하시겠습니까?")) return;
+      if (!confirm("수정 하시겠습니까?")) return;
 
       const workplaceInfo = {};
 
-      $('input').each(function(){
+      $('#workplaceInfo input').each(function(){
         let name = String($(this).attr('name'));
         workplaceInfo[name] = $(this).val();
       });

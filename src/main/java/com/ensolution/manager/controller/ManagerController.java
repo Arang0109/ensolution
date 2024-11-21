@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Stack;
 
 @Controller
 @RequestMapping("/manager")
@@ -65,17 +64,6 @@ public class ManagerController {
     return "redirect:/manager/company";
   }
 
-  @PostMapping("/workplace")
-  public String addWorkplace(WorkplaceDto workplaceDto, RedirectAttributes rattr) {
-    try {
-      workplaceService.insertWorkplace(workplaceDto);
-      rattr.addFlashAttribute("msg", "Success Add Workplace");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return "redirect:/manager/workplace";
-  }
-
   @PostMapping("/stack")
   public String addStack(StackDto stackDto, RedirectAttributes rattr) {
     try {
@@ -99,6 +87,30 @@ public class ManagerController {
       e.printStackTrace();
       return "redirect:/manager/company";
     }
+  }
+
+  @PostMapping("/company/{companyId}")
+  public String addWorkplace(@PathVariable Integer companyId, WorkplaceDto workplaceDto, RedirectAttributes rattr) {
+    try {
+      workplaceDto.setCompany_id(companyId);
+      workplaceService.insertWorkplace(workplaceDto);
+      rattr.addFlashAttribute("msg", "Success Add Workplace");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return "redirect:/manager/company/" + companyId;
+  }
+
+  @PostMapping("/workplace/{workplaceId}")
+  public String addStack(@PathVariable Integer workplaceId, StackDto stackDto, RedirectAttributes rattr) {
+    try {
+      stackDto.setWorkplace_id(workplaceId);
+      stackService.insertStack(stackDto);
+      rattr.addFlashAttribute("msg", "Success Add Stack");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return "redirect:/manager/workplace/" + workplaceId;
   }
 
   @GetMapping("/workplace/{workplace_id}")

@@ -17,7 +17,7 @@
     <div class="container" style="padding: 1.875rem 0 0">
         <div class="border p-4" style="background-color: white;">
             <div class="d-flex justify-content-between">
-                <h4><span class="badge text-bg-primary">측정대행 의뢰업체 관리</span></h4>
+                <h4><span class="badge text-bg-primary">측정대행 의뢰업체 목록</span></h4>
                 <div>
                     <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#companyAdd">
                         업체 추가
@@ -36,6 +36,41 @@
 
 <script>
     $(document).ready(function(){
+        'use strict';
+
+        $('.needs-validation').each(function () {
+            $(this).on('submit', function (event) {
+                if (!this.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $(this).addClass('was-validated');
+            });
+        });
+
+        const inputBizNum = $('#inputBizNum');
+
+        inputBizNum.on('input', function() {
+            let value = $(this).val().replace(/[^0-9]/g, '');
+
+            if (value.length === 0) {
+                return;
+            }
+
+            if (value.length > 3 && value.length <= 5) {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            } else if (value.length > 5) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5, 10);
+            }
+
+            $(this).val(value.slice(0, 12));
+        });
+
+        inputBizNum.closest('form').on('submit', function () {
+            const valueWithoutHyphen = inputBizNum.val().replace(/-/g, '');
+            inputBizNum.val(valueWithoutHyphen);
+        });
+
         $('#removeBtn').on("click", function() {
             if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
 

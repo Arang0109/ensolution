@@ -8,6 +8,8 @@
   <%@include file="semantic/header.jsp"%>
 </head>
 <body>
+<!-- modal layer -->
+<%@include file="layouts/modal/workplaceModal.jsp"%>
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
@@ -26,9 +28,11 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div id="companyInfo" class="container">
     <div class="border p-4" style="background-color: white;">
-      <p style="margin-left: 1.25rem;"><b>업체 정보</b></p>
+      <div class="d-flex justify-content-start">
+        <p style="margin-left: 1.25rem;"><b>업체 정보</b></p>
+      </div>
       <hr>
       <div class="container text-center">
         <div class="row p-2">
@@ -71,42 +75,69 @@
   </div>
   <div class="container" style="padding-top: 1.875rem;">
     <div class="border p-4" style="background-color: white;">
-      <p style="margin-left: 1.25rem;"><b>사업장 목록</b></p>
-      <hr>
-      <div class="p-2">
-        <ul class="list-group">
-          <c:forEach var="workplace" items="${workplaces}">
-            <li class="list-group-item list-group-item-action">
-              <a href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">${workplace.workplace_name}</a>
-            </li>
-          </c:forEach>
-        </ul>
+      <div class="d-flex justify-content-between">
+        <p style="margin-left: 1.25rem;"><b>사업장 목록</b></p>
+        <div>
+          <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            사업장 추가
+          </button>
+          <button id="removeBtn" class="btn btn-primary btn-sm mb-3">사업장 삭제</button>
+        </div>
       </div>
+      <hr>
+      <%@include file="layouts/tables/workplaceTable.jsp"%>
     </div>
   </div>
 </main>
 
 <script>
   $(document).ready(function(){
+    $('#removeBtn').on("click", function() {
+      if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
+
+      const selectedWorkplace = [];
+
+      $('#table tbody input[type="checkbox"]:checked').each(function() {
+        const workplace_id = $(this).closest('tr').attr('data-workplace-id');
+        selectedWorkplace.push({"workplace_id": workplace_id});
+      });
+
+      if (selectedWorkplace.length === 0) return alert("사업장을 선택해 주세요.");
+
+      $.ajax({
+        url: '<c:url value="/manager/company/delete/workplaces"/>',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedWorkplace),
+        success: function() {
+          alert("삭제 완료");
+          location.reload();
+        },
+        error: function() {
+          alert("삭제에 실패했습니다.");
+        }
+      });
+    });
+
     $("#naverMapLink").on("click", function () {
-      const url = "https://map.naver.com/p/search/" + $("input[name=address]").val();
+      const url = "https://map.naver.com/p/search/" + $("#companyInfo input[name=address]").val();
       window.open(url, '_blank');
     });
 
     $("#modifyBtn").on("click", function(){
-      let isReadonly = $("input").attr('readonly');
+      let isReadonly = $("#companyInfo input").attr('readonly');
 
-      if(isReadonly=='readonly') {
-        $("input").attr('readonly', false);
+      if(isReadonly==='readonly') {
+        $("#companyInfo input").attr('readonly', false);
         $("#modifyBtn").html("저장");
         return;
       }
 
-      if (!confirm("저장하시겠습니까?")) return;
+      if (!confirm("수정 하시겠습니까?")) return;
 
       const companyInfo = {};
 
-      $('input').each(function(){
+      $('#companyInfo input').each(function(){
         let name = String($(this).attr('name'));
         companyInfo[name] = $(this).val();
       });
