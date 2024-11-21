@@ -18,6 +18,11 @@
         WHERE company_id = #{company_id}
     </select>
 
+    <select id="selectCompanyName" parameterType="CompanyDto" resultType="CompanyDto">
+        <include refid="selectFromCompany"/>
+        WHERE company_name = #{company_name}
+    </select>
+
     <select id="select" parameterType="int" resultType="CompanyDto">
         <include refid="selectFromCompany"/>
         WHERE company_id = #{company_id}

@@ -19,6 +19,11 @@
         ORDER BY c.company_name
     </select>
 
+    <select id="selectStackName" parameterType="StackDto" resultType="StackDto">
+        SELECT * FROM stack
+        WHERE workplace_id = #{workplace_id} AND stack_name = #{stack_name}
+    </select>
+
     <select id="selectAll" resultType="StackDto">
         <include refid="selectFromStack"/>
         ORDER BY c.company_name, s.stack_name

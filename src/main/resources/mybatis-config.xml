@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="CompanyDto" type="com.ensolution.manager.domain.CompanyDto"/>
-        <typeAlias alias="WorkplaceDto" type="com.ensolution.manager.domain.WorkplaceDto"/>
-        <typeAlias alias="StackDto" type="com.ensolution.manager.domain.StackDto"/>
-        <typeAlias alias="StackInfoDto" type="com.ensolution.manager.domain.StackInfoDto"/>
-        <typeAlias alias="PollutantDto" type="com.ensolution.manager.domain.PollutantDto"/>
-        <typeAlias alias="StackMeasurementDto" type="com.ensolution.manager.domain.StackMeasurementDto"/>
+        <typeAlias alias="CompanyDto" type="com.ensolution.manager.domain.company.CompanyDto"/>
+        <typeAlias alias="WorkplaceDto" type="com.ensolution.manager.domain.company.WorkplaceDto"/>
+        <typeAlias alias="StackDto" type="com.ensolution.manager.domain.stack.StackDto"/>
+        <typeAlias alias="StackInfoDto" type="com.ensolution.manager.domain.stack.StackInfoDto"/>
+        <typeAlias alias="PollutantDto" type="com.ensolution.manager.domain.pollutant.PollutantDto"/>
+        <typeAlias alias="StackMeasurementDto" type="com.ensolution.manager.domain.stack.StackMeasurementDto"/>
     </typeAliases>
 </configuration>

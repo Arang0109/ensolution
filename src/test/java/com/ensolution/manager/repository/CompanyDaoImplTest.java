@@ -1,6 +1,7 @@
 package com.ensolution.manager.repository;
 
-import com.ensolution.manager.domain.CompanyDto;
+import com.ensolution.manager.domain.company.CompanyDto;
+import com.ensolution.manager.repository.company.CompanyDaoImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

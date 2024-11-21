@@ -36,6 +36,7 @@
       <hr>
       <form id="workplaceInfoForm" class="needs-validation" novalidate>
         <div class="container text-center">
+          <input name="workplace_id" type="text" class="form-control" value="${workplace.workplace_id}" readonly='readonly' hidden="hidden">
           <div class="row p-2">
             <div class="col">
               <div class="input-group flex-nowrap">
@@ -103,7 +104,7 @@
       if (selectedStack.length === 0) return alert("시설을 선택해 주세요.");
 
       $.ajax({
-        url: '<c:url value="/manager/workplace/delete/stacks"/>',
+        url: '<c:url value="/manager/delete/stack"/>',
         type: 'DELETE',
         contentType: 'application/json',
         data: JSON.stringify(selectedStack),
@@ -150,7 +151,7 @@
 
       $.ajax({
         type: 'PATCH',
-        url: "<c:url value='/manager/workplace/${workplace.workplace_id}'/>",
+        url: "<c:url value='/manager/modify/workplace'/>",
         headers : { "Content-Type": "application/json"},
         dataType : 'text',
         data : JSON.stringify(workplaceInfo),

@@ -17,6 +17,11 @@
         WHERE workplace_id = #{workplace_id}
     </select>
 
+    <select id="selectWorkplaceName" parameterType="WorkplaceDto" resultType="WorkplaceDto">
+        <include refid="selectFromWorkplace"/>
+        WHERE company_id = #{company_id} AND workplace_name = #{workplace_name}
+    </select>
+
     <select id="selectAll" resultType="WorkplaceDto">
         <include refid="selectFromWorkplace"/>
         ORDER BY workplace_name

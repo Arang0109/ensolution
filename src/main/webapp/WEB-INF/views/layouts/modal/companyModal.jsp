@@ -7,7 +7,7 @@
         <h1 class="modal-title fs-5" id="companyAddLabel">업체 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<c:url value="/manager/company"/>" method="post" id="company_form" class="needs-validation" novalidate>
+      <form action="<c:url value="/manager/add/company"/>" method="post" id="company_form" class="needs-validation" novalidate>
         <div class="modal-body m-2">
           <div class="mb-3 row">
             <label for="inputCompany" class="form-label">측정대행 의뢰업체 <small><b>(필수)</b></small></label>

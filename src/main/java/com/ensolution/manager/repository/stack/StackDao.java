@@ -1,0 +1,25 @@
+package com.ensolution.manager.repository.stack;
+
+import com.ensolution.manager.domain.stack.StackDto;
+
+import java.util.List;
+
+public interface StackDao {
+  int count();
+
+  StackDto select(Integer stack_id);
+
+  StackDto search(StackDto stack);
+
+  List<StackDto> selectAll();
+
+  List<StackDto> selectStackOfWorkplace(Integer workplace_id);
+
+  int insert(StackDto stack);
+
+  int delete(Integer stack_id);
+
+  int deleteItems(List<Integer> stack_ids);
+
+  int update(StackDto stack);
+}

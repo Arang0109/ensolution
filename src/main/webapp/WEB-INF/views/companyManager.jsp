@@ -79,7 +79,7 @@
             if (selectedCompany.length === 0) return alert("업체를 선택해 주세요.");
 
             $.ajax({
-                url: '<c:url value="/manager/company"/>',
+                url: '<c:url value="/manager/delete/company"/>',
                 type: 'DELETE',
                 contentType: 'application/json',
                 data: JSON.stringify(selectedCompany),
@@ -95,7 +95,8 @@
     });
 
     let msg = "${msg}";
-    if (msg=="Success Add Company") alert("업체 추가 완료");
+    if (msg==="Success add company") alert("업체 추가 완료");
+    if (msg==="Already exist company") alert("업체가 이미 존재 합니다.")
 </script>
 </body>
 </html>

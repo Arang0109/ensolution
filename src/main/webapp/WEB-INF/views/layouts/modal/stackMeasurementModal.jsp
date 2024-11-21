@@ -7,7 +7,6 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel">측정 항목 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <input type="hidden" name="stack_id" value="${stack.stack_id}"/>
       <div class="modal-body">
         <table class="table align-middle text-center">
           <thead>
@@ -26,6 +25,7 @@
           <tr class="stackMeasurementRow">
             <th>1</th>
             <td>
+              <input type="hidden" name="stack_id" value="${stack.stack_id}"/>
               <select class="js-example-basic-single pollutant" name="pollutant_id" style="width: 100%;">
                 <c:forEach var="pollutant" items="${pollutants}">
                   <option value="${pollutant.pollutant_id}">${pollutant.pollutant_name}</option>

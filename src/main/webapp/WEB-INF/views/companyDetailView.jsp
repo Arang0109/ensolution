@@ -37,6 +37,7 @@
       <form id="companyInfoForm" class="needs-validation" novalidate>
         <div class="container text-center">
           <div class="row p-2">
+            <input name="company_id" type="text" class="form-control" value="${company.company_id}" readonly='readonly' hidden="hidden">
             <div class="col">
               <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="company_name">측정대행 의뢰업체 <small><b>(필수)</b></small></span>
@@ -148,7 +149,7 @@
       if (selectedWorkplace.length === 0) return alert("사업장을 선택해 주세요.");
 
       $.ajax({
-        url: '<c:url value="/manager/company/delete/workplaces"/>',
+        url: '<c:url value="/manager/delete/workplace"/>',
         type: 'DELETE',
         contentType: 'application/json',
         data: JSON.stringify(selectedWorkplace),
@@ -195,7 +196,7 @@
 
       $.ajax({
         type: 'PATCH',
-        url: "<c:url value='/manager/company/${company.company_id}'/>",
+        url: "<c:url value='/manager/modify/company'/>",
         headers : { "Content-Type": "application/json"},
         dataType : 'text',
         data : JSON.stringify(companyInfo),
