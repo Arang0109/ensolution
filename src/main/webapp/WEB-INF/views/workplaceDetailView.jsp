@@ -34,27 +34,29 @@
     <div class="border p-4" style="background-color: white;">
       <p style="margin-left: 1.25rem;"><b>사업장 정보</b></p>
       <hr>
-      <div class="container text-center">
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="workplace_name">측정대상 사업장</span>
-              <input name="workplace_name" type="text" class="form-control" value="${workplace.workplace_name}"
-                     aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly'>
+      <form id="workplaceInfoForm" class="needs-validation" novalidate>
+        <div class="container text-center">
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="workplace_name">측정대상 사업장 <small><b>(필수)</b></small></span>
+                <input name="workplace_name" type="text" class="form-control" value="${workplace.workplace_name}"
+                       aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly' required>
+              </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="address">주소</span>
-              <input name="address" type="text" class="form-control" value="${workplace.address}"
-                     aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly'>
-              <span class="input-group-text" id="addon-wrapping">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="address">사업장 주소</span>
+                <input name="address" type="text" class="form-control" value="${workplace.address}"
+                       aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly'>
+                <span class="input-group-text" id="addon-wrapping">
                     <a id="naverMapLink" href="" class="link-dark link-offset-2 link-underline link-underline-opacity-0">네이버 지도</a>
               </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
   <div class="container" style="padding-top: 1.875rem;">
@@ -76,6 +78,18 @@
 
 <script>
   $(document).ready(function(){
+    'use strict';
+
+    $('#stack_form').each(function () {
+      $(this).on('submit', function (event) {
+        if (!this.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        $(this).addClass('was-validated');
+      });
+    });
+
     $('#removeBtn').on("click", function() {
       if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
 
@@ -118,6 +132,14 @@
       }
 
       if (!confirm("수정 하시겠습니까?")) return;
+
+      const form = $("#workplaceInfoForm")[0];
+
+      // HTML5 유효성 검사 실행
+      if (!form.checkValidity()) {
+        $(form).addClass('was-validated');
+        return;
+      }
 
       const workplaceInfo = {};
 

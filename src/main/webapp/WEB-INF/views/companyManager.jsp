@@ -66,11 +66,6 @@
             $(this).val(value.slice(0, 12));
         });
 
-        inputBizNum.closest('form').on('submit', function () {
-            const valueWithoutHyphen = inputBizNum.val().replace(/-/g, '');
-            inputBizNum.val(valueWithoutHyphen);
-        });
-
         $('#removeBtn').on("click", function() {
             if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
 

@@ -10,7 +10,7 @@
       <form action="<c:url value="/manager/company"/>" method="post" id="company_form" class="needs-validation" novalidate>
         <div class="modal-body m-2">
           <div class="mb-3 row">
-            <label for="inputCompany" class="form-label">측정 대행 의뢰 업체 <small><b>(필수)</b></small></label>
+            <label for="inputCompany" class="form-label">측정대행 의뢰업체 <small><b>(필수)</b></small></label>
             <input type="text" name="company_name" class="form-control" id="inputCompany" required>
             <div class="invalid-feedback">
               업체명 입력 필수!

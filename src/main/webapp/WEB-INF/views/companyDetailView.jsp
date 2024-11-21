@@ -34,43 +34,56 @@
         <p style="margin-left: 1.25rem;"><b>업체 정보</b></p>
       </div>
       <hr>
-      <div class="container text-center">
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="company_name">측정대행 의뢰업체</span>
-              <input name="company_name" type="text" class="form-control" value="${company.company_name}"
-                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
+      <form id="companyInfoForm" class="needs-validation" novalidate>
+        <div class="container text-center">
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="company_name">측정대행 의뢰업체 <small><b>(필수)</b></small></span>
+                <input name="company_name" type="text" class="form-control" value="${company.company_name}"
+                       aria-label="Username" aria-describedby="addon-wrapping" required
+                       readonly='readonly'>
+              </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="address">주소</span>
-              <input name="address" type="text" class="form-control" value="${company.address}"
-                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
-              <span class="input-group-text" id="addon-wrapping">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="address">업체 주소</span>
+                <input name="address" type="text" class="form-control" value="${company.address}"
+                       aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly'>
+                <span class="input-group-text" id="addon-wrapping">
                     <a id="naverMapLink" href="" class="link-dark link-offset-2 link-underline link-underline-opacity-0">네이버 지도</a>
               </span>
+              </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="ceo_name">대표자 이름</span>
+                <input name="ceo_name" type="text" class="form-control" value="${company.ceo_name}"
+                       aria-label="Username" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
+            </div>
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="biz_number">사업자 번호 <small>(10자리 숫자)</small></span>
+                <input
+                    type="text"
+                    name="biz_number"
+                    value="${company.biz_number}"
+                    class="form-control"
+                    id="inputBizNum"
+                    aria-label="Username"
+                    aria-describedby="addon-wrapping"
+                    readonly='readonly'
+                    maxlength="12"
+                    pattern="^\d{3}-\d{2}-\d{5}$"
+                    placeholder="000-00-00000">
+              </div>
             </div>
           </div>
         </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="ceo_name">대표자명</span>
-              <input name="ceo_name" type="text" class="form-control" value="${company.ceo_name}"
-                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="biz_number">사업자등록번호</span>
-              <input name="biz_number" type="text" class="form-control" value="${company.biz_number}"
-                     aria-label="Username" aria-describedby="addon-wrapping" ${mode=="modify" ? "" : "readonly='readonly'"}>
-            </div>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
   <div class="container" style="padding-top: 1.875rem;">
@@ -92,6 +105,36 @@
 
 <script>
   $(document).ready(function(){
+    'use strict';
+
+    $('#workplace_form').each(function () {
+      $(this).on('submit', function (event) {
+        if (!this.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        $(this).addClass('was-validated');
+      });
+    });
+
+    const inputBizNum = $('#inputBizNum');
+
+    inputBizNum.on('input', function() {
+      let value = $(this).val().replace(/[^0-9]/g, '');
+
+      if (value.length === 0) {
+        return;
+      }
+
+      if (value.length > 3 && value.length <= 5) {
+        value = value.slice(0, 3) + '-' + value.slice(3);
+      } else if (value.length > 5) {
+        value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5, 10);
+      }
+
+      $(this).val(value.slice(0, 12));
+    });
+
     $('#removeBtn').on("click", function() {
       if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
 
@@ -134,6 +177,14 @@
       }
 
       if (!confirm("수정 하시겠습니까?")) return;
+
+      const form = $("#companyInfoForm")[0];
+
+      // HTML5 유효성 검사 실행
+      if (!form.checkValidity()) {
+        $(form).addClass('was-validated');
+        return;
+      }
 
       const companyInfo = {};
 

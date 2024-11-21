@@ -7,7 +7,7 @@
         <h1 class="modal-title fs-5" id="stackAddLabel">시설 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<c:url value="/manager/workplace/${workplace.workplace_id}"/>" method="post" id="stack_form">
+      <form action="<c:url value="/manager/workplace/${workplace.workplace_id}"/>" method="post" id="stack_form" class="needs-validation" novalidate>
         <div class="modal-body m-2">
           <div class="mb-3 row">
             <label for="company_name" class="form-label">측정 대상 사업장</label>
@@ -18,7 +18,10 @@
           </div>
           <div class="mb-3 row">
             <label for="inputStack" class="form-label">측정 시설</label>
-            <input type="text" name="stack_name" class="form-control" id="inputStack">
+            <input type="text" name="stack_name" class="form-control" id="inputStack" required>
+            <div class="invalid-feedback">
+              시설명 입력 필수!
+            </div>
           </div>
           <div class="mb-3 row">
             <label for="inputPrevention" class="form-label">방지 시설</label>

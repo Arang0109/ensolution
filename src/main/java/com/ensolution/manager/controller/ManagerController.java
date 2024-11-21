@@ -75,11 +75,11 @@ public class ManagerController {
     return "redirect:/manager/stack";
   }
 
-  @GetMapping("/company/{company_id}")
-  public String detailCompany(@PathVariable Integer company_id, Model m) {
+  @GetMapping("/company/{companyId}")
+  public String detailCompany(@PathVariable Integer companyId, Model m) {
     try {
-      CompanyDto company = companyService.getCompany(company_id);
-      List<WorkplaceDto> workplaces = companyService.getWorkplacesOfCompany(company_id);
+      CompanyDto company = companyService.getCompany(companyId);
+      List<WorkplaceDto> workplaces = companyService.getWorkplacesOfCompany(companyId);
       m.addAttribute("company", company);
       m.addAttribute("workplaces", workplaces);
       return "companyDetailView";
@@ -113,13 +113,13 @@ public class ManagerController {
     return "redirect:/manager/workplace/" + workplaceId;
   }
 
-  @GetMapping("/workplace/{workplace_id}")
-  public String detailWorkplace(@PathVariable Integer workplace_id, Model m) {
+  @GetMapping("/workplace/{workplaceId}")
+  public String detailWorkplace(@PathVariable Integer workplaceId, Model m) {
     try {
-      WorkplaceDto workplace = workplaceService.getWorkplace(workplace_id);
+      WorkplaceDto workplace = workplaceService.getWorkplace(workplaceId);
       Integer company_id = workplace.getCompany_id();
       CompanyDto company = companyService.getCompany(company_id);
-      m.addAttribute("stacks", stackService.getStackListOfWorkplace(workplace_id));
+      m.addAttribute("stacks", stackService.getStackListOfWorkplace(workplaceId));
       m.addAttribute("workplace", workplace);
       m.addAttribute("company", company);
       return "workplaceDetailView";
@@ -129,12 +129,12 @@ public class ManagerController {
     }
   }
 
-  @GetMapping("/stack/{stack_id}")
-  public String detailStack(@PathVariable Integer stack_id, Model m) {
+  @GetMapping("/stack/{stackId}")
+  public String detailStack(@PathVariable Integer stackId, Model m) {
     try {
-      m.addAttribute("stack_measurements", stackMeasurementService.getStackMeasurementListOfStack(stack_id));
-      m.addAttribute("stack", stackService.getStack(stack_id));
-      m.addAttribute("stack_info", stackInfoService.getStackInfo(stack_id));
+      m.addAttribute("stack_measurements", stackMeasurementService.getStackMeasurementListOfStack(stackId));
+      m.addAttribute("stack", stackService.getStack(stackId));
+      m.addAttribute("stack_info", stackInfoService.getStackInfo(stackId));
       m.addAttribute("pollutants", pollutantService.getPollutantList());
       return "stackDetailView";
     } catch (Exception e) {
