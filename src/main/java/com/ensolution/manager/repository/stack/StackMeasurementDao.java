@@ -15,8 +15,6 @@ public interface StackMeasurementDao {
 
   int insert(StackMeasurementDto stackMeasurement);
 
-  int delete(Integer stack_measurement_id);
-
   int deleteItems(List<Integer> stack_measurement_ids);
 
   int update(StackMeasurementDto stackMeasurement);

@@ -43,9 +43,7 @@ public class StackMeasurementServiceImpl implements StackMeasurementService {
 
     @Override
     public int removeStackMeasurement(List<Integer> stack_measurement_ids) {
-        for (Integer stack_measurement_id : stack_measurement_ids) {
-            stackMeasurementDao.delete(stack_measurement_id);
-        }
+        stackMeasurementDao.deleteItems(stack_measurement_ids);
         return stack_measurement_ids.size();
     }
 }

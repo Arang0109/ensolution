@@ -40,10 +40,6 @@
             (#{company_name}, #{address}, #{ceo_name}, #{biz_number}, #{reg_date})
     </insert>
 
-    <delete id="delete" parameterType="int">
-        DELETE FROM company WHERE company_id = #{company_id}
-    </delete>
-
     <delete id="deleteItems" parameterType="list">
         DELETE FROM company
         WHERE company_id IN

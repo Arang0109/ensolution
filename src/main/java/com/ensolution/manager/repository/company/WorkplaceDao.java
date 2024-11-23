@@ -15,8 +15,6 @@ public interface WorkplaceDao {
 
   int insert(WorkplaceDto workplace);
 
-  int delete(Integer workplace_id);
-
   int deleteItems(List<Integer> workplace_ids);
 
   int update(WorkplaceDto workplace);

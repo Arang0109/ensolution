@@ -18,8 +18,6 @@ public interface CompanyDao {
 
     int insert(CompanyDto company);
 
-    int delete(Integer company_id);
-
     int deleteItems(List<Integer> company_ids);
 
     int update(CompanyDto company);

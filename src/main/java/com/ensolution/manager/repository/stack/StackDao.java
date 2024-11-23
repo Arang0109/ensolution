@@ -17,8 +17,6 @@ public interface StackDao {
 
   int insert(StackDto stack);
 
-  int delete(Integer stack_id);
-
   int deleteItems(List<Integer> stack_ids);
 
   int update(StackDto stack);

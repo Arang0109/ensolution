@@ -42,10 +42,6 @@
             (#{workplace_id}, #{stack_name}, #{prevention}, #{reg_date}, #{note})
     </insert>
 
-    <delete id="delete" parameterType="int">
-        DELETE FROM stack WHERE stack_id = #{stack_id}
-    </delete>
-
     <delete id="deleteItems" parameterType="list">
         DELETE FROM stack
         WHERE stack_id IN

@@ -43,9 +43,7 @@ public class StackServiceImpl implements StackService {
 
   @Override
   public int removeStack(List<Integer> stack_ids) {
-    for (Integer stack_id : stack_ids) {
-      stackDao.delete(stack_id);
-    }
+    stackDao.deleteItems(stack_ids);
     return stack_ids.size();
   }
 }

@@ -63,6 +63,15 @@ public class ManagerRestController {
     stackService.removeStack(ids);
   }
 
+  @DeleteMapping("/delete/stack/measurement")
+  public void deleteStackMeasurement(@RequestBody List<StackMeasurementDto> stackMeasurement) {
+    List<Integer> ids = new ArrayList<>();
+    for (StackMeasurementDto stackMeasurementDto : stackMeasurement) {
+      ids.add(stackMeasurementDto.getStack_measurement_id());
+    }
+    stackMeasurementService.removeStackMeasurement(ids);
+  }
+
   @PatchMapping("/modify/company")
   public void updateCompany(@RequestBody CompanyDto companyDto) {
     companyService.updateCompany(companyDto);

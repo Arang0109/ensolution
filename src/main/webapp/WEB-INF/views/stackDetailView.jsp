@@ -29,7 +29,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div id="stackMeasurement" class="container">
     <div class="border p-4" style="background-color: white;">
       <div class="d-flex justify-content-between">
         <p style="margin-left: 1.25rem;"><b>측정 오염 물질</b></p>
@@ -47,6 +47,7 @@
           <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             측정 항목 추가
           </button>
+          <button id="removeBtn" class="btn btn-primary btn-sm mb-3">측정 항목 삭제</button>
         </div>
       </div>
       <div class="d-flex justify-content-between">
@@ -55,7 +56,7 @@
           <div class="my-3">
             <c:forEach var="stack_measurement" items="${stack_measurements}">
               <c:if test="${stack_measurement.cycle_type eq 'monthly'}">
-                <div class="form-check ms-2">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
                   <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
                   <label class="form-check-label" for="${stack_measurement.pollutant_id}">
                       ${stack_measurement.pollutant_name}
@@ -70,7 +71,7 @@
           <div class="my-3">
             <c:forEach var="stack_measurement" items="${stack_measurements}">
               <c:if test="${stack_measurement.cycle_type eq 'quarterly'}">
-                <div class="form-check ms-2">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
                   <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
                   <label class="form-check-label" for="${stack_measurement.pollutant_id}">
                       ${stack_measurement.pollutant_name}
@@ -85,7 +86,7 @@
           <div class="my-3">
             <c:forEach var="stack_measurement" items="${stack_measurements}">
               <c:if test="${stack_measurement.cycle_type eq 'semiannual'}">
-                <div class="form-check ms-2">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
                   <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
                   <label class="form-check-label" for="${stack_measurement.pollutant_id}">
                       ${stack_measurement.pollutant_name}
@@ -100,7 +101,7 @@
           <div class="my-3">
             <c:forEach var="stack_measurement" items="${stack_measurements}">
               <c:if test="${stack_measurement.cycle_type eq 'annual'}">
-                <div class="form-check ms-2">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
                   <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
                   <label class="form-check-label" for="${stack_measurement.pollutant_id}">
                       ${stack_measurement.pollutant_name}
@@ -393,6 +394,33 @@
         },
         error: function () {
           alert("error");
+        }
+      });
+    });
+
+    $('#removeBtn').on("click", function() {
+      if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
+
+      const selectedStackMeasurement = [];
+
+      $('#stackMeasurement input[type="checkbox"]:checked').each(function() {
+        const stack_measurement_id = $(this).closest('div').attr('data-stack-measurement-id');
+        selectedStackMeasurement.push({"stack_measurement_id": stack_measurement_id});
+      });
+
+      if (selectedStackMeasurement.length === 0) return alert("항목을 선택해 주세요.");
+
+      $.ajax({
+        url: '<c:url value="/manager/delete/stack/measurement"/>',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedStackMeasurement),
+        success: function() {
+          alert("삭제 완료");
+          location.reload();
+        },
+        error: function() {
+          alert("삭제에 실패했습니다.");
         }
       });
     });

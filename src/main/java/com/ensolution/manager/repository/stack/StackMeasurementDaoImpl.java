@@ -75,18 +75,6 @@ public class StackMeasurementDaoImpl implements StackMeasurementDao {
     }
 
     @Override
-    public int delete(Integer stack_measurement_id) {
-        try {
-            return session.delete(namespace + "delete", stack_measurement_id);
-        }  catch (PersistenceException e) {
-            System.err.println("Persistence error occurred: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
-        }
-        return 0;
-    }
-
-    @Override
     public int deleteItems(List<Integer> stack_measurement_ids) {
         try {
             return session.delete(namespace + "deleteItems", stack_measurement_ids);

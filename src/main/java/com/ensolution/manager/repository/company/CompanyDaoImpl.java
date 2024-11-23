@@ -88,18 +88,6 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public int delete(Integer company_id) {
-        try {
-            return session.delete(namespace + "delete", company_id);
-        }  catch (PersistenceException e) {
-            System.err.println("Persistence error occurred: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
-        }
-        return 0;
-    }
-
-    @Override
     public int deleteItems(List<Integer> company_ids) {
         try {
             return session.delete(namespace + "deleteItems", company_ids);

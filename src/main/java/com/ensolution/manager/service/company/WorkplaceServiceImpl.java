@@ -38,9 +38,7 @@ public class WorkplaceServiceImpl implements WorkplaceService {
 
     @Override
     public int removeWorkplace(List<Integer> workplace_ids) {
-        for (Integer workplace_id : workplace_ids) {
-            workplaceDao.delete(workplace_id);
-        }
+        workplaceDao.deleteItems(workplace_ids);
         return workplace_ids.size();
     }
 }

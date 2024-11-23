@@ -34,10 +34,6 @@
             (#{stack_id}, #{pollutant_id}, #{cycle_type}, #{is_completed})
     </insert>
 
-    <delete id="delete" parameterType="int">
-        DELETE FROM stack_measurement WHERE stack_measurement_id = #{stack_measurement_id}
-    </delete>
-
     <delete id="deleteItems" parameterType="list">
         DELETE FROM stack_measurement
         WHERE stack_measurement_id IN

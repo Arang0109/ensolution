@@ -44,9 +44,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public int removeCompany(List<Integer> company_ids) {
-        for (Integer company_id : company_ids) {
-            companyDao.delete(company_id);
-        }
+        companyDao.deleteItems(company_ids);
         return company_ids.size();
     }
 }

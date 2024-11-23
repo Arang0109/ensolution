@@ -75,18 +75,6 @@ public class WorkplaceDaoImpl implements WorkplaceDao {
     }
 
     @Override
-    public int delete(Integer workplace_id) {
-        try {
-            return session.delete(namespace + "delete", workplace_id);
-        }  catch (PersistenceException e) {
-            System.err.println("Persistence error occurred: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred: " + e.getMessage());
-        }
-        return 0;
-    }
-
-    @Override
     public int deleteItems(List<Integer> workplace_ids) {
         try {
             return session.delete(namespace + "deleteItems", workplace_ids);
