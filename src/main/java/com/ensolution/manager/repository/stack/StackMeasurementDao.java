@@ -13,9 +13,9 @@ public interface StackMeasurementDao {
 
   List<StackMeasurementDto> selectAll();
 
-  int insert(StackMeasurementDto stackMeasurement);
+  Integer insert(StackMeasurementDto stackMeasurement);
 
-  int deleteItems(List<Integer> stack_measurement_ids);
+  Integer deleteItems(List<Integer> stack_measurement_ids);
 
-  int update(StackMeasurementDto stackMeasurement);
+  Integer update(StackMeasurementDto stackMeasurement);
 }

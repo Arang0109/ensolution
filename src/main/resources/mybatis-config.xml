@@ -10,5 +10,7 @@
         <typeAlias alias="StackInfoDto" type="com.ensolution.manager.domain.stack.StackInfoDto"/>
         <typeAlias alias="PollutantDto" type="com.ensolution.manager.domain.pollutant.PollutantDto"/>
         <typeAlias alias="StackMeasurementDto" type="com.ensolution.manager.domain.stack.StackMeasurementDto"/>
+        <typeAlias alias="ScheduleDto" type="com.ensolution.manager.domain.plan.ScheduleDto"/>
+        <typeAlias alias="TeamDto" type="com.ensolution.manager.domain.plan.TeamDto"/>
     </typeAliases>
 </configuration>

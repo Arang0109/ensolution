@@ -63,7 +63,7 @@ public class StackMeasurementDaoImpl implements StackMeasurementDao {
     }
 
     @Override
-    public int insert(StackMeasurementDto stackMeasurement) {
+    public Integer insert(StackMeasurementDto stackMeasurement) {
         try {
             return session.insert(namespace + "insert", stackMeasurement);
         }  catch (PersistenceException e) {
@@ -75,7 +75,7 @@ public class StackMeasurementDaoImpl implements StackMeasurementDao {
     }
 
     @Override
-    public int deleteItems(List<Integer> stack_measurement_ids) {
+    public Integer deleteItems(List<Integer> stack_measurement_ids) {
         try {
             return session.delete(namespace + "deleteItems", stack_measurement_ids);
         } catch (PersistenceException e) {
@@ -87,7 +87,7 @@ public class StackMeasurementDaoImpl implements StackMeasurementDao {
     }
 
     @Override
-    public int update(StackMeasurementDto stackMeasurement) {
+    public Integer update(StackMeasurementDto stackMeasurement) {
         try {
             return session.update(namespace + "update", stackMeasurement);
         } catch (PersistenceException e) {
