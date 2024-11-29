@@ -6,7 +6,7 @@
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item d-flex">
-            <a class="nav-link" href="#"><img src="<c:url value='/img/calendar.svg'/>"/><span style="margin-left: 1.25rem;">일정</span></a>
+            <a class="nav-link" href="<c:url value="/schedule/addPlan"/>"><img src="<c:url value='/img/calendar.svg'/>"/><span style="margin-left: 1.25rem;">일정</span></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
