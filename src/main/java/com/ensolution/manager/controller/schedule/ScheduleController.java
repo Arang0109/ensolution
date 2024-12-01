@@ -27,15 +27,4 @@ public class ScheduleController {
     m.addAttribute("workplaces", workplaceService.getWorkplaceList());
     return "schedule/addPlanView";
   }
-
-  @PostMapping("/add/plan")
-  public String addPlan(ScheduleDto scheduleDto) {
-    try {
-      scheduleService.insertSchedule(scheduleDto);
-      } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return "redirect:/schedule/register";
-  }
 }

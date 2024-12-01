@@ -12,28 +12,61 @@
 <%@include file="../semantic/navbar.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
   <div class="tostify"></div>
-  <form action="<c:url value="/schedule/add/plan"/>" method="post" id="plan_form">
   <div class="container">
-    <div class="border p-4" style="background-color: white;">
+    <div id="addPlanForm" class="border p-4" style="background-color: white;">
       <div class="d-flex justify-content-between">
         <p style="margin-left: 1.25rem;"><b>자가측정부 측정 일정 등록</b></p>
-        <input type="text" id="datepicker" placeholder="Select a date" style="text-align: center;">
-        <button type="submit" class="btn btn-primary">등록</button>
+        <input type="text" id="datepicker" name="measure_date" placeholder="Select a date" style="text-align: center;">
+        <button id="addPlan" type="button" class="btn btn-primary">등록</button>
       </div>
       <hr>
-      <div class="d-flex justify-content-between">
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <select id="selectWorkplace" class="js-example-basic-single" name="workplace_id" style="width: 100%;">
-            <option value="">-- select workplace --</option>
-            <c:forEach var="workplace" items="${workplaces}">
-              <option value="${workplace.workplace_id}">${workplace.workplace_name}</option>
-            </c:forEach>
-          </select>
+      <div class="row align-items-stretch">
+        <div class="col">
+          <div class="border p-4 mx-2 shadow-sm rounded bg-body-tertiary">
+            <div class="p-2">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="team_id" id="team1" value="1">
+                <label class="form-check-label" for="team1">1팀</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="team_id" id="team2" value="2">
+                <label class="form-check-label" for="team2">2팀</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="team_id" id="team3" value="3">
+                <label class="form-check-label" for="team3">3팀</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="team_id" id="team4" value="4">
+                <label class="form-check-label" for="team4">4팀</label>
+              </div>
+            </div>
+            <div class="p-2">
+              <label for="selectWorkplace" class="form-label">측정대상 사업장</label>
+              <select id="selectWorkplace" class="js-example-basic-single" style="width: 100%;">
+                <option value="">-- select workplace --</option>
+                <c:forEach var="workplace" items="${workplaces}">
+                  <option value="${workplace.workplace_id}">${workplace.workplace_name}</option>
+                </c:forEach>
+              </select>
+            </div>
+            <div class="p-2">
+              <label for="selectStack" class="form-label">측정 시설</label>
+              <select id="selectStack" class="js-example-basic-single" name="stack_id" style="width: 100%">
+                <option value="">-- select stack --</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <select id="selectStack" class="js-example-basic-single" name="stack_id" style="width: 100%">
-            <option value="">-- select stack --</option>
-          </select>
+        <div class="col">
+          <div class="border p-4 mx-2 shadow-sm rounded bg-body-tertiary h-100">
+            <div class="p-2">
+              <span><b>측정 현황</b></span>
+            </div>
+            <div class="p-2">
+
+            </div>
+          </div>
         </div>
       </div>
       <div id="measurementList" class="d-flex justify-content-between" style="padding-top: 1.875rem;">
@@ -74,14 +107,29 @@
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-between" style="padding-top: 1.875rem;">
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <a href="">history</a>
-        </div>
+    </div>
+  </div>
+  <div class="container" style="padding-top: 1.875rem;">
+    <div class="border p-4" style="background-color: white;">
+      <div class="d-flex justify-content-between">
+        <p style="margin-left: 1.25rem;"><b>히스토리</b></p>
+      </div>
+      <hr>
+      <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+        <table id="table" class="table table-bordered">
+          <thead>
+          <tr>
+            <th data-field="measure_date">Date</th>
+            <th data-field="pollutant">Pollutant</th>
+            <th data-field="team_name">Team</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  </form>
 </main>
 <footer class="w-100">
 
@@ -92,11 +140,11 @@
     $('.js-example-basic-single').select2();
 
     const today = new Date();
-    const formatDate = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월 " + today.getDate() + "일";
+    const formatDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
     $('#datepicker').datepicker({
       defaultDate: new Date(),
-      dateFormat: "yy년 mm월 dd일",
+      dateFormat: "yy-mm-dd",
       closeText: "닫기",
       currentText: "오늘",
       prevText: '이전 달',
@@ -112,7 +160,14 @@
 
     $('#datepicker').val(formatDate);
 
+    const id = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary"];
+
     function selectStackOption(stacks) {
+      id.forEach(cycle => {
+        const div = $('#' + cycle);
+        div.empty();
+      });
+
       const select = $('#selectStack');
       select.empty();
       select.append('<option value="">-- select stack --</option>');
@@ -122,13 +177,34 @@
       })
     }
 
-    const id = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary"];
+    function getHistory(histories) {
+      const tbody = $('#table tbody');
+      tbody.empty();
+
+      histories.forEach(history => {
+        const date = new Date(history.measure_date);
+
+        const innerHtml = `
+          <tr>
+            <td><a href="#">
+              ` + date.toISOString().split('T')[0] + `</a></td>
+            <td>` + history.pollutant_ids + `</td>
+            <td>` + history.team_name + `</td>
+          </tr>
+        `;
+        tbody.append(innerHtml);
+      });
+    }
 
     function selectMeasurement(measurements) {
       id.forEach(cycle => {
         const div = $('#' + cycle);
         div.empty();
         $.each(measurements, function(index, item) {
+          let color = 'red';
+          if (item.is_completed) {
+            color = 'green';
+          }
           if (item.cycle_type === cycle) {
             const checkboxHtml = `
               <div class="form-check ms-2" data-stack-measurement-id="` + item.stack_measurement_id + `">
@@ -137,7 +213,7 @@
                   type="checkbox"
                   value="` + item.pollutant_id + `"
                   id="` + item.pollutant_id + `">
-                <label class="form-check-label" for="` + item.pollutant_id + `">
+                <label class="form-check-label" for="` + item.pollutant_id + `" style="color: ` + color + `;">
                   ` + item.pollutant_name + `
                 </label>
               </div>
@@ -170,7 +246,7 @@
     });
 
     $("#selectStack").on('change', function() {
-      const selectedStack = {}
+      const selectedStack = {};
       selectedStack['stack_id'] = $(this).val();
 
       if (selectedStack['stack_id']===0) return;
@@ -181,11 +257,44 @@
         contentType: 'application/json',
         data: JSON.stringify(selectedStack),
         success: function(result) {
-          const measurements = result.measurements;
-          selectMeasurement(measurements);
+          selectMeasurement(result.measurements);
+          getHistory(result.histories);
         },
         error: function() {
           alert('failed');
+        }
+      });
+    });
+
+    $("#addPlan").on('click', function() {
+      const selectedMeasurement = [];
+      const measure_date = $("#datepicker").val();
+      const team_id = $('input[type="radio"]:checked').val();
+
+      $('#addPlanForm input[type="checkbox"]:checked').each(function () {
+        const stack_measurement_id = $(this).closest('div').attr('data-stack-measurement-id');
+        selectedMeasurement.push({
+          "team_id": team_id,
+          "stack_measurement_id": stack_measurement_id,
+          "measure_date": measure_date,
+        })
+      });
+
+      if (!selectedMeasurement) {
+        alert("select measurement!")
+        return;
+      }
+
+      $.ajax({
+        url: '<c:url value="/schedule/add/plan"/>',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedMeasurement),
+        success: function() {
+          alert('success');
+        },
+        error: function () {
+          alert('fail')
         }
       });
     });

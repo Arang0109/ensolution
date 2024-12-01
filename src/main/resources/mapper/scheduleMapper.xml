@@ -29,4 +29,15 @@
             #{schedule_id}
         </foreach>
     </delete>
+
+    <select id="selectStackHistory" parameterType="int" resultType="HistoryDto">
+        SELECT
+            sch.measure_date, sm.stack_id, sch.team_id, team.team_name, GROUP_CONCAT(DISTINCT sm.pollutant_id ORDER BY sm.pollutant_id ASC) AS pollutant_ids
+        FROM schedule sch
+            INNER JOIN stack_measurement sm ON sch.stack_measurement_id = sm.stack_measurement_id
+            INNER JOIN team ON team.team_id = sch.team_id
+        WHERE sch.is_completed = 1 AND sm.stack_id = #{stack_id}
+        GROUP BY sch.measure_date, sm.stack_id, sch.team_id
+        ORDER BY sch.measure_date DESC
+    </select>
 </mapper>

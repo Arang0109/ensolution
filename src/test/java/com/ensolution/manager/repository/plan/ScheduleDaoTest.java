@@ -20,4 +20,9 @@ public class ScheduleDaoTest {
   public void selectTeam() {
     System.out.println(teamDao.select(1));
   }
+
+  @Test
+  public void selectSchedule() {
+    System.out.println(scheduleDao.selectHistory(13));
+  }
 }
