@@ -58,12 +58,14 @@ public class ScheduleRestController {
   @PostMapping("/select/stack/measurement")
   public ResponseEntity<Map<String, Object>> getStackMeasurement(@RequestBody StackDto stackDto) {
     Integer stack_id = stackDto.getStack_id();
+    String note = stackService.getStack(stack_id).getNote();
     List<StackMeasurementDto> stackMeasurements = stackMeasurementService.getStackMeasurementListOfStack(stack_id);
     List<HistoryDto> histories = scheduleService.getHistory(stack_id);
 
     Map<String, Object> response = new HashMap<>();
     response.put("measurements", stackMeasurements);
     response.put("histories", histories);
+    response.put("note", note);
 
     return ResponseEntity.ok(response);
   }

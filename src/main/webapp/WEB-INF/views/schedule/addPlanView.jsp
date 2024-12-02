@@ -60,11 +60,15 @@
         </div>
         <div class="col">
           <div class="border p-4 mx-2 shadow-sm rounded bg-body-tertiary h-100">
-            <div class="p-2">
-              <span><b>측정 현황</b></span>
+            <div class="p-2 d-flex justify-content-between">
+              <a href=""><span><b>#시설 정보</b></span></a>
+              <button id="modifyNoteBtn" type="button" class="btn btn-primary btn-sm">특이사항 수정</button>
             </div>
             <div class="p-2">
-
+              <div class="input-group">
+                <span class="input-group-text"><b>특이사항</b></span>
+                <textarea id="noteOfStack" class="form-control" aria-label="With textarea"></textarea>
+              </div>
             </div>
           </div>
         </div>
@@ -160,6 +164,16 @@
 
     $('#datepicker').val(formatDate);
 
+    $('#modifyNoteBtn').on('click', function () {
+      if ($('#noteOfStack').attr('readonly') === 'readonly') {
+        $('#noteOfStack').attr('readonly', false);
+        $(this).html('특이사항 저장');
+        return;
+      }
+
+      alert('gg');
+    });
+
     const id = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary"];
 
     function selectStackOption(stacks) {
@@ -175,6 +189,16 @@
       $.each(stacks, function(index, item) {
         select.append('<option value="' + item.stack_id + '">' + item.stack_name + '</option>');
       })
+    }
+
+    function getNoteOfStack(note) {
+      const modBtn = $('#modifyNoteBtn');
+      const memo = $('#noteOfStack');
+
+      modBtn.html('특이사항 수정');
+      memo.empty();
+      memo.attr('readonly', true);
+      memo.html(note);
     }
 
     function getHistory(histories) {
@@ -259,6 +283,7 @@
         success: function(result) {
           selectMeasurement(result.measurements);
           getHistory(result.histories);
+          getNoteOfStack(result.note);
         },
         error: function() {
           alert('failed');
