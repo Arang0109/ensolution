@@ -2,6 +2,7 @@ package com.ensolution.manager.repository.plan;
 
 import com.ensolution.manager.domain.plan.HistoryDto;
 import com.ensolution.manager.domain.plan.ScheduleDto;
+import com.ensolution.manager.domain.plan.ScheduleTableDto;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,18 @@ public class ScheduleDaoImpl implements ScheduleDao {
   public ScheduleDto select(Integer schedule_id) {
     try {
       return session.selectOne(namespace + "select", schedule_id);
+    } catch (PersistenceException e) {
+      System.err.println("Persistence error occurred: " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("An unexpected error occurred: " + e.getMessage());
+    }
+    return null;
+  }
+
+  @Override
+  public List<ScheduleTableDto> selectAll() {
+    try {
+      return session.selectList(namespace + "selectAll");
     } catch (PersistenceException e) {
       System.err.println("Persistence error occurred: " + e.getMessage());
     } catch (Exception e) {

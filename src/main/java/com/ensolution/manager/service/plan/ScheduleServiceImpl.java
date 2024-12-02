@@ -2,8 +2,11 @@ package com.ensolution.manager.service.plan;
 
 import com.ensolution.manager.domain.plan.HistoryDto;
 import com.ensolution.manager.domain.plan.ScheduleDto;
+import com.ensolution.manager.domain.plan.ScheduleTableDto;
 import com.ensolution.manager.repository.plan.ScheduleDao;
 import com.ensolution.manager.repository.pollutant.PollutantDao;
+import com.ensolution.manager.service.stack.StackMeasurementService;
+import com.ensolution.manager.service.stack.StackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +16,19 @@ import java.util.List;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
   ScheduleDao scheduleDao;
+  StackMeasurementService stackMeasurementService;
+  StackService stackService;
   PollutantDao pollutantDao;
 
   @Autowired
   public ScheduleServiceImpl(ScheduleDao scheduleDao, PollutantDao pollutantDao) {
     this.scheduleDao = scheduleDao;
     this.pollutantDao = pollutantDao;
+  }
+
+  @Override
+  public List<ScheduleTableDto> getScheduleList() {
+    return scheduleDao.selectAll();
   }
 
   @Override

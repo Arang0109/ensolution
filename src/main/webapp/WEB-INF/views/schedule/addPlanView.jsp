@@ -216,6 +216,7 @@
       const memo = $('#noteOfStack');
 
       memo.empty();
+      memo.attr('readonly', true);
       memo.val(note);
     }
 
@@ -226,10 +227,11 @@
       histories.forEach(history => {
         const date = new Date(history.measure_date);
 
+        const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+
         const innerHtml = `
           <tr>
-            <td><a href="#">
-              ` + date.toISOString().split('T')[0] + `</a></td>
+            <td>` + localDate.toISOString().split('T')[0] + `</td>
             <td>` + history.pollutant_ids + `</td>
             <td>` + history.team_name + `</td>
           </tr>

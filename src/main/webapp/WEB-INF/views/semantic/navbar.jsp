@@ -5,8 +5,14 @@
       <a class="navbar-brand" href="#">ENSolution</a>
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item d-flex">
-            <a class="nav-link" href="<c:url value="/schedule/register"/>"><img src="<c:url value='/img/calendar.svg'/>"/><span style="margin-left: 1.25rem;">일정</span></a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="<c:url value='/img/calendar.svg'/>"/><span style="margin-left: 1.25rem;">일정</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="<c:url value="/schedule/main"/>">자가측정부 일정</a></li>
+              <li><a class="dropdown-item" href="<c:url value="/schedule/register"/>">일정 등록</a></li>
+            </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
