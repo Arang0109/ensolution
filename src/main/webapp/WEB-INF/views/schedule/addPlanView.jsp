@@ -171,7 +171,28 @@
         return;
       }
 
-      alert('gg');
+      const note = $('#noteOfStack').val();
+      const stack_id = $('#selectStack').val();
+
+      const stack = {
+        'stack_id': stack_id,
+        'note': note,
+      }
+
+      $.ajax({
+        url: '<c:url value="/schedule/modify/stack/note"/>',
+        type: 'PATCH',
+        contentType: 'application/json',
+        data: JSON.stringify(stack),
+        success: function() {
+          $('#modifyNoteBtn').html('특이사항 수정');
+          $('#noteOfStack').attr('readonly', true);
+          alert('success');
+        },
+        error: function() {
+          alert('failed');
+        }
+      });
     });
 
     const id = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary"];
@@ -192,13 +213,10 @@
     }
 
     function getNoteOfStack(note) {
-      const modBtn = $('#modifyNoteBtn');
       const memo = $('#noteOfStack');
 
-      modBtn.html('특이사항 수정');
       memo.empty();
-      memo.attr('readonly', true);
-      memo.html(note);
+      memo.val(note);
     }
 
     function getHistory(histories) {

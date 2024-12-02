@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/schedule")
@@ -68,5 +65,12 @@ public class ScheduleRestController {
     response.put("note", note);
 
     return ResponseEntity.ok(response);
+  }
+
+  @PatchMapping("/modify/stack/note")
+  public void modifyStackNote(@RequestBody StackDto stack) {
+    StackDto stackDto = stackService.getStack(stack.getStack_id());
+    stackDto.setNote(stack.getNote());
+    stackService.updateStack(stackDto);
   }
 }
