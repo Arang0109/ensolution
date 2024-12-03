@@ -32,10 +32,13 @@
             (#{team_id}, #{stack_measurement_id}, #{measure_date}, #{is_completed})
     </insert>
 
-    <update id="update" parameterType="ScheduleDto">
-        UPDATE stack_measurement
-        SET   is_completed = #{is_completed}
-        WHERE schedule_id = #{schedule_id}
+    <update id="updateComplete" parameterType="list">
+        UPDATE schedule
+        SET is_completed = true
+        WHERE schedule_id IN
+        <foreach item="schedule_id" collection="list" open="(" separator="," close=")">
+            #{schedule_id}
+        </foreach>
     </update>
 
     <delete id="deleteItems" parameterType="list">

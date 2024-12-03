@@ -37,13 +37,12 @@ public class StackMeasurementServiceImpl implements StackMeasurementService {
     }
 
     @Override
-    public int insertStackMeasurement(StackMeasurementDto stackMeasurementDto) {
-        return stackMeasurementDao.insert(stackMeasurementDto);
+    public void insertStackMeasurement(StackMeasurementDto stackMeasurementDto) {
+        stackMeasurementDao.insert(stackMeasurementDto);
     }
 
     @Override
-    public int removeStackMeasurement(List<Integer> stack_measurement_ids) {
+    public void removeStackMeasurement(List<Integer> stack_measurement_ids) {
         stackMeasurementDao.deleteItems(stack_measurement_ids);
-        return stack_measurement_ids.size();
     }
 }

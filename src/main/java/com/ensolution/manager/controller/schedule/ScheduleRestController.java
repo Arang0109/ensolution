@@ -73,4 +73,14 @@ public class ScheduleRestController {
     stackDto.setNote(stack.getNote());
     stackService.updateStack(stackDto);
   }
+
+  @DeleteMapping("/delete")
+  public void deleteSchedule(@RequestBody List<Integer> schedule_ids) {
+    scheduleService.deleteSchedule(schedule_ids);
+  }
+
+  @PatchMapping("/update/complete")
+  public void completeSchedule(@RequestBody List<Integer> schedule_ids) {
+    scheduleService.completeSchedule(schedule_ids);
+  }
 }

@@ -13,7 +13,7 @@ public interface StackMeasurementService {
 
   int updateStackMeasurement(StackMeasurementDto stackMeasurementDto);
 
-  int insertStackMeasurement(StackMeasurementDto stackMeasurementDto);
+  void insertStackMeasurement(StackMeasurementDto stackMeasurementDto);
 
-  int removeStackMeasurement(List<Integer> stack_measurement_ids);
+  void removeStackMeasurement(List<Integer> stack_measurement_ids);
 }

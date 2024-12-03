@@ -5,6 +5,7 @@ import com.ensolution.manager.domain.plan.ScheduleDto;
 import com.ensolution.manager.domain.plan.ScheduleTableDto;
 import com.ensolution.manager.repository.plan.ScheduleDao;
 import com.ensolution.manager.repository.pollutant.PollutantDao;
+import com.ensolution.manager.repository.stack.StackMeasurementDao;
 import com.ensolution.manager.service.stack.StackMeasurementService;
 import com.ensolution.manager.service.stack.StackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,16 @@ import java.util.List;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
+  StackMeasurementDao stackMeasurementDao;
   ScheduleDao scheduleDao;
-  StackMeasurementService stackMeasurementService;
-  StackService stackService;
   PollutantDao pollutantDao;
 
   @Autowired
-  public ScheduleServiceImpl(ScheduleDao scheduleDao, PollutantDao pollutantDao) {
+  public ScheduleServiceImpl(ScheduleDao scheduleDao, PollutantDao pollutantDao,
+                             StackMeasurementDao stackMeasurementDao) {
     this.scheduleDao = scheduleDao;
     this.pollutantDao = pollutantDao;
+    this.stackMeasurementDao = stackMeasurementDao;
   }
 
   @Override
@@ -50,5 +52,21 @@ public class ScheduleServiceImpl implements ScheduleService {
   public void insertSchedule(ScheduleDto scheduleDto) {
     scheduleDto.setIs_completed(false);
     scheduleDao.insert(scheduleDto);
+  }
+
+  @Override
+  public void completeSchedule(List<Integer> schedule_ids) {
+    List<Integer> stack_measurement_ids = new ArrayList<>();
+    for (Integer schedule_id : schedule_ids) {
+      ScheduleDto scheduleDto = scheduleDao.select(schedule_id);
+      stack_measurement_ids.add(scheduleDto.getStack_measurement_id());
+    }
+    stackMeasurementDao.updateComplete(stack_measurement_ids);
+    scheduleDao.updateComplete(schedule_ids);
+  }
+
+  @Override
+  public void deleteSchedule(List<Integer> schedule_ids) {
+    scheduleDao.deleteItems(schedule_ids);
   }
 }

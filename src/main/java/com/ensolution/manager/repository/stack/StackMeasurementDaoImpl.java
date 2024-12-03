@@ -97,4 +97,15 @@ public class StackMeasurementDaoImpl implements StackMeasurementDao {
         }
         return 0;
     }
+
+    @Override
+    public void updateComplete(List<Integer> stack_measurement_ids) {
+        try {
+            session.update(namespace + "updateComplete", stack_measurement_ids);
+        }  catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
 }

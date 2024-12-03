@@ -65,15 +65,14 @@ public class ScheduleDaoImpl implements ScheduleDao {
   }
 
   @Override
-  public Integer update(ScheduleDto schedule) {
+  public void updateComplete(List<Integer> schedule_ids) {
     try {
-      return session.insert(namespace + "update", schedule);
+      session.update(namespace + "updateComplete", schedule_ids);
     }  catch (PersistenceException e) {
       System.err.println("Persistence error occurred: " + e.getMessage());
     } catch (Exception e) {
       System.out.println("An unexpected error occurred: " + e.getMessage());
     }
-    return 0;
   }
 
   @Override

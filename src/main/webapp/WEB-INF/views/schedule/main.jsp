@@ -60,10 +60,10 @@
         <h4><span class="badge text-bg-primary">자가측정부 일정</span></h4>
         <div>
           <a href="<c:url value='/schedule/register'/>" class="btn btn-primary btn-sm mx-1">일정 추가</a>
-          <button type="button" class="btn btn-primary btn-sm mx-1">
+          <button id="deleteBtn" type="button" class="btn btn-primary btn-sm mx-1">
             일정 삭제
           </button>
-          <button type="button" class="btn btn-primary btn-sm mx-1">
+          <button id="completeBtn" type="button" class="btn btn-primary btn-sm mx-1">
             일정 완료
           </button>
         </div>
@@ -111,6 +111,58 @@
 <script>
   $(document).ready(function(){
     $('.js-example-basic-single').select2();
+
+    $('#completeBtn').on('click', function() {
+      const is_checked = $('#table tr td input[type="checkbox"]:checked');
+      let schedule_ids = [];
+
+      is_checked.each(function() {
+        const schedule_id = $(this).closest('tr').attr('data-schedule-ids').split(',');
+        schedule_id.forEach(item => {
+          schedule_ids.push(item);
+        })
+      });
+
+      $.ajax({
+        url: '<c:url value="/schedule/update/complete"/>',
+        type: 'PATCH',
+        contentType: 'application/json',
+        data: JSON.stringify(schedule_ids),
+        success: function () {
+          alert('success');
+          location.reload();
+        },
+        error: function () {
+          alert('fail')
+        }
+      });
+    });
+
+    $('#deleteBtn').on('click', function() {
+      const is_checked = $('#table tr td input[type="checkbox"]:checked');
+      let schedule_ids = [];
+
+      is_checked.each(function() {
+        const schedule_id = $(this).closest('tr').attr('data-schedule-ids').split(',');
+        schedule_id.forEach(item => {
+          schedule_ids.push(item);
+        })
+      });
+
+      $.ajax({
+        url: '<c:url value="/schedule/delete"/>',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(schedule_ids),
+        success: function () {
+          alert('success');
+          location.reload();
+        },
+        error: function () {
+          alert('fail')
+        }
+      });
+    });
   });
 </script>
 </body>

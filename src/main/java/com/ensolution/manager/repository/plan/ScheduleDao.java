@@ -15,7 +15,7 @@ public interface ScheduleDao {
 
   Integer insert(ScheduleDto schedule);
 
-  Integer update(ScheduleDto schedule);
+  void updateComplete(List<Integer> schedule_ids);
 
   Integer deleteItems(List<Integer> schedule_ids);
 }

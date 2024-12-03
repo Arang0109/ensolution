@@ -18,4 +18,6 @@ public interface StackMeasurementDao {
   Integer deleteItems(List<Integer> stack_measurement_ids);
 
   Integer update(StackMeasurementDto stackMeasurement);
+
+  void updateComplete(List<Integer> stack_measurement_ids);
 }
