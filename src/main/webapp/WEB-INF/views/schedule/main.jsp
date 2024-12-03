@@ -71,10 +71,13 @@
       <table
           id="table"
           data-toggle="table"
-          data-height="1000"
+          data-locale="ko-KR"
+          data-height="550"
           data-checkbox-header="true"
           data-click-to-select="true"
+          data-pagination="true"
           data-toolbar="#toolbar"
+          data-buttons-class="primary"
           data-row-style="rowStyle">
         <thead style="font-size: 0.875rem">
         <tr>
@@ -94,7 +97,8 @@
             <td></td>
             <td><a href=""><fmt:formatDate value="${schedule.measure_date}" pattern="yyyy-MM-dd" /></a></td>
             <td>${schedule.workplace_name}</td>
-            <td>${schedule.stack_name}</td>
+            <td data-stack-id="${schedule.stack_id}"><a href="<c:url value="/manager/stack/${schedule.stack_id}"/>">
+                ${schedule.stack_name}</a></td>
             <td>${schedule.pollutants}</td>
             <td>${schedule.team_name}</td>
           </tr>

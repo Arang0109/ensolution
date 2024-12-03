@@ -9,6 +9,7 @@ public class ScheduleTableDto {
   private Integer stack_measurement_id;
   private String workplace_name;
   private String stack_name;
+  private Integer stack_id;
   private String pollutants;
   private String team_name;
   private Date measure_date;
@@ -16,12 +17,15 @@ public class ScheduleTableDto {
 
   public ScheduleTableDto() {}
 
-  public ScheduleTableDto(String schedule_ids, Integer team_id, Integer stack_measurement_id, String workplace_name, String stack_name, String pollutants, String team_name, Date measure_date, Boolean is_completed) {
+  public ScheduleTableDto(String schedule_ids, Integer team_id, Integer stack_measurement_id,
+                          String workplace_name, String stack_name, String pollutants, String team_name,
+                          Integer stack_id, Date measure_date, Boolean is_completed) {
     this.schedule_ids = schedule_ids;
     this.team_id = team_id;
     this.stack_measurement_id = stack_measurement_id;
     this.workplace_name = workplace_name;
     this.stack_name = stack_name;
+    this.stack_id = stack_id;
     this.pollutants = pollutants;
     this.team_name = team_name;
     this.measure_date = measure_date;
@@ -81,6 +85,14 @@ public class ScheduleTableDto {
     this.stack_name = stack_name;
   }
 
+  public Integer getStack_id() {
+    return stack_id;
+  }
+
+  public void setStack_id(Integer stack_id) {
+    this.stack_id = stack_id;
+  }
+
   public String getPollutants() {
     return pollutants;
   }
@@ -121,6 +133,7 @@ public class ScheduleTableDto {
         ", stack_measurement_id=" + stack_measurement_id +
         ", workplace_name='" + workplace_name + '\'' +
         ", stack_name='" + stack_name + '\'' +
+        ", stack_id=" + stack_id +
         ", pollutants='" + pollutants + '\'' +
         ", team_name='" + team_name + '\'' +
         ", measure_date=" + measure_date +

@@ -29,7 +29,99 @@
       </div>
     </div>
   </div>
-  <div id="stackMeasurement" class="container">
+  <div id="stackInfo" class="container d-flex justify-content-between">
+    <div class="border p-4" style="background-color: white;">
+      <div class="d-flex justify-content-between">
+        <p style="margin-left: 1.25rem;"><b>측정 시설 정보</b></p>
+        <div>
+          <button id="modifyBtn" class="btn btn-primary btn-sm" type="button">수정</button>
+        </div>
+      </div>
+      <hr>
+      <div class="container text-center">
+        <input name="stack_id" type="text" class="form-control" value="${stack.stack_id}" readonly='readonly' hidden="hidden">
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="stack_name">측정 시설</span>
+              <input name="stack_name" type="text" class="form-control" value="${stack.stack_name}"
+                     aria-label="Stack name" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="prevention">방지 시설</span>
+              <input name="prevention" type="text" class="form-control" value="${stack.prevention}"
+                     aria-label="Prevention" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border p-4" style="background-color: white;">
+      <div class="d-flex justify-content-between">
+        <p style="margin-left: 1.25rem;"><b>측정 시설 제원</b></p>
+        <div>
+          <button id="modifySpecificationBtn" class="btn btn-primary btn-sm" type="button">수정</button>
+        </div>
+      </div>
+      <hr>
+      <div id="stackSpecification" class="container text-center">
+        <input name="stack_info_id" type="text" class="form-control" value="${stack_info.stack_info_id}" readonly='readonly' hidden="hidden">
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="diameter">직경 (m)</span>
+              <input name="diameter" type="text" class="form-control" value="${stack_info.diameter}"
+                     aria-label="Diameter" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="velocity_speed">유속 (m/s)</span>
+              <input name="velocity_speed" type="text" class="form-control" value="${stack_info.velocity_speed}"
+                     aria-label="Velocity speed" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="dynamic_pressure">동압 (mmH<sub>2</sub>O)</span>
+              <input name="dynamic_pressure" type="text" class="form-control" value="${stack_info.dynamic_pressure}"
+                     aria-label="Dynamic pressure" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="static_pressure">정압 (mmH<sub>2</sub>O)</span>
+              <input name="static_pressure" type="text" class="form-control" value="${stack_info.static_pressure}"
+                     aria-label="Static pressure" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="quantity">유량 (m<sup>3</sup>/hr)</span>
+              <input name="quantity" type="text" class="form-control" value="${stack_info.quantity}"
+                     aria-label="Quantity" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group flex-nowrap">
+              <span class="input-group-text" id="temperature">온도 (ºC)</span>
+              <input name="temperature" type="text" class="form-control" value="${stack_info.temperature}"
+                     aria-label="Temperature" aria-describedby="addon-wrapping" readonly='readonly'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="stackMeasurement" class="container" style="padding-top: 1.875rem;">
     <div class="border p-4" style="background-color: white;">
       <div class="d-flex justify-content-between">
         <p style="margin-left: 1.25rem;"><b>측정 오염 물질</b></p>
@@ -121,98 +213,6 @@
           <span class="badge text-bg-primary">2월 / 1회</span>
           <div class="my-3">
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="stackInfo" class="container d-flex justify-content-between" style="padding-top: 1.875rem;">
-    <div class="border p-4" style="background-color: white;">
-      <div class="d-flex justify-content-between">
-        <p style="margin-left: 1.25rem;"><b>측정 시설 정보</b></p>
-        <div>
-          <button id="modifyBtn" class="btn btn-primary btn-sm" type="button">수정</button>
-        </div>
-      </div>
-      <hr>
-      <div class="container text-center">
-        <input name="stack_id" type="text" class="form-control" value="${stack.stack_id}" readonly='readonly' hidden="hidden">
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="stack_name">측정 시설</span>
-              <input name="stack_name" type="text" class="form-control" value="${stack.stack_name}"
-                     aria-label="Stack name" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="prevention">방지 시설</span>
-              <input name="prevention" type="text" class="form-control" value="${stack.prevention}"
-                     aria-label="Prevention" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="border p-4" style="background-color: white;">
-      <div class="d-flex justify-content-between">
-        <p style="margin-left: 1.25rem;"><b>측정 시설 제원</b></p>
-        <div>
-          <button id="modifySpecificationBtn" class="btn btn-primary btn-sm" type="button">수정</button>
-        </div>
-      </div>
-      <hr>
-      <div id="stackSpecification" class="container text-center">
-        <input name="stack_info_id" type="text" class="form-control" value="${stack_info.stack_info_id}" readonly='readonly' hidden="hidden">
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="diameter">직경 (m)</span>
-              <input name="diameter" type="text" class="form-control" value="${stack_info.diameter}"
-                     aria-label="Diameter" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="velocity_speed">유속 (m/s)</span>
-              <input name="velocity_speed" type="text" class="form-control" value="${stack_info.velocity_speed}"
-                     aria-label="Velocity speed" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="dynamic_pressure">동압 (mmH<sub>2</sub>O)</span>
-              <input name="dynamic_pressure" type="text" class="form-control" value="${stack_info.dynamic_pressure}"
-                     aria-label="Dynamic pressure" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="static_pressure">정압 (mmH<sub>2</sub>O)</span>
-              <input name="static_pressure" type="text" class="form-control" value="${stack_info.static_pressure}"
-                     aria-label="Static pressure" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="quantity">유량 (m<sup>3</sup>/hr)</span>
-              <input name="quantity" type="text" class="form-control" value="${stack_info.quantity}"
-                     aria-label="Quantity" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="temperature">온도 (ºC)</span>
-              <input name="temperature" type="text" class="form-control" value="${stack_info.temperature}"
-                     aria-label="Temperature" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
           </div>
         </div>
       </div>

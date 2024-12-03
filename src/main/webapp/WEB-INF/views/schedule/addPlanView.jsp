@@ -144,7 +144,7 @@
     $('.js-example-basic-single').select2();
 
     const today = new Date();
-    const formatDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+    const formatDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + String(today.getDate()).padStart(2, '0');
 
     $('#datepicker').datepicker({
       defaultDate: new Date(),

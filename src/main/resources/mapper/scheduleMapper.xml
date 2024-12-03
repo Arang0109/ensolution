@@ -11,7 +11,7 @@
 
     <select id="selectAll" resultType="ScheduleTableDto">
         SELECT GROUP_CONCAT(DISTINCT s.schedule_id) AS schedule_ids,
-               s.team_id, s.stack_measurement_id, measure_date, stack.stack_name,
+               s.team_id, s.stack_measurement_id, measure_date, stack.stack_name, stack.stack_id,
                workplace.workplace_name, team.team_name, s.is_completed,
                GROUP_CONCAT(DISTINCT pollutant.pollutant_name ORDER BY sm.pollutant_id ASC SEPARATOR ', ') AS pollutants
         FROM schedule s
