@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -20,6 +21,18 @@ public class ScheduleDaoImpl implements ScheduleDao {
   public ScheduleDto select(Integer schedule_id) {
     try {
       return session.selectOne(namespace + "select", schedule_id);
+    } catch (PersistenceException e) {
+      System.err.println("Persistence error occurred: " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("An unexpected error occurred: " + e.getMessage());
+    }
+    return null;
+  }
+
+  @Override
+  public ScheduleTableDto selectDetail(ScheduleTableDto scheduleTableDto) {
+    try {
+      return session.selectOne(namespace + "selectDetail", scheduleTableDto);
     } catch (PersistenceException e) {
       System.err.println("Persistence error occurred: " + e.getMessage());
     } catch (Exception e) {

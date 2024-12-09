@@ -11,6 +11,8 @@ public interface ScheduleService {
 
   List<ScheduleTableDto> getScheduleList();
 
+  ScheduleTableDto getScheduleDetail(ScheduleTableDto scheduleTableDto);
+
   void insertSchedule(ScheduleDto scheduleDto);
 
   void completeSchedule(List<Integer> schedule_ids);

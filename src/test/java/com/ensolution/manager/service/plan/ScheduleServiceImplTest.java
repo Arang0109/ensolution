@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -31,7 +35,21 @@ public class ScheduleServiceImplTest {
     }
 
     @Test
-    public void getScheduleList() {
-        System.out.println(scheduleService.getScheduleList());
+    public void getScheduleList() throws ParseException {
+        String inputDate = "Tue Dec 03 00:00:00 KST 2024";
+
+        // 입력 형식 지정
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", java.util.Locale.ENGLISH);
+
+        // 출력 형식 지정
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // 문자열을 ZonedDateTime으로 파싱
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(inputDate, inputFormatter);
+
+        // 원하는 형식으로 변환
+        String formattedDate = outputFormatter.format(zonedDateTime.toLocalDate());
+        System.out.println("Formatted Date: " + formattedDate);
+
     }
 }

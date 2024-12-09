@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +96,8 @@
               data-schedule-ids="${schedule.schedule_ids}"
               data-is-completed=${schedule.is_completed ? '"true"' : '"false"'}>
             <td></td>
-            <td><a href=""><fmt:formatDate value="${schedule.measure_date}" pattern="yyyy-MM-dd" /></a></td>
+            <td><a href="<c:url value="/schedule/modify/${schedule.stack_id}/${schedule.measure_date}"/>">
+              <fmt:formatDate value="${schedule.measure_date}" pattern="yyyy-MM-dd" /></a></td>
             <td>${schedule.workplace_name}</td>
             <td data-stack-id="${schedule.stack_id}"><a href="<c:url value="/manager/stack/${schedule.stack_id}"/>">
                 ${schedule.stack_name}</a></td>

@@ -1,10 +1,13 @@
 package com.ensolution.manager.repository.plan;
 
+import com.ensolution.manager.domain.plan.ScheduleTableDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.sql.Date;
 
 import static org.junit.Assert.*;
 
@@ -24,5 +27,15 @@ public class ScheduleDaoTest {
   @Test
   public void selectSchedule() {
     System.out.println(scheduleDao.selectHistory(13));
+  }
+
+  @Test
+  public void selectDetail() {
+    ScheduleTableDto scheduleTableDto = new ScheduleTableDto();
+
+    scheduleTableDto.setStack_id(196);
+    scheduleTableDto.setMeasure_date(Date.valueOf("2024-12-03"));
+
+    System.out.println(scheduleDao.selectDetail(scheduleTableDto));
   }
 }

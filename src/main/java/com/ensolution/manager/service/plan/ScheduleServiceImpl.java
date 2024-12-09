@@ -11,6 +11,8 @@ import com.ensolution.manager.service.stack.StackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,11 @@ public class ScheduleServiceImpl implements ScheduleService {
   @Override
   public List<ScheduleTableDto> getScheduleList() {
     return scheduleDao.selectAll();
+  }
+
+  @Override
+  public ScheduleTableDto getScheduleDetail(ScheduleTableDto scheduleTableDto) {
+    return scheduleDao.selectDetail(scheduleTableDto);
   }
 
   @Override
