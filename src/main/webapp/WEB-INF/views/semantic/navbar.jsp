@@ -10,8 +10,8 @@
               <img src="<c:url value='/img/calendar.svg'/>"/><span style="margin-left: 1.25rem;">일정</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<c:url value="/schedule/main"/>">자가측정부 일정</a></li>
               <li><a class="dropdown-item" href="<c:url value="/schedule/register"/>">일정 등록</a></li>
+              <li><a class="dropdown-item" href="<c:url value="/schedule/main"/>">자가측정부 일정</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
