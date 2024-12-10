@@ -1,7 +1,7 @@
 package com.ensolution.manager.domain.company;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class CompanyDto {
@@ -14,7 +14,7 @@ public class CompanyDto {
     private boolean is_measuring;
 
     public CompanyDto() {
-        this.reg_date = java.sql.Date.valueOf(LocalDate.now());
+        this.reg_date = Date.valueOf(LocalDate.now());
     }
 
     public CompanyDto(String company_name, String address, String ceo_name, String biz_number) {
@@ -22,7 +22,7 @@ public class CompanyDto {
         this.address = address;
         this.ceo_name = ceo_name;
         this.biz_number = biz_number;
-        this.reg_date = java.sql.Date.valueOf(LocalDate.now());
+        this.reg_date = Date.valueOf(LocalDate.now());
     }
 
     @Override

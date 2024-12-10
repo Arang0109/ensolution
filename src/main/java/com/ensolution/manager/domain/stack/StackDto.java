@@ -1,7 +1,7 @@
 package com.ensolution.manager.domain.stack;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class StackDto {
@@ -16,7 +16,7 @@ public class StackDto {
   private String note;
 
   public StackDto() {
-    this.reg_date = java.sql.Date.valueOf(LocalDate.now());
+    this.reg_date = Date.valueOf(LocalDate.now());
   }
 
   public StackDto(Integer workplace_id, Integer company_id, String company_name, String workplace_name, String stack_name, String prevention, Date reg_date, String note) {
@@ -26,7 +26,7 @@ public class StackDto {
     this.workplace_name = workplace_name;
     this.stack_name = stack_name;
     this.prevention = prevention;
-    this.reg_date = reg_date;
+    this.reg_date = Date.valueOf(LocalDate.now());
     this.note = note;
   }
 

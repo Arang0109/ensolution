@@ -17,7 +17,8 @@
     <div id="addPlanForm" class="border p-4" style="background-color: white;">
       <div class="d-flex justify-content-between">
         <p style="margin-left: 1.25rem;"><b>자가측정부 측정 일정 상세</b></p>
-        <input type="text" id="datepicker" name="measure_date" placeholder="Select a date" style="text-align: center;">
+        <input type="text" id="datepicker" name="measure_date"
+               placeholder="Select a date" style="text-align: center;">
         <button id="modifyPlan" type="button" class="btn btn-primary">수정</button>
       </div>
       <hr>
@@ -55,7 +56,7 @@
         <div class="col">
           <div class="border p-4 mx-2 shadow-sm rounded bg-body-tertiary h-100">
             <div class="p-2 d-flex justify-content-between">
-              <a href=""><span><b>#시설 정보</b></span></a>
+              <a href="<c:url value='/manager/stack/${schedule.stack_id}'/>" target="_blank"><span><b>#시설 정보</b></span></a>
               <button id="modifyNoteBtn" type="button" class="btn btn-primary btn-sm">특이사항 수정</button>
             </div>
             <div class="p-2">
@@ -70,37 +71,73 @@
       <div id="measurementList" class="d-flex justify-content-between" style="padding-top: 1.875rem;">
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">월 / 1회</span>
-          <div id="monthly" class="my-3">
-
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'monthly'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">분기 / 1회</span>
-          <div id="quarterly" class="my-3">
-
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'quarterly'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">반기 / 1회</span>
-          <div id="semiannual" class="my-3">
-
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'semiannual'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">연 / 1회</span>
-          <div id="annual" class="my-3">
-
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'annual'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label" for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">월 / 2회</span>
-          <div id="twiceamonth" class="my-3">
+          <div class="my-3">
 
           </div>
         </div>
         <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
           <span class="badge text-bg-primary">2월 / 1회</span>
-          <div id="onceinfebruary" class="my-3">
+          <div class="my-3">
 
           </div>
         </div>
@@ -139,7 +176,76 @@
       if ($(this).val() == ${schedule.team_id}) {
         $(this).attr('checked', 'checked');
       }
+    });
+
+    const pollutants = "${schedule.pollutant_ids}".split(",");
+    pollutants.forEach(item => {
+      $('input[type="checkbox"]').each(function() {
+        if ($(this).attr('id') == item) {
+          $(this).attr('checked', 'checked');
+        }
+      });
     })
+
+    $('#datepicker').datepicker({
+      defaultDate: new Date(),
+      dateFormat: "yy-mm-dd",
+      closeText: "닫기",
+      currentText: "오늘",
+      prevText: '이전 달',
+      nextText: '다음 달',
+      monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+      dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+      weekHeader: "주",
+      yearSuffix: '년',
+    });
+
+    $('#datepicker').val("${schedule.measure_date}");
+
+    $('#modifyPlan').on('click', function() {
+      const selectedMeasurement = [];
+      const measure_date = $("#datepicker").val();
+      const team_id = $('input[type="radio"]:checked').val();
+
+      $('#measurementList input[type="checkbox"]:checked').each(function () {
+        const stack_measurement_id = $(this).closest('div').attr('data-stack-measurement-id');
+        selectedMeasurement.push({
+          "team_id": team_id,
+          "stack_measurement_id": stack_measurement_id,
+          "measure_date": measure_date,
+        })
+      });
+
+      if (!selectedMeasurement) {
+        alert("select measurement!")
+        return;
+      }
+
+      $.ajax({
+        url: '<c:url value="/schedule/delete"/>',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify("${schedule.schedule_ids}".split(",")),
+        success: function() {},
+        error: function () {}
+      })
+
+      $.ajax({
+        url: '<c:url value="/schedule/add/plan"/>',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedMeasurement),
+        success: function() {
+          alert('success');
+        },
+        error: function () {
+          alert('fail')
+        }
+      });
+    });
   });
 </script>
 </body>

@@ -1,9 +1,9 @@
 package com.ensolution.manager.controller.schedule;
 
 import com.ensolution.manager.domain.plan.ScheduleTableDto;
-import com.ensolution.manager.domain.stack.StackDto;
 import com.ensolution.manager.service.company.WorkplaceService;
 import com.ensolution.manager.service.plan.ScheduleService;
+import com.ensolution.manager.service.stack.StackMeasurementService;
 import com.ensolution.manager.service.stack.StackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,22 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Date;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-
 @Controller
 @RequestMapping("/schedule")
 public class ScheduleController {
   WorkplaceService workplaceService;
   StackService stackService;
   ScheduleService scheduleService;
+  StackMeasurementService stackMeasurementService;
 
   @Autowired
   public ScheduleController(WorkplaceService workplaceService, StackService stackService,
-                            ScheduleService scheduleService) {
+                            ScheduleService scheduleService, StackMeasurementService stackMeasurementService) {
     this.workplaceService = workplaceService;
     this.stackService = stackService;
     this.scheduleService = scheduleService;
+    this.stackMeasurementService = stackMeasurementService;
   }
 
   @GetMapping("/main")
@@ -51,21 +50,12 @@ public class ScheduleController {
     ScheduleTableDto scheduleTableDto = new ScheduleTableDto();
 
     scheduleTableDto.setStack_id(stackId);
-    scheduleTableDto.setMeasure_date(Date.valueOf(dateFormat(measureDate)));
+    scheduleTableDto.setMeasure_date(Date.valueOf(measureDate));
 
-    StackDto stack = stackService.getStack(stackId);
-    ScheduleTableDto schedule = scheduleService.getScheduleDetail(scheduleTableDto);
-
-    m.addAttribute("stack", stack);
-    m.addAttribute("schedule", schedule);
+    m.addAttribute("stack", stackService.getStack(stackId));
+    m.addAttribute("stack_measurements", stackMeasurementService.getStackMeasurementListOfStack(stackId));
+    m.addAttribute("schedule", scheduleService.getScheduleDetail(scheduleTableDto));
 
     return "schedule/scheduleModifyView";
-  }
-
-  private String dateFormat(String inputDate) {
-    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", java.util.Locale.ENGLISH);
-    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    ZonedDateTime zonedDateTime = ZonedDateTime.parse(inputDate, inputFormatter);
-    return outputFormatter.format(zonedDateTime.toLocalDate());
   }
 }

@@ -1,7 +1,7 @@
 package com.ensolution.manager.domain.company;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class WorkplaceDto {
@@ -12,14 +12,14 @@ public class WorkplaceDto {
   private Date reg_date;
 
   public WorkplaceDto() {
-    this.reg_date = java.sql.Date.valueOf(LocalDate.now());
+    this.reg_date = Date.valueOf(LocalDate.now());
   }
 
   public WorkplaceDto(Integer company_id, String workplace_name, String address) {
     this.company_id = company_id;
     this.workplace_name = workplace_name;
     this.address = address;
-    this.reg_date = java.sql.Date.valueOf(LocalDate.now());
+    this.reg_date = Date.valueOf(LocalDate.now());
   }
 
   @Override

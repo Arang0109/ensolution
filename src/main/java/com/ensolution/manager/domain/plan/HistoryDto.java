@@ -1,6 +1,6 @@
 package com.ensolution.manager.domain.plan;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class HistoryDto {
     private Date measure_date;

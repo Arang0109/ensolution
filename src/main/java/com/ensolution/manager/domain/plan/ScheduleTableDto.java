@@ -1,6 +1,6 @@
 package com.ensolution.manager.domain.plan;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class ScheduleTableDto {
@@ -11,6 +11,7 @@ public class ScheduleTableDto {
   private String stack_name;
   private Integer stack_id;
   private String pollutants;
+  private String pollutant_ids;
   private String team_name;
   private Date measure_date;
   private Boolean is_completed;
@@ -18,8 +19,8 @@ public class ScheduleTableDto {
   public ScheduleTableDto() {}
 
   public ScheduleTableDto(String schedule_ids, Integer team_id, Integer stack_measurement_id,
-                          String workplace_name, String stack_name, String pollutants, String team_name,
-                          Integer stack_id, Date measure_date, Boolean is_completed) {
+                          String workplace_name, String stack_name, String pollutants, String pollutant_ids,
+                          String team_name, Integer stack_id, Date measure_date, Boolean is_completed) {
     this.schedule_ids = schedule_ids;
     this.team_id = team_id;
     this.stack_measurement_id = stack_measurement_id;
@@ -27,6 +28,7 @@ public class ScheduleTableDto {
     this.stack_name = stack_name;
     this.stack_id = stack_id;
     this.pollutants = pollutants;
+    this.pollutant_ids = pollutant_ids;
     this.team_name = team_name;
     this.measure_date = measure_date;
     this.is_completed = is_completed;
@@ -51,6 +53,14 @@ public class ScheduleTableDto {
 
   public void setSchedule_ids(String schedule_ids) {
     this.schedule_ids = schedule_ids;
+  }
+
+  public String getPollutant_ids() {
+    return pollutant_ids;
+  }
+
+  public void setPollutant_ids(String pollutant_ids) {
+    this.pollutant_ids = pollutant_ids;
   }
 
   public Integer getTeam_id() {
@@ -135,6 +145,7 @@ public class ScheduleTableDto {
         ", stack_name='" + stack_name + '\'' +
         ", stack_id=" + stack_id +
         ", pollutants='" + pollutants + '\'' +
+        ", pollutant_ids='" + pollutant_ids + '\'' +
         ", team_name='" + team_name + '\'' +
         ", measure_date=" + measure_date +
         ", is_completed=" + is_completed +
