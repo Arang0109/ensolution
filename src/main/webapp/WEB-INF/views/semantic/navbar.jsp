@@ -40,7 +40,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">자가측정부 매출</a></li>
-              <li><a class="dropdown-item" href="#">자가측정 달성률</a></li>
+              <li><a class="dropdown-item" href="<c:url value="/statistics/main"/>">자가측정 달성률</a></li>
             </ul>
           </li>
         </ul>

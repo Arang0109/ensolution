@@ -1,16 +1,31 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: yusj3
-  Date: 24. 12. 10.
-  Time: 오후 8:46
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Title</title>
+  <meta charset="UTF-8">
+  <title>manager</title>
+  <%@include file="../semantic/header.jsp"%>
 </head>
-<body>
+<body class="d-flex flex-wrap">
+<!-- navigation bar layout -->
+<%@include file="../semantic/navbar.jsp"%>
+<main class="d-flex flex-column flex-grow-1">
+  <div class="tostify"></div>
+  <div class="container" style="padding: 1.875rem 0 0">
+    <div class="border p-4" style="background-color: white;">
+      통계페이지
+    </div>
+  </div>
+</main>
+<footer class="w-100">
 
+</footer>
+
+<script>
+  $(document).ready(function(){
+
+  });
+</script>
 </body>
 </html>

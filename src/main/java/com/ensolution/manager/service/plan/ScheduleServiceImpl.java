@@ -3,6 +3,7 @@ package com.ensolution.manager.service.plan;
 import com.ensolution.manager.domain.plan.HistoryDto;
 import com.ensolution.manager.domain.plan.ScheduleDto;
 import com.ensolution.manager.domain.plan.ScheduleTableDto;
+import com.ensolution.manager.domain.stack.StackMeasurementDto;
 import com.ensolution.manager.repository.plan.ScheduleDao;
 import com.ensolution.manager.repository.pollutant.PollutantDao;
 import com.ensolution.manager.repository.stack.StackMeasurementDao;
@@ -74,6 +75,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
   @Override
   public void deleteSchedule(List<Integer> schedule_ids) {
+    List<Integer> stack_measurement_ids = new ArrayList<>();
+    for (Integer schedule_id : schedule_ids) {
+      ScheduleDto scheduleDto = scheduleDao.select(schedule_id);
+      stack_measurement_ids.add(scheduleDto.getStack_measurement_id());
+    }
+    stackMeasurementDao.updateNonComplete(stack_measurement_ids);
     scheduleDao.deleteItems(schedule_ids);
   }
 }

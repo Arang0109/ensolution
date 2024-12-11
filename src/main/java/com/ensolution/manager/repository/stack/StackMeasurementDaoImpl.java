@@ -108,4 +108,15 @@ public class StackMeasurementDaoImpl implements StackMeasurementDao {
             System.out.println("An unexpected error occurred: " + e.getMessage());
         }
     }
+
+    @Override
+    public void updateNonComplete(List<Integer> stack_measurement_ids) {
+        try {
+            session.update(namespace + "updateNonComplete", stack_measurement_ids);
+        }  catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
 }

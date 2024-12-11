@@ -14,5 +14,6 @@
         <typeAlias alias="ScheduleTableDto" type="com.ensolution.manager.domain.plan.ScheduleTableDto"/>
         <typeAlias alias="HistoryDto" type="com.ensolution.manager.domain.plan.HistoryDto"/>
         <typeAlias alias="TeamDto" type="com.ensolution.manager.domain.plan.TeamDto"/>
+        <typeAlias alias="StackCountDto" type="com.ensolution.manager.domain.statistics.StackCountDto"/>
     </typeAliases>
 </configuration>

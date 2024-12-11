@@ -20,4 +20,6 @@ public interface StackMeasurementDao {
   Integer update(StackMeasurementDto stackMeasurement);
 
   void updateComplete(List<Integer> stack_measurement_ids);
+
+  void updateNonComplete(List<Integer> stack_measurement_ids);
 }
