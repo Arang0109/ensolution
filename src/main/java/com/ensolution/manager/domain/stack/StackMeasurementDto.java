@@ -11,11 +11,13 @@ public class StackMeasurementDto {
   private String pollutant_name;
   private String pollutant_name_en;
   private String method;
+  private Boolean is_measure;
+  private Integer allow_value;
 
   public StackMeasurementDto() {}
 
-  public StackMeasurementDto(Integer stack_id, Integer pollutant_id, String cycle_type, Boolean is_completed,
-                             String pollutant_name, String pollutant_name_en, String method) {
+  public StackMeasurementDto(Integer stack_measurement_id, Integer stack_id, Integer pollutant_id, String cycle_type, Boolean is_completed, String pollutant_name, String pollutant_name_en, String method, Boolean is_measure, Integer allow_value) {
+    this.stack_measurement_id = stack_measurement_id;
     this.stack_id = stack_id;
     this.pollutant_id = pollutant_id;
     this.cycle_type = cycle_type;
@@ -23,6 +25,8 @@ public class StackMeasurementDto {
     this.pollutant_name = pollutant_name;
     this.pollutant_name_en = pollutant_name_en;
     this.method = method;
+    this.is_measure = is_measure;
+    this.allow_value = allow_value;
   }
 
   @Override
@@ -102,6 +106,22 @@ public class StackMeasurementDto {
     this.is_completed = is_completed;
   }
 
+  public Boolean getIs_measure() {
+    return is_measure;
+  }
+
+  public void setIs_measure(Boolean is_measure) {
+    this.is_measure = is_measure;
+  }
+
+  public Integer getAllow_value() {
+    return allow_value;
+  }
+
+  public void setAllow_value(Integer allow_value) {
+    this.allow_value = allow_value;
+  }
+
   @Override
   public String toString() {
     return "StackMeasurementDto{" +
@@ -113,6 +133,8 @@ public class StackMeasurementDto {
         ", pollutant_name='" + pollutant_name + '\'' +
         ", pollutant_name_en='" + pollutant_name_en + '\'' +
         ", method='" + method + '\'' +
+        ", is_measure=" + is_measure +
+        ", allow_value=" + allow_value +
         '}';
   }
 }

@@ -1,6 +1,8 @@
 package com.ensolution.manager.controller.manager;
 
 import com.ensolution.manager.domain.company.CompanyDto;
+import com.ensolution.manager.domain.company.DepartmentDto;
+import com.ensolution.manager.domain.company.SubFactoryDto;
 import com.ensolution.manager.domain.company.WorkplaceDto;
 import com.ensolution.manager.domain.stack.StackDto;
 import com.ensolution.manager.service.company.CompanyService;
@@ -76,9 +78,13 @@ public class ManagerController {
       WorkplaceDto workplace = workplaceService.getWorkplace(workplaceId);
       Integer company_id = workplace.getCompany_id();
       CompanyDto company = companyService.getCompany(company_id);
+      List<SubFactoryDto> subFactoryDtos = workplaceService.getSubFactoryList(workplaceId);
+      List<DepartmentDto> departmentDtos = workplaceService.getDepartmentList(workplaceId);
       m.addAttribute("stacks", stackService.getStackListOfWorkplace(workplaceId));
       m.addAttribute("workplace", workplace);
       m.addAttribute("company", company);
+      m.addAttribute("sub_factories", subFactoryDtos);
+      m.addAttribute("departments", departmentDtos);
       return "workplaceDetailView";
     } catch (Exception e) {
       e.printStackTrace();

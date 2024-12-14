@@ -1,5 +1,7 @@
 package com.ensolution.manager.service.company;
 
+import com.ensolution.manager.domain.company.DepartmentDto;
+import com.ensolution.manager.domain.company.SubFactoryDto;
 import com.ensolution.manager.domain.company.WorkplaceDto;
 import com.ensolution.manager.repository.company.WorkplaceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,12 @@ public class WorkplaceServiceImpl implements WorkplaceService {
     public List<WorkplaceDto> getWorkplaceList() {
       return workplaceDao.selectAll();
     }
+
+    @Override
+    public List<SubFactoryDto> getSubFactoryList(Integer workplace_id) { return workplaceDao.selectFactory(workplace_id); }
+
+    @Override
+    public List<DepartmentDto> getDepartmentList(Integer workplace_id) { return workplaceDao.selectDepartment(workplace_id); }
 
     @Override
     public int updateWorkplace(WorkplaceDto workplaceDto) {

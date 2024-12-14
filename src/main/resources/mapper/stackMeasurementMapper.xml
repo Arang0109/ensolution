@@ -4,7 +4,8 @@
 
 <mapper namespace="com.ensolution.manager.repository.StackMeasurementMapper">
     <sql id="selectFromStackMeasurement">
-        SELECT sm.stack_measurement_id, sm.stack_id, sm.pollutant_id, sm.cycle_type, sm.is_completed, p.pollutant_name, p.pollutant_name_en, p.method
+        SELECT sm.stack_measurement_id, sm.stack_id, sm.pollutant_id, sm.cycle_type, sm.is_completed, p.pollutant_name,
+               p.pollutant_name_en, p.method, sm.is_measure, sm.allow_value
         FROM stack_measurement `sm`
             INNER JOIN pollutant `p` on sm.pollutant_id = p.pollutant_id
     </sql>
@@ -29,9 +30,9 @@
 
     <insert id="insert" parameterType="StackMeasurementDto">
         INSERT INTO stack_measurement
-            (stack_id, pollutant_id, cycle_type, is_completed)
+            (stack_id, pollutant_id, cycle_type, is_completed, is_measure, allow_value)
         VALUES
-            (#{stack_id}, #{pollutant_id}, #{cycle_type}, #{is_completed})
+            (#{stack_id}, #{pollutant_id}, #{cycle_type}, #{is_completed}, #{is_measure}, #{allow_value})
     </insert>
 
     <delete id="deleteItems" parameterType="list">

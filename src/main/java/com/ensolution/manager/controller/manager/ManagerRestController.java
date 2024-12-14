@@ -11,10 +11,13 @@ import com.ensolution.manager.service.stack.StackInfoService;
 import com.ensolution.manager.service.stack.StackMeasurementService;
 import com.ensolution.manager.service.stack.StackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/manager")
@@ -34,6 +37,16 @@ public class ManagerRestController {
     this.stackService = stackService;
     this.stackMeasurementService = stackMeasurementService;
     this.stackInfoService = stackInfoService;
+  }
+
+  @GetMapping("/stack/{stackId}/getStackMeasurement")
+  public ResponseEntity<Map<String, Object>> getStackMeasurement(@PathVariable Integer stackId) {
+    List<StackMeasurementDto> stackMeasurementDtos = stackMeasurementService.getStackMeasurementListOfStack(stackId);
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("stackMeasurements", stackMeasurementDtos);
+
+    return ResponseEntity.ok(response);
   }
 
   @DeleteMapping("/delete/company")

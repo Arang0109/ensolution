@@ -142,8 +142,121 @@
           <button id="removeBtn" class="btn btn-primary btn-sm mb-3">측정 항목 삭제</button>
         </div>
       </div>
-      <div id="stackMeasurementList" class="d-flex justify-content-between">
-
+      <div class="d-flex justify-content-between">
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">월 / 1회</span>
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'monthly'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}"
+                     data-is-measure="${stack_measurement.is_measure}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label"
+                         <c:if test="${stack_measurement.is_measure eq false}">
+                           style="text-decoration: line-through"</c:if>
+                         for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">분기 / 1회</span>
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'quarterly'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}"
+                     data-is-measure="${stack_measurement.is_measure}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label"
+                      <c:if test="${stack_measurement.is_measure eq false}">
+                        style="text-decoration: line-through"</c:if>
+                         for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">반기 / 1회</span>
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'semiannual'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}"
+                     data-is-measure="${stack_measurement.is_measure}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label"
+                      <c:if test="${stack_measurement.is_measure eq false}">
+                        style="text-decoration: line-through"</c:if>
+                         for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">연 / 1회</span>
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'annual'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}"
+                     data-is-measure="${stack_measurement.is_measure}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label"
+                      <c:if test="${stack_measurement.is_measure eq false}">
+                        style="text-decoration: line-through"</c:if>
+                         for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">월 / 2회</span>
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'twiceamonth'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}"
+                     data-is-measure="${stack_measurement.is_measure}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label"
+                      <c:if test="${stack_measurement.is_measure eq false}">
+                        style="text-decoration: line-through"</c:if>
+                         for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
+        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+          <span class="badge text-bg-primary">2월 / 1회</span>
+          <div class="my-3">
+            <c:forEach var="stack_measurement" items="${stack_measurements}">
+              <c:if test="${stack_measurement.cycle_type eq 'onceinfebruary'}">
+                <div class="form-check ms-2" data-stack-measurement-id="${stack_measurement.stack_measurement_id}"
+                     data-is-measure="${stack_measurement.is_measure}">
+                  <input class="form-check-input" type="checkbox" value="${stack_measurement.pollutant_id}" id="${stack_measurement.pollutant_id}">
+                  <label class="form-check-label"
+                      <c:if test="${stack_measurement.is_measure eq false}">
+                        style="text-decoration: line-through"</c:if>
+                         for="${stack_measurement.pollutant_id}">
+                      ${stack_measurement.pollutant_name}
+                  </label>
+                </div>
+              </c:if>
+            </c:forEach>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -151,36 +264,6 @@
 
 <script>
   $(document).ready(function(){
-    $.ajax({
-      url: '<c:url value="/manager/stack/${stack.stack_id}/getStackMeasurement"/>',
-      method: 'GET',
-      success: function(data){
-        const cycle_type = [];
-
-        data.forEach(function(element) {
-          if (element.is_measure === false) { return; }
-          cycle_type.push(element.cycle_type);
-        });
-
-        const cycle = new Set(cycle_type);
-
-        cycle.forEach(function(element) {
-          let texts = `
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">\${element}</span>
-          <div class="my-3"></div>
-        </div>
-          `;
-          $('#stackMeasurementList').append(texts);
-        });
-
-
-      },
-      fail: function(){
-        console.log('fail');
-      }
-    });
-
     $('#selectPoll').select2({
       dropdownParent: $('#staticBackdrop'),
     });
@@ -192,7 +275,7 @@
 
       selectedValues.forEach(function (value) {
         const text = $(`#selectPoll option[value="\${value}"]`).text();
-        let result = `
+        result = `
               <div class="row g-2 m-1 stackMeasurementDiv">
                 <div class="col-md">
                   <input type="text" name="stack_id" value="` + ${stack.stack_id} +`" hidden>

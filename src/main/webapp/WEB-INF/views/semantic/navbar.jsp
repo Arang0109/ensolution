@@ -2,7 +2,7 @@
 <header class="fixed-top">
   <nav class="navbar bg-primary navbar-expand-lg">
     <div class="container container-fluid">
-      <a class="navbar-brand" href="#">ENSolution</a>
+      <a class="navbar-brand" href="<c:url value="/"/>">ENSolution</a>
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">

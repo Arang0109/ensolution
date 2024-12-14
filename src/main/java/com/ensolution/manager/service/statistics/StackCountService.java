@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StackCountService {
@@ -17,24 +19,57 @@ public class StackCountService {
     this.stackCountDao = stackCountDao;
   }
 
-  public List<StackCountDto> getCompleteStackCnt() {
+  public Map<String,Integer> getCompleteStackCnt() {
     List<StackCountDto> a = stackCountDao.stackCntAll();
     List<StackCountDto> b = stackCountDao.stackCntNonComplete();
-    List<StackCountDto> result = new ArrayList<>();
+    Map<String, Integer> result = new HashMap<>();
 
     for (int i = 0; i < a.size(); i++) {
-      StackCountDto scd = new StackCountDto();
-      scd.setCycle_type(a.get(i).getCycle_type());
-      scd.setCnt(a.get(i).getCnt() - b.get(i).getCnt());
-      result.add(scd);
+      String cycle_type = a.get(i).getCycle_type();
+      Integer cnt = a.get(i).getCnt() - b.get(i).getCnt();
+      result.put(cycle_type,cnt);
     }
 
     return result;
   }
 
-  public List<StackCountDto> getNonCompleteStackCnt() {
-    return stackCountDao.stackCntNonComplete();
+  public Map<String,Integer> getNonCompleteStackCnt() {
+    List<StackCountDto> a = stackCountDao.stackCntNonComplete();
+    Map<String, Integer> result = new HashMap<>();
+
+    for (int i = 0; i < a.size(); i++) {
+      String cycle_type = a.get(i).getCycle_type();
+      Integer cnt = a.get(i).getCnt();
+      result.put(cycle_type,cnt);
+    }
+
+    return result;
   }
 
+  public Map<String,Integer> getCompleteStackCntOfWorkplace(List<Integer> workplace_ids) {
+    List<StackCountDto> a = stackCountDao.stackCntAllOfWp(workplace_ids);
+    List<StackCountDto> b = stackCountDao.stackCntNonCompleteOfWp(workplace_ids);
+    Map<String, Integer> result = new HashMap<>();
 
+    for (int i = 0; i < a.size(); i++) {
+      String cycle_type = a.get(i).getCycle_type();
+      Integer cnt = a.get(i).getCnt() - b.get(i).getCnt();
+      result.put(cycle_type,cnt);
+    }
+
+    return result;
+  }
+
+  public Map<String,Integer> getNonCompleteStackCntOfWorkplace(List<Integer> workplace_ids) {
+    List<StackCountDto> a = stackCountDao.stackCntNonCompleteOfWp(workplace_ids);
+    Map<String, Integer> result = new HashMap<>();
+
+    for (int i = 0; i < a.size(); i++) {
+      String cycle_type = a.get(i).getCycle_type();
+      Integer cnt = a.get(i).getCnt();
+      result.put(cycle_type,cnt);
+    }
+
+    return result;
+  }
 }

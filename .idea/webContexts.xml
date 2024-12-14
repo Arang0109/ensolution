@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/pollutantManager.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/statistics/statisticsHome.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/statistics" />
       </map>
     </option>
   </component>

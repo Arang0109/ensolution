@@ -1,5 +1,7 @@
 package com.ensolution.manager.repository.company;
 
+import com.ensolution.manager.domain.company.DepartmentDto;
+import com.ensolution.manager.domain.company.SubFactoryDto;
 import com.ensolution.manager.domain.company.WorkplaceDto;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
@@ -54,6 +56,30 @@ public class WorkplaceDaoImpl implements WorkplaceDao {
     public List<WorkplaceDto> selectAll() {
         try {
             return session.selectList(namespace + "selectAll");
+        } catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<SubFactoryDto> selectFactory(Integer workplaceId) {
+        try {
+            return session.selectList(namespace + "selectFactory", workplaceId);
+        } catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<DepartmentDto> selectDepartment(Integer workplaceId) {
+        try {
+            return session.selectList(namespace + "selectDepartment", workplaceId);
         } catch (PersistenceException e) {
             System.err.println("Persistence error occurred: " + e.getMessage());
         } catch (Exception e) {

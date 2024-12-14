@@ -14,20 +14,32 @@ public class StackDto {
   private String prevention;
   private Date reg_date;
   private String note;
+  private Integer sub_factory_id;
+  private Integer management_department_id;
+  private String sub_factory_name;
+  private String department_name;
 
   public StackDto() {
     this.reg_date = Date.valueOf(LocalDate.now());
   }
 
-  public StackDto(Integer workplace_id, Integer company_id, String company_name, String workplace_name, String stack_name, String prevention, Date reg_date, String note) {
+  public StackDto(Integer stack_id, Integer workplace_id, Integer company_id, String company_name,
+                  String workplace_name, String stack_name, String prevention, Date reg_date,
+                  String note, Integer sub_factory_id, Integer management_department_id,
+                  String sub_factory_name, String department_name) {
+    this.stack_id = stack_id;
     this.workplace_id = workplace_id;
     this.company_id = company_id;
     this.company_name = company_name;
     this.workplace_name = workplace_name;
     this.stack_name = stack_name;
     this.prevention = prevention;
-    this.reg_date = Date.valueOf(LocalDate.now());
+    this.reg_date = reg_date;
     this.note = note;
+    this.sub_factory_id = sub_factory_id;
+    this.management_department_id = management_department_id;
+    this.sub_factory_name = sub_factory_name;
+    this.department_name = department_name;
   }
 
   @Override
@@ -115,6 +127,38 @@ public class StackDto {
     this.note = note;
   }
 
+  public String getSub_factory_name() {
+    return sub_factory_name;
+  }
+
+  public void setSub_factory_name(String sub_factory_name) {
+    this.sub_factory_name = sub_factory_name;
+  }
+
+  public String getDepartment_name() {
+    return department_name;
+  }
+
+  public void setDepartment_name(String department_name) {
+    this.department_name = department_name;
+  }
+
+  public Integer getSub_factory_id() {
+    return sub_factory_id;
+  }
+
+  public void setSub_factory_id(Integer sub_factory_id) {
+    this.sub_factory_id = sub_factory_id;
+  }
+
+  public Integer getManagement_department_id() {
+    return management_department_id;
+  }
+
+  public void setManagement_department_id(Integer management_department_id) {
+    this.management_department_id = management_department_id;
+  }
+
   @Override
   public String toString() {
     return "StackDto{" +
@@ -127,6 +171,10 @@ public class StackDto {
         ", prevention='" + prevention + '\'' +
         ", reg_date=" + reg_date +
         ", note='" + note + '\'' +
+        ", sub_factory_id=" + sub_factory_id +
+        ", management_department_id=" + management_department_id +
+        ", sub_factory_name='" + sub_factory_name + '\'' +
+        ", department_name='" + department_name + '\'' +
         '}';
   }
 }

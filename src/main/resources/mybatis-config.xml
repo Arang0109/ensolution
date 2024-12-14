@@ -6,6 +6,9 @@
     <typeAliases>
         <typeAlias alias="CompanyDto" type="com.ensolution.manager.domain.company.CompanyDto"/>
         <typeAlias alias="WorkplaceDto" type="com.ensolution.manager.domain.company.WorkplaceDto"/>
+        <typeAlias alias="FactoryDto" type="com.ensolution.manager.domain.company.FactoryDto"/>
+        <typeAlias alias="SubFactoryDto" type="com.ensolution.manager.domain.company.SubFactoryDto"/>
+        <typeAlias alias="DepartmentDto" type="com.ensolution.manager.domain.company.DepartmentDto"/>
         <typeAlias alias="StackDto" type="com.ensolution.manager.domain.stack.StackDto"/>
         <typeAlias alias="StackInfoDto" type="com.ensolution.manager.domain.stack.StackInfoDto"/>
         <typeAlias alias="PollutantDto" type="com.ensolution.manager.domain.pollutant.PollutantDto"/>

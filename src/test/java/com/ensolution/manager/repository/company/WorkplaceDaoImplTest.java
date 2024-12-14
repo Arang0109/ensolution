@@ -1,4 +1,4 @@
-package com.ensolution.manager.service.statistics;
+package com.ensolution.manager.repository.company;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,16 +10,17 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
-public class StackCountServiceTest {
+public class WorkplaceDaoImplTest {
   @Autowired
-  private StackCountService stackCountService;
+  WorkplaceDaoImpl workplaceDao;
 
   @Test
-  public void getCompleteStackCnt() {
-    System.out.println(stackCountService.getCompleteStackCnt());
+  public void selectFactory() {
+    System.out.println(workplaceDao.selectFactory(10));
   }
 
   @Test
-  public void getNonCompleteStackCnt() {
+  public void selectDepartment() {
+    System.out.println(workplaceDao.selectDepartment(10));
   }
 }

@@ -25,6 +25,24 @@
             <label for="inputPrevention" class="form-label">방지 시설</label>
             <input type="text" name="prevention" class="form-control" id="inputPrevention">
           </div>
+          <div class="form-floating mb-3 row">
+            <select id="inputFactory" name="sub_factory_id" class="form-select">
+              <option value="">-- select factory --</option>
+              <c:forEach var="sub_factory" items="${sub_factories}">
+                <option value="${sub_factory.sub_factory_id}">${sub_factory.name}</option>
+              </c:forEach>
+            </select>
+            <label for="inputFactory">공장</label>
+          </div>
+          <div class="form-floating mb-3 row">
+            <select id="inputDepartment" name="management_department_id" class="form-select">
+              <option value="">-- select department --</option>
+              <c:forEach var="department" items="${departments}">
+                <option value="${department.management_department_id}">${department.name}</option>
+              </c:forEach>
+            </select>
+            <label for="inputDepartment">관리부서</label>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">추가</button>
