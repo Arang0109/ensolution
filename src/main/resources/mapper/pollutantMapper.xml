@@ -21,4 +21,9 @@
         <include refid="selectFromPollutant"/>
         ORDER BY method
     </select>
+
+    <select id="searchId" parameterType="String" resultType="Integer">
+        <include refid="selectFromPollutant"/>
+        WHERE pollutant_name = #{pollutant_name}
+    </select>
 </mapper>

@@ -14,8 +14,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="addMeasurementBtn" type="button" class="btn btn-primary">추가</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+        <button id="addMeasurementBtn" type="button" class="btn btn-primary" tabindex="-1">추가</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" tabindex="-1">닫기</button>
       </div>
     </div>
   </div>
@@ -43,8 +43,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="nextToStep" type="button" class="btn btn-primary">다음</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+        <button id="nextToStep" type="button" class="btn btn-primary" tabindex="-1">다음</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" tabindex="-1">닫기</button>
       </div>
     </div>
   </div>

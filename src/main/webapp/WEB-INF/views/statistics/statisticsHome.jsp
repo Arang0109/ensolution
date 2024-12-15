@@ -122,7 +122,7 @@
 
       const url = workplaceIds.length === 0
         ? '<c:url value="/statistics/chart/all"/>'
-        : "http://localhost:8080/ensolution/statistics/chart/workplace?" + queryString;
+        : "http://localhost:8080/manager/statistics/chart/workplace?" + queryString;
 
       $.ajax({
         url: url,

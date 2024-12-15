@@ -29,6 +29,11 @@
         WHERE workplace_id = #{workplace_id} AND stack_name = #{stack_name}
     </select>
 
+    <select id="searchId" parameterType="String" resultType="Integer">
+        SELECT * FROM stack
+        WHERE stack_name = #{stack_name}
+    </select>
+
     <select id="selectAll" resultType="StackDto">
         <include refid="selectFromStack"/>
         ORDER BY c.company_name, s.stack_name

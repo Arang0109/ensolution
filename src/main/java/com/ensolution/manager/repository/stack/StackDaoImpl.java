@@ -27,6 +27,18 @@ public class StackDaoImpl implements StackDao {
     }
 
     @Override
+    public Integer searchId(String stack_name) {
+        try {
+            return session.selectOne(namespace + "searchId", stack_name);
+        } catch (PersistenceException e) {
+            System.err.println("Persistence error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
     public StackDto select(Integer stack_id) {
         try {
             return session.selectOne(namespace + "select", stack_id);

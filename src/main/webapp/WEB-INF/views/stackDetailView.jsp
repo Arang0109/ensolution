@@ -145,36 +145,77 @@
       <div id="stackMeasurementList" class="d-flex justify-content-between">
 
       </div>
+      <div id="noMeasurementList">
+
+      </div>
     </div>
   </div>
 </main>
 
 <script>
   $(document).ready(function(){
+    const parentDiv = $('#stackMeasurementList');
+    const change = {
+      "nomeasure": "미측정",
+      "monthly": "월 / 1회",
+      "quarterly": "분기 1회",
+      "semiannual" : "반기 / 1회",
+      "annual" : "연 / 1회",
+      "twiceamonth": "월 / 2회",
+      "onceinfebruary": "2월 / 1회",
+      "additional": "추가 측정",
+    }
+
     $.ajax({
       url: '<c:url value="/manager/stack/${stack.stack_id}/getStackMeasurement"/>',
       method: 'GET',
       success: function(data){
-        const cycle_type = [];
+        const pollutants = data.stackMeasurements;
+        const cycle_type = {};
 
-        data.forEach(function(element) {
-          if (element.is_measure === false) { return; }
-          cycle_type.push(element.cycle_type);
+        pollutants.forEach(item => {
+          const cycle = item.cycle_type;
+          cycle_type[cycle] = change[cycle];
         });
 
-        const cycle = new Set(cycle_type);
+        const order = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary", "additional", "nomeasure"];
+        const sortedKeys = order.filter(key => cycle_type.hasOwnProperty(key));
 
-        cycle.forEach(function(element) {
-          let texts = `
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">\${element}</span>
-          <div class="my-3"></div>
-        </div>
+        sortedKeys.forEach(key => {
+          const id = key + "Div";
+
+          let innerDiv = `
+            <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+              <span class="badge text-bg-primary">` + change[key] + `</span>
+              <div id="` + id +  `" class="my-3"></div>
+            </div>
           `;
-          $('#stackMeasurementList').append(texts);
+
+          parentDiv.append(innerDiv)
         });
 
+        pollutants.forEach(item => {
+          const cycle = item.cycle_type;
+          const id = "#" + cycle + "Div";
+          const div = $(id);
+          let disable = "";
+          let style = '';
 
+          if (item.is_measure === false) {
+            style = 'style="text-decoration: line-through"';
+          }
+
+          let innerDiv = `
+                <div class="form-check ms-2" data-stack-measurement-id="` + item.stack_measurement_id + `">
+                  <input class="form-check-input" type="checkbox" value="` + item.pollutant_id + `" id="` + item.pollutant_id + `" ` + disable + `>
+                  <label class="form-check-label" for="` + item.pollutant_id + `" ` + style + `>
+                      ` + item.pollutant_name + `
+                  </label>
+                </div>
+          `;
+
+          div.append(innerDiv);
+        });
       },
       fail: function(){
         console.log('fail');
@@ -210,7 +251,8 @@
                       <option value="annual">1회 / 연</option>
                       <option value="twiceamonth">2회 / 월</option>
                       <option value="onceinfebruary">1회 / 2월</option>
-                      <option value="additional">추가 측정</option>
+                      <option value="additional">추가측정</option>
+                      <option value="nomeasure">미측정</option>
                     </select>
                     <label for="selectCycle">측정 주기</label>
                   </div>
@@ -229,6 +271,7 @@
                   </div>
                 </div>
               </div>
+              <hr>
         `;
         divBody.append(result);
       });

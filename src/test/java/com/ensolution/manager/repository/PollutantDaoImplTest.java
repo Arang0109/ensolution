@@ -18,7 +18,7 @@ public class PollutantDaoImplTest {
 
   @Test
   public void selectAll() {
-    System.out.println(pollutantDao.selectAll());
+    System.out.println(pollutantDao.searchId("먼지"));
   }
 
   @Test

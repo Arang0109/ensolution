@@ -10,4 +10,6 @@ public interface PollutantDao {
   PollutantDto select(Integer pollutant_id);
 
   Integer count();
+
+  Integer searchId(String pollutant_name);
 }

@@ -11,6 +11,8 @@ public interface StackDao {
 
   StackDto search(StackDto stack);
 
+  Integer searchId(String stack_name);
+
   List<StackDto> selectAll();
 
   List<StackDto> selectStackOfWorkplace(Integer workplace_id);

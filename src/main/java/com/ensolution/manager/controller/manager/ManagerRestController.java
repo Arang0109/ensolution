@@ -2,11 +2,13 @@ package com.ensolution.manager.controller.manager;
 
 import com.ensolution.manager.domain.company.CompanyDto;
 import com.ensolution.manager.domain.company.WorkplaceDto;
+import com.ensolution.manager.domain.stack.ExDataStackMeasurementDto;
 import com.ensolution.manager.domain.stack.StackDto;
 import com.ensolution.manager.domain.stack.StackInfoDto;
 import com.ensolution.manager.domain.stack.StackMeasurementDto;
 import com.ensolution.manager.service.company.CompanyService;
 import com.ensolution.manager.service.company.WorkplaceService;
+import com.ensolution.manager.service.document.ExcelService;
 import com.ensolution.manager.service.stack.StackInfoService;
 import com.ensolution.manager.service.stack.StackMeasurementService;
 import com.ensolution.manager.service.stack.StackService;
@@ -27,24 +29,26 @@ public class ManagerRestController {
   StackService stackService;
   StackMeasurementService stackMeasurementService;
   StackInfoService stackInfoService;
+  ExcelService excelService;
 
   @Autowired
   public ManagerRestController(CompanyService companyService, WorkplaceService workplaceService,
                                StackService stackService, StackMeasurementService stackMeasurementService,
-                               StackInfoService stackInfoService) {
+                               StackInfoService stackInfoService, ExcelService excelService) {
     this.companyService = companyService;
     this.workplaceService = workplaceService;
     this.stackService = stackService;
     this.stackMeasurementService = stackMeasurementService;
     this.stackInfoService = stackInfoService;
+    this.excelService = excelService;
   }
 
   @GetMapping("/stack/{stackId}/getStackMeasurement")
   public ResponseEntity<Map<String, Object>> getStackMeasurement(@PathVariable Integer stackId) {
-    List<StackMeasurementDto> stackMeasurementDtos = stackMeasurementService.getStackMeasurementListOfStack(stackId);
+    List<StackMeasurementDto> stackMeasurements = stackMeasurementService.getStackMeasurementListOfStack(stackId);
 
     Map<String, Object> response = new HashMap<>();
-    response.put("stackMeasurements", stackMeasurementDtos);
+    response.put("stackMeasurements", stackMeasurements);
 
     return ResponseEntity.ok(response);
   }
@@ -107,6 +111,14 @@ public class ManagerRestController {
 
   @PostMapping("/add/stack/measurement")
   public void addStackMeasurement(@RequestBody List<StackMeasurementDto> stackMeasurementList) {
+    for (StackMeasurementDto stackMeasurementDto : stackMeasurementList) {
+      stackMeasurementService.insertStackMeasurement(stackMeasurementDto);
+    }
+  }
+
+  @PostMapping("/add/excel_data/measurement")
+  public void addExcelDataMeasurement(@RequestBody List<ExDataStackMeasurementDto> exDataDto) {
+    List<StackMeasurementDto> stackMeasurementList = excelService.convertStackMeasurementDto(exDataDto);
     for (StackMeasurementDto stackMeasurementDto : stackMeasurementList) {
       stackMeasurementService.insertStackMeasurement(stackMeasurementDto);
     }

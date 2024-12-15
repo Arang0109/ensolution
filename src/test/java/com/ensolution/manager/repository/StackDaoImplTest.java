@@ -21,6 +21,7 @@ public class StackDaoImplTest {
 
   @Test
   public void select() {
+    System.out.println(stackDaoImpl.searchId("stack 170"));
   }
 
   @Test
