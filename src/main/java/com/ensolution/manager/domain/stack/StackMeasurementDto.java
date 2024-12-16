@@ -12,11 +12,11 @@ public class StackMeasurementDto {
   private String pollutant_name_en;
   private String method;
   private Boolean is_measure;
-  private Integer allow_value;
+  private Double allow_value;
 
   public StackMeasurementDto() {}
 
-  public StackMeasurementDto(Integer stack_measurement_id, Integer stack_id, Integer pollutant_id, String cycle_type, Boolean is_completed, String pollutant_name, String pollutant_name_en, String method, Boolean is_measure, Integer allow_value) {
+  public StackMeasurementDto(Integer stack_measurement_id, Integer stack_id, Integer pollutant_id, String cycle_type, Boolean is_completed, String pollutant_name, String pollutant_name_en, String method, Boolean is_measure, Double allow_value) {
     this.stack_measurement_id = stack_measurement_id;
     this.stack_id = stack_id;
     this.pollutant_id = pollutant_id;
@@ -114,11 +114,11 @@ public class StackMeasurementDto {
     this.is_measure = is_measure;
   }
 
-  public Integer getAllow_value() {
+  public Double getAllow_value() {
     return allow_value;
   }
 
-  public void setAllow_value(Integer allow_value) {
+  public void setAllow_value(Double allow_value) {
     this.allow_value = allow_value;
   }
 

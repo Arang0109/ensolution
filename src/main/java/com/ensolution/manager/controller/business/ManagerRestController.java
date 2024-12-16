@@ -1,4 +1,4 @@
-package com.ensolution.manager.controller.manager;
+package com.ensolution.manager.controller.business;
 
 import com.ensolution.manager.domain.company.CompanyDto;
 import com.ensolution.manager.domain.company.WorkplaceDto;

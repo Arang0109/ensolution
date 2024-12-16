@@ -4,12 +4,12 @@ public class ExDataStackMeasurementDto {
     private String stack_name;
     private String pollutant_name;
     private String prevention;
-    private Integer allow_value;
+    private Double allow_value;
     private String cycle_type;
 
     public ExDataStackMeasurementDto() {}
 
-    public ExDataStackMeasurementDto(String stack_name, String pollutant_name, String prevention, Integer allow_value, String cycle_type) {
+    public ExDataStackMeasurementDto(String stack_name, String pollutant_name, String prevention, Double allow_value, String cycle_type) {
         this.stack_name = stack_name;
         this.pollutant_name = pollutant_name;
         this.prevention = prevention;
@@ -41,11 +41,11 @@ public class ExDataStackMeasurementDto {
         this.prevention = prevention;
     }
 
-    public Integer getAllow_value() {
+    public Double getAllow_value() {
         return allow_value;
     }
 
-    public void setAllow_value(Integer allow_value) {
+    public void setAllow_value(Double allow_value) {
         this.allow_value = allow_value;
     }
 
