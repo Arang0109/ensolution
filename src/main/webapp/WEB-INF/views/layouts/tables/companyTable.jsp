@@ -26,7 +26,7 @@
       <tr data-company-id="${company.company_id}">
         <td></td>
         <td><a class="updateLink"
-               href="<c:url value='/manager/company/${company.company_id}'/>">
+               href="<c:url value='/management/company/${company.company_id}'/>">
             ${company.company_name != null ? company.company_name : 'N/A'}</a></td>
         <td>${company.ceo_name != null ? company.ceo_name : 'N/A'}</td>
         <td>${company.address != null ? company.address : 'N/A'}</td>

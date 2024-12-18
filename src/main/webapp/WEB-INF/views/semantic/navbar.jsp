@@ -19,9 +19,9 @@
               <img src="<c:url value='/img/settings.svg'/>"/><span style="margin-left: 1.25rem;">관리</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<c:url value="/manager/company"/>">측정 대행 의뢰업체</a></li>
-              <li><a class="dropdown-item" href="<c:url value="/manager/workplace"/>">측정 대상 사업장</a></li>
-              <li><a class="dropdown-item" href="<c:url value="/manager/stack"/>">측정 시설</a></li>
+              <li><a class="dropdown-item" href="<c:url value="/management/company"/>">측정 대행 의뢰업체</a></li>
+              <li><a class="dropdown-item" href="<c:url value="/management/workplace"/>">측정 대상 사업장</a></li>
+              <li><a class="dropdown-item" href="<c:url value="/management/stack"/>">측정 시설</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">

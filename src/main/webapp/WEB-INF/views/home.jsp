@@ -11,7 +11,6 @@
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
 <!-- modal layer -->
-<%@include file="layouts/modal/companyModal.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
   <div class="tostify"></div>
   <div class="container" style="padding: 1.875rem 0 0">

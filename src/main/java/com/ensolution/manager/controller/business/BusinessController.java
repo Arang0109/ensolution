@@ -1,3 +1,5 @@
+// BusinessController.java
+//
 package com.ensolution.manager.controller.business;
 
 import com.ensolution.manager.domain.company.CompanyDto;
@@ -21,8 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/manager")
-public class ManagerController {
+@RequestMapping("/management")
+public class BusinessController {
   CompanyService companyService;
   WorkplaceService workplaceService;
   StackService stackService;
@@ -32,10 +34,10 @@ public class ManagerController {
   ValidationService validationService;
 
   @Autowired
-  public ManagerController(CompanyService companyService, WorkplaceService workplaceService,
-                           StackService stackService, PollutantService pollutantService,
-                           StackInfoService stackInfoService, StackMeasurementService stackMeasurementService,
-                           ValidationService validationService) {
+  public BusinessController(CompanyService companyService, WorkplaceService workplaceService,
+                            StackService stackService, PollutantService pollutantService,
+                            StackInfoService stackInfoService, StackMeasurementService stackMeasurementService,
+                            ValidationService validationService) {
     this.companyService = companyService;
     this.workplaceService = workplaceService;
     this.stackService = stackService;
@@ -46,9 +48,9 @@ public class ManagerController {
   }
 
   @GetMapping("/company")
-  public String companyManager(Model m) {
+  public String companyListView(Model m) {
     m.addAttribute("companies", companyService.getCompanyList());
-    return "companyManager";
+    return "companyListView";
   }
 
   @GetMapping("/company/{companyId}")
@@ -61,7 +63,7 @@ public class ManagerController {
       return "companyDetailView";
     } catch (Exception e) {
       e.printStackTrace();
-      return "redirect:/manager/company";
+      return "redirect:/management/company";
     }
   }
 
@@ -69,7 +71,7 @@ public class ManagerController {
   public String workplaceManager(Model m) {
     m.addAttribute("workplaces", workplaceService.getWorkplaceList());
     m.addAttribute("companies", companyService.getCompanyList());
-    return "workplaceManager";
+    return "workplaceListView";
   }
 
   @GetMapping("/workplace/{workplaceId}")
@@ -88,7 +90,7 @@ public class ManagerController {
       return "workplaceDetailView";
     } catch (Exception e) {
       e.printStackTrace();
-      return "redirect:/manager/workplace";
+      return "redirect:/management/workplace";
     }
   }
 
@@ -96,7 +98,7 @@ public class ManagerController {
   public String stackManager(Model m) {
     m.addAttribute("stacks", stackService.getStackList());
     m.addAttribute("workplaces", workplaceService.getWorkplaceList());
-    return "stackManager";
+    return "stackListView";
   }
 
   @GetMapping("/stack/{stackId}")
@@ -109,41 +111,45 @@ public class ManagerController {
       return "stackDetailView";
     } catch (Exception e) {
       e.printStackTrace();
-      return "redirect:/manager/stack";
+      return "redirect:/management/stack";
     }
   }
 
-  @PostMapping("/add/company")
+  @PostMapping("/company/add")
   public String addCompany(CompanyDto companyDto, RedirectAttributes rattr) {
     try {
       if (validationService.isExistCompany(companyDto)) {
-        rattr.addFlashAttribute("msg", "Already exist company");
-        return "redirect:/manager/company";
+        rattr.addFlashAttribute("companyAddResult", "fail");
+        rattr.addFlashAttribute("companyName", companyDto.getCompany_name());
+        return "redirect:/management/company";
       }
       companyService.insertCompany(companyDto);
-      rattr.addFlashAttribute("msg", "Success add company");
+      rattr.addFlashAttribute("companyAddResult", "success");
+      rattr.addFlashAttribute("companyName", companyDto.getCompany_name());
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return "redirect:/manager/company";
+    return "redirect:/management/company";
   }
 
-  @PostMapping("/add/workplace")
+  @PostMapping("/workplace/add")
   public String addWorkplace(WorkplaceDto workplaceDto, RedirectAttributes rattr) {
     try {
       if (validationService.isExistWorkplace(workplaceDto)) {
-        rattr.addFlashAttribute("msg", "Already exist workplace");
-        return "redirect:/manager/company/" + workplaceDto.getCompany_id();
+        rattr.addFlashAttribute("workplaceAddResult", "fail");
+        rattr.addFlashAttribute("workplaceName", workplaceDto.getWorkplace_name());
+        return "redirect:/management/company/" + workplaceDto.getCompany_id();
       }
       workplaceService.insertWorkplace(workplaceDto);
-      rattr.addFlashAttribute("msg", "Success add workplace");
+      rattr.addFlashAttribute("workplaceAddResult", "success");
+      rattr.addFlashAttribute("workplaceName", workplaceDto.getWorkplace_name());
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return "redirect:/manager/company/" + workplaceDto.getCompany_id();
+    return "redirect:/management/company/" + workplaceDto.getCompany_id();
   }
 
-  @PostMapping("/add/stack")
+  @PostMapping("/stack/add")
   public String addStack(StackDto stackDto, RedirectAttributes rattr) {
     try {
       if (validationService.isExistStack(stackDto)) {
@@ -155,6 +161,6 @@ public class ManagerController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return "redirect:/manager/workplace/" + stackDto.getWorkplace_id();
+    return "redirect:/management/workplace/" + stackDto.getWorkplace_id();
   }
 }

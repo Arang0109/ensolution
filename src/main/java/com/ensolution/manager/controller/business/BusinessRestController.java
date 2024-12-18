@@ -14,6 +14,7 @@ import com.ensolution.manager.service.stack.StackMeasurementService;
 import com.ensolution.manager.service.stack.StackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/manager")
-public class ManagerRestController {
+@RequestMapping("/management")
+public class BusinessRestController {
   CompanyService companyService;
   WorkplaceService workplaceService;
   StackService stackService;
@@ -32,9 +33,9 @@ public class ManagerRestController {
   ExcelService excelService;
 
   @Autowired
-  public ManagerRestController(CompanyService companyService, WorkplaceService workplaceService,
-                               StackService stackService, StackMeasurementService stackMeasurementService,
-                               StackInfoService stackInfoService, ExcelService excelService) {
+  public BusinessRestController(CompanyService companyService, WorkplaceService workplaceService,
+                                StackService stackService, StackMeasurementService stackMeasurementService,
+                                StackInfoService stackInfoService, ExcelService excelService) {
     this.companyService = companyService;
     this.workplaceService = workplaceService;
     this.stackService = stackService;
@@ -53,7 +54,7 @@ public class ManagerRestController {
     return ResponseEntity.ok(response);
   }
 
-  @DeleteMapping("/delete/company")
+  @DeleteMapping("/company/delete")
   public void deleteCompany(@RequestBody List<CompanyDto> company) {
     List<Integer> ids = new ArrayList<>();
     for (CompanyDto companyDto : company) {
@@ -62,7 +63,7 @@ public class ManagerRestController {
     companyService.removeCompany(ids);
   }
 
-  @DeleteMapping("/delete/workplace")
+  @DeleteMapping("/workplace/delete")
   public void deleteWorkplace(@RequestBody List<WorkplaceDto> workplace) {
     List<Integer> ids = new ArrayList<>();
     for (WorkplaceDto workplaceDto : workplace) {
@@ -71,7 +72,7 @@ public class ManagerRestController {
     workplaceService.removeWorkplace(ids);
   }
 
-  @DeleteMapping("/delete/stack")
+  @DeleteMapping("/stack/delete")
   public void deleteStack(@RequestBody List<StackDto> stack) {
     List<Integer> ids = new ArrayList<>();
     for (StackDto stackDto : stack) {
@@ -80,7 +81,7 @@ public class ManagerRestController {
     stackService.removeStack(ids);
   }
 
-  @DeleteMapping("/delete/stack/measurement")
+  @DeleteMapping("/stack-measurement/delete")
   public void deleteStackMeasurement(@RequestBody List<StackMeasurementDto> stackMeasurement) {
     List<Integer> ids = new ArrayList<>();
     for (StackMeasurementDto stackMeasurementDto : stackMeasurement) {
@@ -89,34 +90,34 @@ public class ManagerRestController {
     stackMeasurementService.removeStackMeasurement(ids);
   }
 
-  @PatchMapping("/modify/company")
+  @PatchMapping("/company/modify")
   public void updateCompany(@RequestBody CompanyDto companyDto) {
     companyService.updateCompany(companyDto);
   }
 
-  @PatchMapping("/modify/workplace")
+  @PatchMapping("/workplace/modify")
   public void updateWorkplace(@RequestBody WorkplaceDto workplaceDto) {
     workplaceService.updateWorkplace(workplaceDto);
   }
 
-  @PatchMapping("/modify/stack")
+  @PatchMapping("/stack/modify")
   public void updateStack(@RequestBody StackDto stackDto) {
     stackService.updateStack(stackDto);
   }
 
-  @PatchMapping("/modify/stack/specification")
+  @PatchMapping("/stack/modify/specification")
   public void updateStackInfo(@RequestBody StackInfoDto stackInfoDto) {
     stackInfoService.updateStackInfo(stackInfoDto);
   }
 
-  @PostMapping("/add/stack/measurement")
+  @PostMapping("/stack-measurement/add")
   public void addStackMeasurement(@RequestBody List<StackMeasurementDto> stackMeasurementList) {
     for (StackMeasurementDto stackMeasurementDto : stackMeasurementList) {
       stackMeasurementService.insertStackMeasurement(stackMeasurementDto);
     }
   }
 
-  @PostMapping("/add/excel_data/measurement")
+  @PostMapping("/stack-measurement/add/excel_data")
   public void addExcelDataMeasurement(@RequestBody List<ExDataStackMeasurementDto> exDataDto) {
     List<StackMeasurementDto> stackMeasurementList = excelService.convertStackMeasurementDto(exDataDto);
     for (StackMeasurementDto stackMeasurementDto : stackMeasurementList) {

@@ -7,7 +7,7 @@
         <h1 class="modal-title fs-5" id="workplaceAddLabel">사업장 추가</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<c:url value="/manager/add/workplace"/>" method="post" id="workplace_form" class="needs-validation" novalidate>
+      <form action="<c:url value="/management/workplace/add"/>" method="post" id="workplace_form" class="needs-validation" novalidate>
         <div class="modal-body m-2">
           <div class="mb-3 row">
             <label for="company_name" class="form-label">측정대행 의뢰업체</label>

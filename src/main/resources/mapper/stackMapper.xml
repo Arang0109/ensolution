@@ -42,7 +42,10 @@
     <select id="selectStackOfWorkplace" resultType="StackDto">
         <include refid="selectFromStack"/>
         WHERE s.workplace_id = #{workplace_id}
-        ORDER BY s.stack_name
+        ORDER BY
+            CASE
+                WHEN stack_name RLIKE '^stack [0-9]+$' THEN CAST(SUBSTRING(stack_name, 7) AS UNSIGNED)
+            END
     </select>
 
     <insert id="insert" parameterType="StackDto">

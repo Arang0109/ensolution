@@ -11,8 +11,8 @@
         <div class="container">
           <div class="border p-4" style="background-color: white;">
             <div class="mb-3">
-              <label for="formFile" class="form-label">Excel File Upload..</label>
-              <input class="form-control" type="file" id="formFile">
+              <label for="stack-measurement-file" class="form-label">Excel File Upload..</label>
+              <input class="form-control" type="file" id="stack-measurement-file">
             </div>
           </div>
         </div>
@@ -25,7 +25,6 @@
               <tr>
                 <th scope="col">시설명</th>
                 <th scope="col">오염물질</th>
-                <th scope="col">방지시설명</th>
                 <th scope="col">허용 기준치</th>
                 <th scope="col">측정 주기</th>
               </tr>

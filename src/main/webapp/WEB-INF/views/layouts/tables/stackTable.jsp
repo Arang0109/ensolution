@@ -27,7 +27,7 @@
       <tr data-stack-id="${stack.stack_id}">
         <td></td>
         <td><a class="updateLink"
-               href="<c:url value='/manager/stack/${stack.stack_id}'/>">
+               href="<c:url value='/management/stack/${stack.stack_id}'/>">
             ${stack.stack_name != null ? stack.stack_name : '-'}</a></td>
         <td>${stack.company_name != null ? stack.company_name : '-'}</td>
         <td>${stack.workplace_name != null ? stack.workplace_name : '-'}</td>

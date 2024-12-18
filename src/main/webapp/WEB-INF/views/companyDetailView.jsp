@@ -8,10 +8,11 @@
   <%@include file="semantic/header.jsp"%>
 </head>
 <body>
-<!-- modal layer -->
-<%@include file="layouts/modal/workplaceModal.jsp"%>
 <!-- navigation bar layout -->
 <%@include file="semantic/navbar.jsp"%>
+<!-- modal layer -->
+<%@include file="layouts/modal/workplaceModal.jsp"%>
+<%@include file="layouts/toast/toasts.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
   <div class="tostify"></div>
   <div class="container">
@@ -23,7 +24,7 @@
         </div>
         <div >
           <button id="modifyBtn" class="btn btn-primary btn-sm" type="button">수정</button>
-          <a class="btn btn-primary btn-sm" href="<c:url value="/manager/company"/>">목록</a>
+          <a class="btn btn-primary btn-sm" href="<c:url value="/management/company"/>">목록</a>
         </div>
       </div>
     </div>
@@ -104,110 +105,36 @@
   </div>
 </main>
 
+<script src="<c:url value='/js/business-management.js'/>"></script>
 <script>
   $(document).ready(function(){
-    'use strict';
-
-    $('#workplace_form').each(function () {
-      $(this).on('submit', function (event) {
-        if (!this.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        $(this).addClass('was-validated');
-      });
-    });
-
-    const inputBizNum = $('#inputBizNum');
-
-    inputBizNum.on('input', function() {
-      let value = $(this).val().replace(/[^0-9]/g, '');
-
-      if (value.length === 0) {
-        return;
+    const workplaceAddResult = '${workplaceAddResult}';
+    if (workplaceAddResult) {
+      const msg = {
+        successMsg: 'workplace: ' + '\"${workplaceName}\"' + ', 사업장이 추가 되었습니다.',
+        failedMsg: '\"${workplaceName}\"' + ', 사업장이 이미 존재 합니다.',
+      }
+      loadToast(workplaceAddResult, msg);
+    }
+    setupValidation('#workplace_form');
+    bizNumFormatter('#inputBizNum');
+    mapView('#naverMapLink', $('#companyInfoForm input[name=address]').val());
+    $('#removeBtn').on('click', function() {
+      const options = {
+        tableSelector: '#table',
+        dataAttr: 'data-workplace-id',
+        idKey: 'workplace_id',
+        url: '<c:url value="/management/workplace/delete"/>' // controller.business.BusinessRestController.deleteWorkplace
       }
 
-      if (value.length > 3 && value.length <= 5) {
-        value = value.slice(0, 3) + '-' + value.slice(3);
-      } else if (value.length > 5) {
-        value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5, 10);
-      }
-
-      $(this).val(value.slice(0, 12));
+      businessDeleteHandler(options);
     });
-
-    $('#removeBtn').on("click", function() {
-      if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
-
-      const selectedWorkplace = [];
-
-      $('#table tbody input[type="checkbox"]:checked').each(function() {
-        const workplace_id = $(this).closest('tr').attr('data-workplace-id');
-        selectedWorkplace.push({"workplace_id": workplace_id});
-      });
-
-      if (selectedWorkplace.length === 0) return alert("사업장을 선택해 주세요.");
-
-      $.ajax({
-        url: '<c:url value="/manager/delete/workplace"/>',
-        type: 'DELETE',
-        contentType: 'application/json',
-        data: JSON.stringify(selectedWorkplace),
-        success: function() {
-          alert("삭제 완료");
-          location.reload();
-        },
-        error: function() {
-          alert("삭제에 실패했습니다.");
-        }
-      });
-    });
-
-    $("#naverMapLink").on("click", function () {
-      const url = "https://map.naver.com/p/search/" + $("#companyInfo input[name=address]").val();
-      window.open(url, '_blank');
-    });
-
-    $("#modifyBtn").on("click", function(){
-      let isReadonly = $("#companyInfo input").attr('readonly');
-
-      if(isReadonly==='readonly') {
-        $("#companyInfo input").attr('readonly', false);
-        $("#modifyBtn").html("저장");
-        return;
+    $('#modifyBtn').on('click', function(){
+      const options = {
+        selector: $('#companyInfoForm'),
+        url: '<c:url value='/management/company/modify'/>' // controller.business.BusinessRestController.updateCompany
       }
-
-      if (!confirm("수정 하시겠습니까?")) return;
-
-      const form = $("#companyInfoForm")[0];
-
-      // HTML5 유효성 검사 실행
-      if (!form.checkValidity()) {
-        $(form).addClass('was-validated');
-        return;
-      }
-
-      const companyInfo = {};
-
-      $('#companyInfo input').each(function(){
-        let name = String($(this).attr('name'));
-        companyInfo[name] = $(this).val();
-      });
-
-      $.ajax({
-        type: 'PATCH',
-        url: "<c:url value='/manager/modify/company'/>",
-        headers : { "Content-Type": "application/json"},
-        dataType : 'text',
-        data : JSON.stringify(companyInfo),
-        success: function() {
-          alert("업데이트에 성공했습니다.");
-          location.reload();
-        },
-        error: function() {
-          alert("실패했습니다.");
-        }
-      });
+      businessModifyHandler(options);
     });
   });
 </script>

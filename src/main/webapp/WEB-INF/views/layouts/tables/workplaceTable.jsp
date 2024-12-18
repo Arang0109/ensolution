@@ -24,7 +24,7 @@
       <tr data-workplace-id="${workplace.workplace_id}">
         <td></td>
         <td><a class="updateLink"
-               href="<c:url value='/manager/workplace/${workplace.workplace_id}'/>">
+               href="<c:url value='/management/workplace/${workplace.workplace_id}'/>">
             ${workplace.workplace_name != null ? workplace.workplace_name : 'N/A'}</a></td>
         <td>${workplace.address != null ? workplace.address : 'N/A'}</td>
       </tr>
