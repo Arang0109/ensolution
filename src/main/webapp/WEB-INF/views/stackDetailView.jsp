@@ -8,9 +8,10 @@
   <%@include file="semantic/header.jsp"%>
 </head>
 <body>
+<%@include file="semantic/navbar.jsp"%>
 <!-- navigation bar layout -->
 <%@include file="layouts/modal/stackMeasurementModal.jsp"%>
-<%@include file="semantic/navbar.jsp"%>
+<%@include file="layouts/toast/toasts.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
   <div class="tostify"></div>
   <div class="container">
@@ -18,12 +19,12 @@
       <div class="profile-main">
         <div class="d-flex justify-content-between">
           <h4><a class="link-opacity-50 link-offset-2 link-underline link-underline-opacity-0"
-              href="<c:url value='/manager/company/${stack.company_id}'/>">${stack.company_name}</a> /
+              href="<c:url value='/management/company/${stack.company_id}'/>">${stack.company_name}</a> /
             <a class="link-opacity-50 link-offset-2 link-underline link-underline-opacity-0"
-               href="<c:url value='/manager/workplace/${stack.workplace_id}'/>">${stack.workplace_name}</a> /
+               href="<c:url value='/management/workplace/${stack.workplace_id}'/>">${stack.workplace_name}</a> /
             ${stack.stack_name}</h4>
           <div>
-            <a class="btn btn-primary btn-sm" href="<c:url value='/manager/stack'/>">목록</a>
+            <a class="btn btn-primary btn-sm" href="<c:url value='/management/stack'/>">목록</a>
           </div>
         </div>
       </div>
