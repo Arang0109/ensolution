@@ -8,11 +8,12 @@
   <%@include file="semantic/header.jsp"%>
 </head>
 <body>
+<!-- navigation bar layout -->
+<%@include file="semantic/navbar.jsp"%>
 <!-- modal layer -->
 <%@include file="layouts/modal/stackModal.jsp"%>
 <%@include file="layouts/modal/ExcelUploadModal.jsp"%>
-<!-- navigation bar layout -->
-<%@include file="semantic/navbar.jsp"%>
+<%@include file="layouts/toast/toasts.jsp"%>
 <main class="d-flex flex-column flex-grow-1">
   <div class="tostify"></div>
   <div class="container">
@@ -82,22 +83,30 @@
 <script src="<c:url value='/js/business-management.js'/>"></script>
 <script>
   $(document).ready(function(){
+    const stackAddResult = '${stackAddResult}';
+    if (stackAddResult) {
+      const msg = {
+        successMsg: 'stack: ' + '\"${stackName}\"' + ', 시설이 추가 되었습니다.',
+        failedMsg: '\"${stackName}\"' + ', 시설이 이미 존재 합니다.',
+      }
+      loadToast(stackAddResult, msg);
+    }
     setupValidation('#stack_form');
     mapView('#naverMapLink', $('#workplaceInfo input[name=address]').val());
     uploadMeasurementExcelData('#stack-measurement-file');
-
     $('#removeBtn').on('click', function() {
       const options = {
-        tableSelector: '#table',
+        selector: '#table tbody input[type="checkbox"]:checked',
+        closestTag: 'tr',
         dataAttr: 'data-stack-id',
         idKey: 'stack_id',
         url: '<c:url value="/management/stack/delete"/>' // controller.business.BusinessRestController.deleteStack
       }
       businessDeleteHandler(options);
     });
-
     $('#modifyBtn').on('click', function(){
       const options = {
+        btnId: $(this),
         selector: $('#workplaceInfoForm'),
         url: '<c:url value='/management/workplace/modify'/>' // controller.business.BusinessRestController.updateWorkplace
       }

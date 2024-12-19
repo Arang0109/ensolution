@@ -50,7 +50,8 @@
         bizNumFormatter('#inputBizNum'); // business number formatter
         $('#removeBtn').on("click", function() {
             const options = {
-                tableSelector: '#table',
+                selector: '#table tbody input[type="checkbox"]:checked',
+                closestTag: 'tr',
                 dataAttr: 'data-company-id',
                 idKey: 'company_id',
                 url: '<c:url value="/management/company/delete"/>' // controller.business.BusinessRestController.deleteCompany

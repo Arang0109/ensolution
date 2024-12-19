@@ -120,6 +120,7 @@ function loadToast(result, msg) {
 }
 
 // ------------------------
+// ------------------------
 // Crud Functions
 // ------------------------
 
@@ -137,8 +138,25 @@ function viewModifyToast() {
   }
 }
 
+function viewAddMeasurementToast(result) {
+  if(!result) return;
+
+  const msg = {
+    successMsg: '측정 항목이 추가 되었습니다.',
+    failedMsg: '측정 항목 추가에 실패 하였습니다.',
+  }
+
+  const addResult = sessionStorage.getItem('addResult');
+
+  if (addResult) {
+    loadToast(addResult, msg);
+    sessionStorage.removeItem('addResult');
+  }
+}
+
 function businessModifyHandler(options) {
   const {
+    btnId,
     selector,
     url,
   } = options;
@@ -147,7 +165,7 @@ function businessModifyHandler(options) {
 
   if(isReadonly) {
     selector.find('input').prop('readonly', false);
-    $('#modifyBtn').html('저장');
+    btnId.html('저장');
     return;
   }
 
@@ -204,7 +222,8 @@ function viewDeleteToast() {
 
 function businessDeleteHandler(options) {
   const {
-    tableSelector,
+    selector,
+    closestTag,
     dataAttr,
     idKey,
     url,
@@ -212,8 +231,8 @@ function businessDeleteHandler(options) {
 
   if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
   const selectedItems = [];
-  $(tableSelector + ` tbody input[type="checkbox"]:checked`).each(function() {
-    const id_value = $(this).closest('tr').attr(dataAttr);
+  $(selector).each(function() {
+    const id_value = $(this).closest(closestTag).attr(dataAttr);
     if (id_value) {
       const item = {};
       item[idKey] = id_value;
@@ -241,6 +260,108 @@ function businessDeleteHandler(options) {
     }
   });
 }
+
+// ------------------------
+// ------------------------
+// Stack Measurement List View
+// ------------------------
+const orderCycle = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary", "additional"];
+const orderMethod = ["먼지", "현장측정", "흡수액", "카트리지", "흡착관(T)", "흡착관(A)", "중금속", "수은", "비소", "테드라백"];
+const convert = {
+  "nomeasure": "미측정",
+  "monthly": "월 / 1회",
+  "quarterly": "분기 1회",
+  "semiannual" : "반기 / 1회",
+  "annual" : "연 / 1회",
+  "twiceamonth": "월 / 2회",
+  "onceinfebruary": "2월 / 1회",
+  "additional": "추가 측정",
+}
+
+function methodList(pollutants) {
+  const result = {};
+  orderCycle.forEach(cycle => {
+    const method = [];
+    pollutants.forEach(poll => {
+      if (poll.cycle_type === cycle) {
+        method.push(poll.method);
+      }
+    });
+    if (method.length > 0) {
+      result[cycle] = method;
+    }
+  });
+
+  return result;
+}
+
+function sortCycle(pollutants) {
+  const cycle_type = {};
+  pollutants.forEach(item => {
+    const cycle = item.cycle_type;
+    cycle_type[cycle] = convert[cycle];
+  });
+  return orderCycle.filter(key => cycle_type.hasOwnProperty(key));
+}
+
+// {monthly:['먼지', '중금속'], annual:['중금속']}
+
+function createPollutantListView(options) {
+  const {
+    pollutants,
+    parentId,
+  } = options;
+  const parentDiv = $(parentId);
+  const sortedCycle = sortCycle(pollutants);
+  const methods = methodList(pollutants);
+
+  sortedCycle.forEach(key => {
+    const childDiv = `
+            <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
+              <span class="badge text-bg-primary">` + convert[key] + `</span>
+              <div id="` + key +  `" class="my-3 d-flex flex-column"></div>
+            </div>
+          `;
+    parentDiv.append(childDiv)
+  });
+
+  for (const key in methods) {
+    const parentDiv = $('#' + key);
+    const uniqueValues = [... new Set(methods[key])];
+    const sortedValues = orderMethod.filter(key => uniqueValues.includes(key));
+
+    sortedValues.forEach(value => {
+      const childDiv = `
+              <div class="m-1">
+                <span class="badge text-bg-primary">` + value + `</span>
+                <div data-method="` + value + `"></div>
+              </div>
+             `;
+      parentDiv.append(childDiv);
+    });
+  }
+
+  pollutants.forEach(item => {
+    const cycle = item.cycle_type;
+    const id = '#' + cycle;
+    const value = item.method;
+    const tag = $(id);
+    const aValue = item.allow_value == null ? "" : item.allow_value;
+
+    const childDiv = `
+                <div class="form-check form-check-inline m-1" style="width: 300px;" data-stack-measurement-id="` + item.stack_measurement_id + `">
+                  <input class="form-check-input" type="checkbox" value="` + item.pollutant_id + `" id="` + item.pollutant_id + `">
+                  <label class="form-check-label" for="` + item.pollutant_id + `">
+                      ` + item.pollutant_name + ` / ` + `<small>` +
+                        aValue  + `ppm</small>
+                  </label>
+                </div>
+          `;
+
+    tag.find(`div[data-method="` + value + `"]`).append(childDiv)
+  })
+}
+
 
 $(document).ready(function() {
   viewDeleteToast();

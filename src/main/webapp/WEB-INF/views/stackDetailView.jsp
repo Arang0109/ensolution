@@ -39,27 +39,29 @@
         </div>
       </div>
       <hr>
-      <div class="container text-center">
-        <input name="stack_id" type="text" class="form-control" value="${stack.stack_id}" readonly='readonly' hidden="hidden">
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="stack_name">측정 시설</span>
-              <input name="stack_name" type="text" class="form-control" value="${stack.stack_name}"
-                     aria-label="Stack name" aria-describedby="addon-wrapping" readonly='readonly'>
+      <form id="stackInfoForm" class="needs-validation" novalidate>
+        <div class="container text-center">
+          <input name="stack_id" type="text" class="form-control" value="${stack.stack_id}" readonly='readonly' hidden="hidden">
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="stack_name">측정 시설 <small><b>(필수)</b></small></span>
+                <input name="stack_name" type="text" class="form-control" value="${stack.stack_name}"
+                       aria-label="Stack name" aria-describedby="addon-wrapping" readonly='readonly' required>
+              </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="prevention">방지 시설</span>
+                <input name="prevention" type="text" class="form-control" value="${stack.prevention}"
+                       aria-label="Prevention" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="prevention">방지 시설</span>
-              <input name="prevention" type="text" class="form-control" value="${stack.prevention}"
-                     aria-label="Prevention" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
     <div class="border p-4" style="background-color: white;">
       <div class="d-flex justify-content-between">
@@ -69,56 +71,58 @@
         </div>
       </div>
       <hr>
-      <div id="stackSpecification" class="container text-center">
-        <input name="stack_info_id" type="text" class="form-control" value="${stack_info.stack_info_id}" readonly='readonly' hidden="hidden">
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="diameter">직경 (m)</span>
-              <input name="diameter" type="text" class="form-control" value="${stack_info.diameter}"
-                     aria-label="Diameter" aria-describedby="addon-wrapping" readonly='readonly'>
+      <div class="container text-center">
+        <form id="stackSpecificationInfoForm" class="needs-validation" novalidate>
+          <input name="stack_info_id" type="text" class="form-control" value="${stack_info.stack_info_id}" readonly='readonly' hidden="hidden">
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="diameter">직경 (m)</span>
+                <input name="diameter" type="text" class="form-control" value="${stack_info.diameter}"
+                       aria-label="Diameter" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
+            </div>
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="velocity_speed">유속 (m/s)</span>
+                <input name="velocity_speed" type="text" class="form-control" value="${stack_info.velocity_speed}"
+                       aria-label="Velocity speed" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
             </div>
           </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="velocity_speed">유속 (m/s)</span>
-              <input name="velocity_speed" type="text" class="form-control" value="${stack_info.velocity_speed}"
-                     aria-label="Velocity speed" aria-describedby="addon-wrapping" readonly='readonly'>
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="dynamic_pressure">동압 (mmH<sub>2</sub>O)</span>
+                <input name="dynamic_pressure" type="text" class="form-control" value="${stack_info.dynamic_pressure}"
+                       aria-label="Dynamic pressure" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
+            </div>
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="static_pressure">정압 (mmH<sub>2</sub>O)</span>
+                <input name="static_pressure" type="text" class="form-control" value="${stack_info.static_pressure}"
+                       aria-label="Static pressure" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="dynamic_pressure">동압 (mmH<sub>2</sub>O)</span>
-              <input name="dynamic_pressure" type="text" class="form-control" value="${stack_info.dynamic_pressure}"
-                     aria-label="Dynamic pressure" aria-describedby="addon-wrapping" readonly='readonly'>
+          <div class="row p-2">
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="quantity">유량 (m<sup>3</sup>/hr)</span>
+                <input name="quantity" type="text" class="form-control" value="${stack_info.quantity}"
+                       aria-label="Quantity" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
+            </div>
+            <div class="col">
+              <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="temperature">온도 (ºC)</span>
+                <input name="temperature" type="text" class="form-control" value="${stack_info.temperature}"
+                       aria-label="Temperature" aria-describedby="addon-wrapping" readonly='readonly'>
+              </div>
             </div>
           </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="static_pressure">정압 (mmH<sub>2</sub>O)</span>
-              <input name="static_pressure" type="text" class="form-control" value="${stack_info.static_pressure}"
-                     aria-label="Static pressure" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
-        <div class="row p-2">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="quantity">유량 (m<sup>3</sup>/hr)</span>
-              <input name="quantity" type="text" class="form-control" value="${stack_info.quantity}"
-                     aria-label="Quantity" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="temperature">온도 (ºC)</span>
-              <input name="temperature" type="text" class="form-control" value="${stack_info.temperature}"
-                     aria-label="Temperature" aria-describedby="addon-wrapping" readonly='readonly'>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -153,70 +157,22 @@
   </div>
 </main>
 
+<script src="<c:url value='/js/business-management.js'/>"></script>
 <script>
   $(document).ready(function(){
-    const parentDiv = $('#stackMeasurementList');
-    const change = {
-      "nomeasure": "미측정",
-      "monthly": "월 / 1회",
-      "quarterly": "분기 1회",
-      "semiannual" : "반기 / 1회",
-      "annual" : "연 / 1회",
-      "twiceamonth": "월 / 2회",
-      "onceinfebruary": "2월 / 1회",
-      "additional": "추가 측정",
-    }
+    const addResult = sessionStorage.getItem("addResult");
+    viewAddMeasurementToast(addResult);
 
     $.ajax({
-      url: '<c:url value="/manager/stack/${stack.stack_id}/getStackMeasurement"/>',
+      url: '<c:url value="/management/stack/${stack.stack_id}/getStackMeasurement"/>',
       method: 'GET',
-      success: function(data){
-        const pollutants = data.stackMeasurements;
-        const cycle_type = {};
-
-        pollutants.forEach(item => {
-          const cycle = item.cycle_type;
-          cycle_type[cycle] = change[cycle];
-        });
-
-        const order = ["monthly", "quarterly", "semiannual", "annual", "twiceamonth", "onceinfebruary", "additional", "nomeasure"];
-        const sortedKeys = order.filter(key => cycle_type.hasOwnProperty(key));
-
-        sortedKeys.forEach(key => {
-          const id = key + "Div";
-
-          let innerDiv = `
-            <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-              <span class="badge text-bg-primary">` + change[key] + `</span>
-              <div id="` + id +  `" class="my-3"></div>
-            </div>
-          `;
-
-          parentDiv.append(innerDiv)
-        });
-
-        pollutants.forEach(item => {
-          const cycle = item.cycle_type;
-          const id = "#" + cycle + "Div";
-          const div = $(id);
-          let disable = "";
-          let style = '';
-
-          if (item.is_measure === false) {
-            style = 'style="text-decoration: line-through"';
-          }
-
-          let innerDiv = `
-                <div class="form-check ms-2" data-stack-measurement-id="` + item.stack_measurement_id + `">
-                  <input class="form-check-input" type="checkbox" value="` + item.pollutant_id + `" id="` + item.pollutant_id + `" ` + disable + `>
-                  <label class="form-check-label" for="` + item.pollutant_id + `" ` + style + `>
-                      ` + item.pollutant_name + `
-                  </label>
-                </div>
-          `;
-
-          div.append(innerDiv);
-        });
+      success: function(response){
+        const options = {
+          pollutants: response.stackMeasurements,
+          parentId: '#stackMeasurementList',
+        }
+        createPollutantListView(options);
+        console.log('success');
       },
       fail: function(){
         console.log('fail');
@@ -312,71 +268,23 @@
     });
 
     $('#modifyBtn').on('click',function(){
-      let isReadonly = $("#stackInfo input").attr('readonly');
-
-      if(isReadonly==='readonly') {
-        $("#stackInfo input").attr('readonly', false);
-        $("#modifyBtn").html("저장");
-        return;
+      const options = {
+        btnId: $(this),
+        selector: $('#stackInfoForm'),
+        url: "<c:url value='/management/stack/modify'/>",
       }
 
-      if (!confirm("수정하시겠습니까?")) return;
-
-      const stackInfo = {};
-
-      $('#stackInfo input').each(function(){
-        let name = String($(this).attr('name'));
-        stackInfo[name] = $(this).val();
-      });
-
-      $.ajax({
-        type: 'PATCH',
-        url: "<c:url value='/manager/modify/stack'/>",
-        headers : { "Content-Type": "application/json"},
-        dataType : 'text',
-        data : JSON.stringify(stackInfo),
-        success: function() {
-          alert("업데이트에 성공했습니다.");
-          location.reload();
-        },
-        error: function() {
-          alert("실패했습니다.");
-        }
-      });
+      businessModifyHandler(options);
     });
 
     $('#modifySpecificationBtn').on('click',function(){
-      let isReadonly = $("#stackSpecification input").attr('readonly');
-
-      if(isReadonly==='readonly') {
-        $("#stackSpecification input").attr('readonly', false);
-        $("#modifySpecificationBtn").html("저장");
-        return;
+      const options = {
+        btnId: $(this),
+        selector: $('#stackSpecificationInfoForm'),
+        url: "<c:url value='/management/stack/modify/specification'/>",
       }
 
-      if (!confirm("수정하시겠습니까?")) return;
-
-      const stackInfo = {};
-
-      $('#stackSpecification input').each(function(){
-        let name = String($(this).attr('name'));
-        stackInfo[name] = $(this).val();
-      });
-
-      $.ajax({
-        type: 'PATCH',
-        url: "<c:url value='/manager/modify/stack/specification'/>",
-        headers : { "Content-Type": "application/json"},
-        dataType : 'text',
-        data : JSON.stringify(stackInfo),
-        success: function() {
-          alert("업데이트에 성공했습니다.");
-          location.reload();
-        },
-        error: function() {
-          alert("실패했습니다.");
-        }
-      });
+      businessModifyHandler(options);
     });
 
     $('#addMeasurementBtn').on('click', function() {
@@ -393,47 +301,37 @@
         })
       });
 
+      const msg = {
+        successMsg: '측정 항목이 추가 되었습니다.',
+        failedMsg: '측정 항목 추가에 실패 하였습니다.',
+      }
+
       $.ajax({
         type:'POST',
-        url: '<c:url value="/manager/add/stack/measurement"/>',
+        url: '<c:url value="/management/stack-measurement/add"/>',
         headers : { "Content-Type": "application/json"},
         dataType : 'text',
         data: JSON.stringify(pollutantList),
         success: function() {
-          alert("success");
+          sessionStorage.setItem('addResult', 'success');
           location.reload();
         },
         error: function () {
-          alert("error");
+          loadToast('fail', msg);
         }
       });
     });
 
     $('#removeBtn').on("click", function() {
-      if (!confirm("삭제 후 복구가 불가능 합니다. 정말로 삭제 하시겠습니까?")) return;
+      const options = {
+        selector: '#stackMeasurement input[type="checkbox"]:checked',
+        closestTag: 'div',
+        dataAttr: 'data-stack-measurement-id',
+        idKey: 'stack_measurement_id',
+        url: '<c:url value="/management/stack-measurement/delete"/>',
+      }
 
-      const selectedStackMeasurement = [];
-
-      $('#stackMeasurement input[type="checkbox"]:checked').each(function() {
-        const stack_measurement_id = $(this).closest('div').attr('data-stack-measurement-id');
-        selectedStackMeasurement.push({"stack_measurement_id": stack_measurement_id});
-      });
-
-      if (selectedStackMeasurement.length === 0) return alert("항목을 선택해 주세요.");
-
-      $.ajax({
-        url: '<c:url value="/manager/delete/stack/measurement"/>',
-        type: 'DELETE',
-        contentType: 'application/json',
-        data: JSON.stringify(selectedStackMeasurement),
-        success: function() {
-          alert("삭제 완료");
-          location.reload();
-        },
-        error: function() {
-          alert("삭제에 실패했습니다.");
-        }
-      });
+      businessDeleteHandler(options);
     });
   });
 </script>

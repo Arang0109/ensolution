@@ -121,16 +121,17 @@
     mapView('#naverMapLink', $('#companyInfoForm input[name=address]').val());
     $('#removeBtn').on('click', function() {
       const options = {
-        tableSelector: '#table',
+        selector: '#table tbody input[type="checkbox"]:checked',
+        closestTag: 'tr',
         dataAttr: 'data-workplace-id',
         idKey: 'workplace_id',
         url: '<c:url value="/management/workplace/delete"/>' // controller.business.BusinessRestController.deleteWorkplace
       }
-
       businessDeleteHandler(options);
     });
     $('#modifyBtn').on('click', function(){
       const options = {
+        btnId: $(this),
         selector: $('#companyInfoForm'),
         url: '<c:url value='/management/company/modify'/>' // controller.business.BusinessRestController.updateCompany
       }

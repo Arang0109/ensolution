@@ -153,11 +153,13 @@ public class BusinessController {
   public String addStack(StackDto stackDto, RedirectAttributes rattr) {
     try {
       if (validationService.isExistStack(stackDto)) {
-        rattr.addFlashAttribute("msg", "Already exist stack");
+        rattr.addFlashAttribute("stackAddResult", "fail");
+        rattr.addFlashAttribute("stackName", stackDto.getStack_name());
         return "redirect:/manager/workplace/" + stackDto.getWorkplace_id();
       }
       stackService.insertStack(stackDto);
-      rattr.addFlashAttribute("msg", "Success Add Stack");
+      rattr.addFlashAttribute("stackAddResult", "success");
+      rattr.addFlashAttribute("stackName", stackDto.getStack_name());
     } catch (Exception e) {
       e.printStackTrace();
     }
