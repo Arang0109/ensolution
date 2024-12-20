@@ -74,42 +74,7 @@
         </div>
       </div>
       <div id="measurementList" class="d-flex justify-content-between" style="padding-top: 1.875rem;">
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">월 / 1회</span>
-          <div id="monthly" class="my-3">
 
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">분기 / 1회</span>
-          <div id="quarterly" class="my-3">
-
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">반기 / 1회</span>
-          <div id="semiannual" class="my-3">
-
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">연 / 1회</span>
-          <div id="annual" class="my-3">
-
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">월 / 2회</span>
-          <div id="twiceamonth" class="my-3">
-
-          </div>
-        </div>
-        <div class="border p-4 mx-2 flex-grow-1 shadow-sm rounded bg-body-tertiary">
-          <span class="badge text-bg-primary">2월 / 1회</span>
-          <div id="onceinfebruary" class="my-3">
-
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -145,6 +110,8 @@
 
     const today = new Date();
     const formatDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + String(today.getDate()).padStart(2, '0');
+    const addResult = sessionStorage.getItem("addResult");
+    viewAddMeasurementToast(addResult);
 
     $('#datepicker').datepicker({
       defaultDate: new Date(),

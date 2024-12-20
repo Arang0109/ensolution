@@ -11,7 +11,6 @@ public class CompanyDto {
     private String ceo_name;
     private String biz_number;
     private Date reg_date;
-    private boolean is_measuring;
 
     public CompanyDto() {
         this.reg_date = Date.valueOf(LocalDate.now());
@@ -86,14 +85,6 @@ public class CompanyDto {
         this.reg_date = reg_date;
     }
 
-    public boolean isIs_measuring() {
-        return is_measuring;
-    }
-
-    public void setIs_measuring(boolean is_measuring) {
-        this.is_measuring = is_measuring;
-    }
-
     @Override
     public String toString() {
         return "CompanyDto{" +
@@ -103,7 +94,6 @@ public class CompanyDto {
                 ", ceo_name='" + ceo_name + '\'' +
                 ", biz_number='" + biz_number + '\'' +
                 ", reg_date=" + reg_date +
-                ", is_measuring=" + is_measuring +
                 '}';
     }
 }
